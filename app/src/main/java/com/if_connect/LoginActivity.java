@@ -1,6 +1,9 @@
 package com.if_connect;
 
+import static com.if_connect.utils.CustoAnimation.startAndEndAnimation;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.if_connect.R;
+import com.if_connect.bottomsheets.BottomSheetTelaInicial;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
     private Animation slideUpAnimation;
     private Animation slideDownAnimation;
     private float yStart;
+
+    FragmentManager fragmentManager;
     Context context;
 
 
@@ -34,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         context = this;
+        fragmentManager = getSupportFragmentManager();
 
         btnCima = findViewById(R.id.btn_cima);
 
@@ -44,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private final class ChoiceTouchListener implements View.OnTouchListener {
+        @SuppressLint("ClickableViewAccessibility")
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
@@ -52,25 +60,8 @@ public class LoginActivity extends AppCompatActivity {
                 case MotionEvent.ACTION_UP:
                     float yEnd = event.getY();
                     if (yEnd - yStart < -100) {
-                        btnCima.startAnimation(slideUpAnimation);
-                        Toast.makeText(context, "teste", Toast.LENGTH_SHORT).show();
-
-                        slideUpAnimation.setAnimationListener(new Animation.AnimationListener() {
-                            @Override
-                            public void onAnimationStart(Animation animation) {
-
-                            }
-
-                            @Override
-                            public void onAnimationEnd(Animation animation) {
-                                btnCima.startAnimation(slideDownAnimation);
-                            }
-
-                            @Override
-                            public void onAnimationRepeat(Animation animation) {
-
-                            }
-                        });
+                        startAndEndAnimation(btnCima, slideUpAnimation, slideDownAnimation);
+                        new BottomSheetTelaInicial(context, fragmentManager).show(fragmentManager, "tag");
                     }
                     return true;
             }

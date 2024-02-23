@@ -12,6 +12,11 @@ public class Aluno{
     @SerializedName("matricula")
     private String matricula;
 
+    public Aluno(Curso curso, String matricula) {
+        this.curso = curso;
+        this.matricula = matricula;
+    }
+
     public Curso getCurso() {
         return curso;
     }

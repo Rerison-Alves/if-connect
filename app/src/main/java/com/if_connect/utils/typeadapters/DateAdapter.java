@@ -1,4 +1,4 @@
-package com.if_connect.utils;
+package com.if_connect.utils.typeadapters;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;

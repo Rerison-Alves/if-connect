@@ -1,7 +1,7 @@
 package com.if_connect.models;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.if_connect.utils.DateAdapter;
+import com.if_connect.utils.typeadapters.DateAdapter;
 
 import java.util.Date;
 

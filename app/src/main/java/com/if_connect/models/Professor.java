@@ -3,7 +3,7 @@ package com.if_connect.models;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.if_connect.enums.SituacaoProfessor;
-import com.if_connect.utils.SituacaoProfessorAdapter;
+import com.if_connect.utils.typeadapters.SituacaoProfessorAdapter;
 
 public class Professor {
     @SerializedName("siape")

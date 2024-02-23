@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">PAGE</string>
+    <string name="app_name">IF Connect</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="name_project">connect</string>
+    <string name="name_project">CONNECT</string>
     <string name="bem_vindo">Bem-Vindo ao Page!</string>
     <string name="recentes">Recentes:</string>
     <string name="proxencontro">Próximos Encontros:</string>

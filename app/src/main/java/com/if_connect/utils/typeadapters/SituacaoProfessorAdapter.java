@@ -1,4 +1,4 @@
-package com.if_connect.utils;
+package com.if_connect.utils.typeadapters;
 
 import com.google.gson.*;
 import com.if_connect.enums.SituacaoProfessor;

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="5dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/barra" />
+    <TextView
+        android:id="@+id/textView7"
+        style="@style/textonormal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Tipo de conta:"
+        android:textSize="24sp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/border"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textView10"
+            style="@style/textonormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center|top"
+            android:text="Aluno"
+            android:textSize="24sp" />
+
+        <FrameLayout
+            android:id="@+id/btn_cadastroaluno"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="end|center"
+            android:layout_margin="20dp"
+            android:background="@drawable/border"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground">
+
+            <TextView
+                style="@style/textonormal"
+                android:layout_width="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Cadastro >"
+                android:textSize="16sp" />
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/btn_loginaluno"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="20dp"
+            android:background="@drawable/border"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground">
+
+            <TextView
+                style="@style/textonormal"
+                android:layout_width="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Login >"
+                android:textSize="16sp" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_gravity="start|center"
+            app:srcCompat="@drawable/leia_o_simbolo_de_um_aluno_lendo" />
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/border"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textView8"
+            style="@style/textonormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center|top"
+            android:text="Professor"
+            android:textSize="24sp" />
+
+        <FrameLayout
+            android:id="@+id/btn_cadastroprofessor"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="end|center"
+            android:layout_margin="20dp"
+            android:background="@drawable/border"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground">
+
+            <TextView
+                style="@style/textonormal"
+                android:layout_width="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Cadastro >"
+                android:textSize="16sp" />
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/btn_loginprofessor"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="20dp"
+            android:background="@drawable/border"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground">
+
+            <TextView
+                style="@style/textonormal"
+                android:layout_width="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Login >"
+                android:textSize="16sp" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="100dp"
+            android:layout_gravity="start|center"
+            android:layout_margin="20dp"
+            android:layout_height="120dp"
+            app:srcCompat="@drawable/professor" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+</LinearLayout>
