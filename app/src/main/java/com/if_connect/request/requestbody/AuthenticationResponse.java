@@ -1,4 +1,4 @@
-package com.if_connect.request.auth;
+package com.if_connect.request.requestbody;
 
 import com.google.gson.annotations.SerializedName;
 

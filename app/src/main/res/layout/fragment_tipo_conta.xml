@@ -32,7 +32,7 @@
             android:textSize="24sp" />
 
         <FrameLayout
-            android:id="@+id/btn_cadastroaluno"
+            android:id="@+id/btn_cadastro_aluno"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_gravity="end|center"
@@ -53,7 +53,7 @@
                 android:textSize="16sp" />
         </FrameLayout>
         <FrameLayout
-            android:id="@+id/btn_loginaluno"
+            android:id="@+id/btn_login_aluno"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_gravity="end|bottom"
@@ -99,7 +99,7 @@
             android:textSize="24sp" />
 
         <FrameLayout
-            android:id="@+id/btn_cadastroprofessor"
+            android:id="@+id/btn_cadastro_professor"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_gravity="end|center"
@@ -120,7 +120,7 @@
                 android:textSize="16sp" />
         </FrameLayout>
         <FrameLayout
-            android:id="@+id/btn_loginprofessor"
+            android:id="@+id/btn_login_professor"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_gravity="end|bottom"

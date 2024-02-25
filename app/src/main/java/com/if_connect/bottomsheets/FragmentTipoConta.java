@@ -18,8 +18,10 @@ public class FragmentTipoConta extends Fragment {
     Context context;
     BottomSheetTelaInicial bottomSheetTelaInicial;
 
-    FrameLayout btn_cadastroaluno,
-                btn_loginaluno;
+    FrameLayout btn_cadastroAluno,
+                btn_loginAluno,
+                btn_cadastroProfessor,
+                btn_loginProfessor;
 
     public FragmentTipoConta(Context context, BottomSheetTelaInicial bottomSheetTelaInicial) {
         this.context = context;
@@ -31,13 +33,21 @@ public class FragmentTipoConta extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tipo_conta, container, false);
 
-        btn_cadastroaluno = view.findViewById(R.id.btn_cadastroaluno);
-        btn_cadastroaluno.setOnClickListener(view12 ->
+        btn_cadastroAluno = view.findViewById(R.id.btn_cadastro_aluno);
+        btn_cadastroAluno.setOnClickListener(view12 ->
                 bottomSheetTelaInicial.replaceFragment(new FragmentCadastroAluno(context, bottomSheetTelaInicial)));
 
-        btn_loginaluno = view.findViewById(R.id.btn_loginaluno);
-        btn_loginaluno.setOnClickListener(view1 ->
+        btn_loginAluno = view.findViewById(R.id.btn_login_aluno);
+        btn_loginAluno.setOnClickListener(view1 ->
                 bottomSheetTelaInicial.replaceFragment(new FragmentLoginAluno(context, bottomSheetTelaInicial)));
+
+        btn_cadastroProfessor = view.findViewById(R.id.btn_cadastro_professor);
+        btn_cadastroProfessor.setOnClickListener(view12 ->
+                bottomSheetTelaInicial.replaceFragment(new FragmentCadastroProfessor(context, bottomSheetTelaInicial)));
+
+        btn_loginProfessor = view.findViewById(R.id.btn_login_professor);
+        btn_loginProfessor.setOnClickListener(view1 ->
+                bottomSheetTelaInicial.replaceFragment(new FragmentLoginProfessor(context, bottomSheetTelaInicial)));
         return view;
     }
 }

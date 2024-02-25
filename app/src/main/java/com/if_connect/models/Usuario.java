@@ -17,9 +17,6 @@ public class Usuario {
     @SerializedName("email")
     private String email;
 
-    @SerializedName("password")
-    public String password;
-
     @SerializedName("dataNasc")
     @JsonAdapter(DateAdapter.class)
     private Date dataNasc;
@@ -30,16 +27,13 @@ public class Usuario {
     @SerializedName("professor")
     private Professor professor;
 
-    @SerializedName("role")
-    private Role role;
 
-    public Usuario(String nome, String email, Date dataNasc, Aluno aluno, Professor professor, Role role) {
+    public Usuario(String nome, String email, Date dataNasc, Aluno aluno, Professor professor) {
         this.nome = nome;
         this.email = email;
         this.dataNasc = dataNasc;
         this.aluno = aluno;
         this.professor = professor;
-        this.role = role;
     }
 
     public Integer getId() {
@@ -90,11 +84,4 @@ public class Usuario {
         this.professor = professor;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }

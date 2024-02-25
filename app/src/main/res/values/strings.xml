@@ -45,9 +45,12 @@
     <string name="senha">Senha*:</string>
     <string name="email">Email*:</string>
     <string name="login_aluno">Login Aluno</string>
+    <string name="login_professor">Login Professor</string>
     <string name="cadastro_aluno">Cadastro Aluno</string>
+    <string name="cadastro_professor">Cadastro Professor</string>
     <string name="nome">Nome*:</string>
     <string name="matr_cula">Matrícula*:</string>
+    <string name="siape">SIAPE*:</string>
     <string name="curso_">Curso*:</string>
     <string name="data_de_nascimento">Data de Nascimento*:</string>
     <string name="digite_a_senha_novamente">Digite a senha novamente*:</string>

@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="@string/cadastro_aluno"
+                android:text="@string/cadastro_professor"
                 android:textSize="24sp" />
 
             <TextView
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:gravity="start"
-                android:text="@string/matr_cula"
+                android:text="@string/siape"
                 android:textSize="24sp" />
 
             <LinearLayout
@@ -100,7 +100,7 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/matricula"
+                    android:id="@+id/siape"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_margin="2dp"
@@ -109,30 +109,6 @@
                     android:inputType="number"
                     android:maxLength="14" />
             </LinearLayout>
-
-            <TextView
-                style="@style/textonormal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:gravity="start"
-                android:text="@string/curso_"
-                android:textSize="24sp" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="180dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/spiner">
-
-                <Spinner
-                    android:id="@+id/curso"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </FrameLayout>
 
             <TextView
                 style="@style/textonormal"

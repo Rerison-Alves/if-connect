@@ -3,6 +3,7 @@ package com.if_connect.models;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.if_connect.enums.Turno;
+import com.if_connect.utils.typeadapters.SituacaoProfessorAdapter;
 import com.if_connect.utils.typeadapters.TurnoAdapter;
 
 public class Curso {
@@ -15,6 +16,7 @@ public class Curso {
     private String observacao;
     @SerializedName("status")
     private Boolean status;
+    @JsonAdapter(TurnoAdapter.class)
     @SerializedName("turno")
     private Turno turno;
 

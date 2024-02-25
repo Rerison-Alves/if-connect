@@ -1,10 +1,13 @@
 package com.if_connect.utils;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.if_connect.request.requestbody.ErrorResponse;
 
 import java.util.List;
 
@@ -14,14 +17,12 @@ public class ErrorToast {
     public static void toastError(String text, Response response, Context context) {
         if (response.errorBody() != null) {
             try {
-                List<ErrorResponse> list = new Gson().fromJson(
+                ErrorResponse erro = new Gson().fromJson(
                         response.errorBody().charStream(),
-                        new TypeToken<List<ErrorResponse>>() {
+                        new TypeToken<ErrorResponse>() {
                         }.getType());
-                if(list==null) throw new Exception();
-                list.forEach(i -> Toast.makeText(context,
-                        text + i.getMensagem(),
-                        Toast.LENGTH_LONG).show());
+                if(erro==null) throw new Exception();
+                showErrorResponseDialog(context, text, erro);
             } catch (Exception e) {
                 e.printStackTrace();
                 String codeErro = "code " + response.raw().code();
@@ -30,5 +31,33 @@ public class ErrorToast {
                         Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    private static void showErrorResponseDialog(Context context, String title, ErrorResponse errorResponse) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title);
+
+        // Construindo a mensagem com base nos atributos do ErrorResponse
+        StringBuilder message = new StringBuilder();
+        if (errorResponse != null) {
+            if (errorResponse.getMensagem() != null) {
+                message.append(errorResponse.getMensagem()).append("\n");
+            }
+            if (errorResponse.getTipo() != null) {
+                message.append("httpStatus: ").append(errorResponse.getTipo());
+            }
+        }
+
+        builder.setMessage(message.toString());
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

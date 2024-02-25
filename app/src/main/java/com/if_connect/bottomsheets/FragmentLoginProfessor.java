@@ -18,9 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-
 import com.example.if_connect.R;
-import com.if_connect.LoginActivity;
 import com.if_connect.MainActivity;
 import com.if_connect.request.Generator;
 import com.if_connect.request.auth.AuthUsuarioService;
@@ -32,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentLoginAluno extends Fragment {
+public class FragmentLoginProfessor extends Fragment {
 
     AuthUsuarioService authUsuarioService;
 
@@ -42,7 +40,7 @@ public class FragmentLoginAluno extends Fragment {
     Context context;
     BottomSheetTelaInicial bottomSheetTelaInicial;
 
-    public FragmentLoginAluno(Context context, BottomSheetTelaInicial bottomSheetTelaInicial) {
+    public FragmentLoginProfessor(Context context, BottomSheetTelaInicial bottomSheetTelaInicial) {
         this.context = context;
         this.bottomSheetTelaInicial = bottomSheetTelaInicial;
     }
@@ -50,7 +48,7 @@ public class FragmentLoginAluno extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login_aluno, container, false);
+        View view = inflater.inflate(R.layout.fragment_login_professor, container, false);
 
         authUsuarioService = Generator.getRetrofitInstance().create(AuthUsuarioService.class);
 
@@ -63,7 +61,7 @@ public class FragmentLoginAluno extends Fragment {
         btn_cadastro = view.findViewById(R.id.cadastro);
         btn_cadastro.setOnClickListener(view1 -> {
             //cadastro
-            bottomSheetTelaInicial.replaceFragment(new FragmentCadastroAluno(context, bottomSheetTelaInicial));
+            bottomSheetTelaInicial.replaceFragment(new FragmentCadastroProfessor(context, bottomSheetTelaInicial));
         });
 
         btn_esqueciasenha = view.findViewById(R.id.esqueciasenha);

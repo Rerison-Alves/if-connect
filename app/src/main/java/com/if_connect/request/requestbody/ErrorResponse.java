@@ -1,4 +1,4 @@
-package com.if_connect.utils;
+package com.if_connect.request.requestbody;
 
 public class ErrorResponse {
     String mensagem;
