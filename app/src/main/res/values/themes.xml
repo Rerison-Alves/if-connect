@@ -1,28 +1,42 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Ifconnect" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Primary brand color. -->
+    <style name="Theme.Ifconnect" parent="Theme.AppCompat.Light.NoActionBar">
 
+        <!-- Primary brand color. -->
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/white</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/black</item>
         <item name="colorSecondaryVariant">@color/black</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/black_overlay</item>
+        <item name="android:statusBarColor">@color/black_overlay</item>
         <item name="android:navigationBarColor">@color/black</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/white</item>
+        <item name="colorControlActivated">@color/black</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
-
+        <item name="android:buttonBarButtonStyle">@style/AppCompatDialogButtonStyle</item>
+        <item name="android:datePickerDialogTheme">@style/CustomDatePickerDialogTheme</item>
     </style>
 
     <style name="DialogTheme" >
         <item name="android:background">@drawable/littleborder</item>
         <item name="buttonStyle">@drawable/littleborder</item>
         <item name="android:textColorHint">@color/black_fraco</item>
+    </style>
+
+    <style name="AppCompatDialogButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <!-- Cor do texto para os botões do diálogo -->
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="CustomDatePickerDialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorSecondary">@color/black</item>
+        <item name="colorSecondaryVariant">@color/black</item>
+        <item name="colorOnSecondary">@color/black</item>
     </style>
 
 

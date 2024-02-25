@@ -4,15 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragmentcadastroaluno"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="700dp"
     android:orientation="vertical">
-
-    <ImageView
-        android:layout_width="250dp"
-        android:layout_height="5dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/barra" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

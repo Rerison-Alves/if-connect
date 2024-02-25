@@ -4,15 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragmentcadastroaluno"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="700dp"
     android:orientation="vertical">
-
-    <ImageView
-        android:layout_width="250dp"
-        android:layout_height="5dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/barra" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -157,28 +150,35 @@
                 android:background="@drawable/border"
                 android:gravity="top">
 
-                <EditText
+                <com.if_connect.utils.DateEditText
                     android:id="@+id/datanasc"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="40dp"
                     android:background="#01000000"
-                    android:ems="10"
                     android:inputType="date"
-                    android:maxLength="10"
                     tools:ignore="SpeakableTextPresentCheck"/>
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                <androidx.cardview.widget.CardView
                     android:id="@+id/button_dt"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginEnd="4dp"
-                    android:backgroundTint="@color/white"
-                    android:src="@drawable/ic_calendar_month"
-                    app:borderWidth="0dp"
-                    app:fabCustomSize="30dp" />
+                    app:cardElevation="0dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="5dp"
+                    app:cardCornerRadius="18dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?selectableItemBackground">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="4dp"
+                        android:src="@drawable/ic_calendar_month"/>
+                </androidx.cardview.widget.CardView>
             </FrameLayout>
 
             <TextView
@@ -200,10 +200,10 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
+                    android:layout_marginHorizontal="5dp"
                     app:hintEnabled="false"
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/black">
-
                     <EditText
                         android:id="@+id/senha"
                         android:layout_width="match_parent"
@@ -236,6 +236,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
+                    android:layout_marginHorizontal="5dp"
                     app:hintEnabled="false"
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/black">

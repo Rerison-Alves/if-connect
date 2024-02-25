@@ -8,7 +8,7 @@ import com.if_connect.utils.typeadapters.TurnoAdapter;
 public class Curso {
 
     @SerializedName("id")
-    private int id;
+    private Integer id;
     @SerializedName("descricao")
     private String descricao;
     @SerializedName("observacao")
@@ -16,7 +16,6 @@ public class Curso {
     @SerializedName("status")
     private Boolean status;
     @SerializedName("turno")
-    @JsonAdapter(TurnoAdapter.class)
     private Turno turno;
 
     public int getId() {

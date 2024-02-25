@@ -15,7 +15,7 @@ public class CustomDatePicker {
     public static SimpleDateFormat dateFormat;
 
     // Inicia tela de calendário
-    public static void openDatePicker(Calendar calendar, EditText editText, Context context, Date maxDate, Date minDate) {
+    public static void openDatePicker(Calendar calendar, DateEditText dateEditText, Context context, Date maxDate, Date minDate) {
         dateFormat = new SimpleDateFormat(myFormat, Locale.getDefault());
 
         DatePickerDialog.OnDateSetListener date = (view, year, month, day) -> {
@@ -23,8 +23,8 @@ public class CustomDatePicker {
             calendar.set(Calendar.MONTH, month);
             calendar.set(Calendar.DAY_OF_MONTH, day);
 
-            editText.setText("");
-            editText.setText(dateFormat.format(calendar.getTime()));
+            dateEditText.setText("");
+            dateEditText.setText(dateFormat.format(calendar.getTime()));
         };
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(
@@ -49,8 +49,8 @@ public class CustomDatePicker {
         datePickerDialog.show();
     }
 
-    public static void openDatePicker(Calendar calendar, EditText editText, Context context){
-        openDatePicker(calendar, editText, context, null, null);
+    public static void openDatePicker(Calendar calendar, DateEditText dateEditText, Context context){
+        openDatePicker(calendar, dateEditText, context, null, null);
     }
 
 

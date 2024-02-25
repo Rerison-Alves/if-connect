@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                     float yEnd = event.getY();
                     if (yEnd - yStart < -100) {
                         startAndEndAnimation(btnCima, slideUpAnimation, slideDownAnimation);
-                        new BottomSheetTelaInicial(context, fragmentManager).show(fragmentManager, "tag");
+                        new BottomSheetTelaInicial(context).show(fragmentManager, "tag");
                     }
                     return true;
             }

@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import com.if_connect.enums.SituacaoProfessor;
 import com.if_connect.utils.typeadapters.SituacaoProfessorAdapter;
 
-public class Professor {
+import java.util.Date;
+
+public class Professor{
     @SerializedName("siape")
     private String siape;
 
