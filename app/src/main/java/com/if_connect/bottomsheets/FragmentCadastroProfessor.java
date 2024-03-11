@@ -1,22 +1,22 @@
 package com.if_connect.bottomsheets;
 
-import static com.if_connect.enums.SituacaoProfessor.ATIVO;
+import static com.if_connect.models.enums.SituacaoProfessor.ATIVO;
 import static com.if_connect.utils.CustomDatePicker.openDatePicker;
 import static com.if_connect.utils.ErrorToast.toastError;
 import static com.if_connect.utils.VerificaDados.validarDataNascimento;
 import static com.if_connect.utils.VerificaDados.validarEmail;
 import static com.if_connect.utils.VerificaDados.verificasenha;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,24 +25,18 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.example.if_connect.R;
-import com.if_connect.enums.Role;
-import com.if_connect.enums.SituacaoProfessor;
-import com.if_connect.models.Aluno;
-import com.if_connect.models.Curso;
+import com.if_connect.MainActivity;
+import com.if_connect.models.enums.Role;
 import com.if_connect.models.Professor;
 import com.if_connect.request.Generator;
-import com.if_connect.request.auth.AuthUsuarioService;
+import com.if_connect.request.services.AuthUsuarioService;
 import com.if_connect.request.requestbody.AuthenticationResponse;
 import com.if_connect.request.requestbody.RegisterRequest;
 import com.if_connect.utils.DateEditText;
+import com.if_connect.utils.TokenManager;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -99,7 +93,7 @@ public class FragmentCadastroProfessor extends Fragment {
                         AuthenticationResponse authenticationResponse = response.body();
                         if (authenticationResponse!=null){
                             Toast.makeText(context, "Conta criada com sucesso", Toast.LENGTH_SHORT).show();
-                            bottomSheetTelaInicial.replaceFragment(new FragmentLoginAluno(context, bottomSheetTelaInicial));
+                            startMainActivity(authenticationResponse.accessToken, authenticationResponse.refreshToken);
                         }else {
                             toastError("erro: ", response, context);
                         }
@@ -118,6 +112,7 @@ public class FragmentCadastroProfessor extends Fragment {
         return new RegisterRequest(
                 nome.getText().toString(),
                 email.getText().toString(),
+                "",
                 senha.getText().toString(),
                 datanasc.getDate(),
                 null,
@@ -194,5 +189,13 @@ public class FragmentCadastroProfessor extends Fragment {
         return valida;
     }
 
-
+    //Inicia tela principal
+    private void startMainActivity(String token, String refreshToken) {
+        TokenManager.getInstance(context).saveTokens(token, refreshToken);
+        startActivity(new Intent(context, MainActivity.class));
+        Activity activity = bottomSheetTelaInicial.getActivity();
+        if(activity!=null){
+            activity.finish();
+        }
+    }
 }

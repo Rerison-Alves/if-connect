@@ -1,6 +1,6 @@
-package com.if_connect.enums;
+package com.if_connect.models.enums;
 
-import static com.if_connect.enums.Permission.*;
+import static com.if_connect.models.enums.Permission.*;
 
 import java.util.Arrays;
 import java.util.Collections;

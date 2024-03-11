@@ -40,22 +40,17 @@ public class ErrorToast {
         // Construindo a mensagem com base nos atributos do ErrorResponse
         StringBuilder message = new StringBuilder();
         if (errorResponse != null) {
-            if (errorResponse.getMensagem() != null) {
-                message.append(errorResponse.getMensagem()).append("\n");
+            if (errorResponse.getMessage() != null) {
+                message.append(errorResponse.getMessage()).append("\n");
             }
-            if (errorResponse.getTipo() != null) {
-                message.append("httpStatus: ").append(errorResponse.getTipo());
+            if (errorResponse.getDetails() != null) {
+                message.append("Details: ").append(errorResponse.getDetails());
             }
         }
 
         builder.setMessage(message.toString());
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();

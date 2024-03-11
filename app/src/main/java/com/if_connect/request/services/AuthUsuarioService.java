@@ -1,4 +1,4 @@
-package com.if_connect.request.auth;
+package com.if_connect.request.services;
 
 import com.if_connect.request.requestbody.AuthenticationRequest;
 import com.if_connect.request.requestbody.AuthenticationResponse;
@@ -6,7 +6,6 @@ import com.if_connect.request.requestbody.RegisterRequest;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 

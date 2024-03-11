@@ -1,4 +1,4 @@
-package com.if_connect.enums;
+package com.if_connect.models.enums;
 
 public enum Turno {
     MANHA("Manhã"),

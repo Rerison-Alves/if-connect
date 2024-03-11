@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         context = this;
         fragmentManager = getSupportFragmentManager();
+        getSupportActionBar().hide();
 
         btnCima = findViewById(R.id.btn_cima);
 
