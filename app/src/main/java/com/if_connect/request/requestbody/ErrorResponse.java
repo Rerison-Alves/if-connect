@@ -1,14 +1,21 @@
 package com.if_connect.request.requestbody;
 
-public class ErrorResponse {
-    String mensagem;
-    String tipo;
+import java.util.Date;
 
-    public String getMensagem() {
-        return mensagem;
+public class ErrorResponse {
+    private Date timestamp;
+    private String message;
+    private String details;
+
+    public Date getTimestamp() {
+        return timestamp;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getMessage() {
+        return message;
+    }
+
+    public String getDetails() {
+        return details;
     }
 }

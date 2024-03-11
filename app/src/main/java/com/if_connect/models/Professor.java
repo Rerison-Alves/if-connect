@@ -2,10 +2,8 @@ package com.if_connect.models;
 
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.if_connect.enums.SituacaoProfessor;
+import com.if_connect.models.enums.SituacaoProfessor;
 import com.if_connect.utils.typeadapters.SituacaoProfessorAdapter;
-
-import java.util.Date;
 
 public class Professor{
     @SerializedName("siape")

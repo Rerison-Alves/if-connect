@@ -21,10 +21,11 @@ import androidx.fragment.app.Fragment;
 import com.example.if_connect.R;
 import com.if_connect.MainActivity;
 import com.if_connect.request.Generator;
-import com.if_connect.request.auth.AuthUsuarioService;
+import com.if_connect.request.services.AuthUsuarioService;
 import com.if_connect.request.requestbody.AuthenticationRequest;
 import com.if_connect.request.requestbody.AuthenticationResponse;
 import com.if_connect.utils.ErrorToast;
+import com.if_connect.utils.TokenManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -81,7 +82,7 @@ public class FragmentLoginProfessor extends Fragment {
                         AuthenticationResponse authenticationResponse = response.body();
                         if(authenticationResponse!=null){
                             Toast.makeText(context, "Login efetuado com sucesso!", Toast.LENGTH_SHORT).show();
-                            startMainActivity(authenticationResponse.accessToken);
+                            startMainActivity(authenticationResponse.accessToken, authenticationResponse.refreshToken);
                         }
                     }else {
                         ErrorToast.toastError("Erro ao fazer login: ", response, context);
@@ -131,11 +132,9 @@ public class FragmentLoginProfessor extends Fragment {
     }
 
     //Inicia tela principal
-    private void startMainActivity(String token) {
-        Intent intent = new Intent(context, MainActivity.class);
-        //levar token
-        intent.putExtra("AUTH_TOKEN", token);
-        startActivity(intent);
+    private void startMainActivity(String token, String refreshToken) {
+        TokenManager.getInstance(context).saveTokens(token, refreshToken);
+        startActivity(new Intent(context, MainActivity.class));
         Activity activity = bottomSheetTelaInicial.getActivity();
         if(activity!=null){
             activity.finish();

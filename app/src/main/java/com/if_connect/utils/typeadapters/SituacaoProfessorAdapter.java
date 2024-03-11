@@ -1,7 +1,7 @@
 package com.if_connect.utils.typeadapters;
 
 import com.google.gson.*;
-import com.if_connect.enums.SituacaoProfessor;
+import com.if_connect.models.enums.SituacaoProfessor;
 
 import java.lang.reflect.Type;
 
