@@ -14,15 +14,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    Context context;
-    public String token = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        context = this;
-        token = getIntent().getStringExtra("AUTH_TOKEN");
         getSupportActionBar().hide();
 
         BottomNavigationView navView = findViewById(R.id.bottom_navigation);

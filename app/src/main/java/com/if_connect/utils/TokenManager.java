@@ -36,11 +36,13 @@ public class TokenManager {
     }
 
     public String getAccessToken() {
-        return "Bearer "+sharedPreferences.getString(ACCESS_TOKEN_KEY, null);
+        String token = sharedPreferences.getString(ACCESS_TOKEN_KEY, null);
+        return token!=null?bearer(token):null;
     }
 
     public String getRefreshToken() {
-        return "Bearer "+sharedPreferences.getString(REFRESH_TOKEN_KEY, null);
+        String token = sharedPreferences.getString(REFRESH_TOKEN_KEY, null);
+        return token!=null?bearer(token):null;
     }
 
     public void deleteTokens() {
@@ -48,5 +50,9 @@ public class TokenManager {
         editor.remove(ACCESS_TOKEN_KEY);
         editor.remove(REFRESH_TOKEN_KEY);
         editor.apply();
+    }
+
+    private String bearer(String token){
+        return "Bearer " + token;
     }
 }
