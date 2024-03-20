@@ -15,8 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,12 +28,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.if_connect.R;
 import com.if_connect.MainActivity;
+import com.if_connect.dialogs.AlertDialogManager;
 import com.if_connect.models.enums.Role;
 import com.if_connect.models.Aluno;
 import com.if_connect.models.Curso;
 import com.if_connect.request.Generator;
-import com.if_connect.request.services.AuthUsuarioService;
-import com.if_connect.request.requestbody.AuthenticationResponse;
+import com.if_connect.request.services.AuthService;
 import com.if_connect.request.requestbody.RegisterRequest;
 import com.if_connect.utils.DateEditText;
 import com.if_connect.utils.TokenManager;
@@ -40,18 +41,20 @@ import com.if_connect.utils.TokenManager;
 import java.util.Calendar;
 import java.util.Date;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentCadastroAluno extends Fragment {
 
-    AuthUsuarioService authUsuarioService;
+    AuthService authUsuarioService;
 
     EditText nome, email, matricula, senha, repetesenha;
     DateEditText datanasc;
     CardView buttonDt;
-    FrameLayout btn_concluir;
+    Button btnConcluir;
+    ProgressBar progressBar;
     Spinner curso;
 
     Calendar calendar = Calendar.getInstance();
@@ -68,7 +71,7 @@ public class FragmentCadastroAluno extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cadastro_aluno, container, false);
 
-        authUsuarioService = Generator.getRetrofitInstance().create(AuthUsuarioService.class);
+        authUsuarioService = Generator.getRetrofitInstance().create(AuthService.class);
 
         nome = view.findViewById(R.id.nomealuno);
         email = view.findViewById(R.id.email);
@@ -78,7 +81,8 @@ public class FragmentCadastroAluno extends Fragment {
         buttonDt = view.findViewById(R.id.button_dt);
         senha = view.findViewById(R.id.senha);
         repetesenha = view.findViewById(R.id.repetesenha);
-        btn_concluir = view.findViewById(R.id.btn_concluir);
+        btnConcluir = view.findViewById(R.id.btn_concluir);
+        progressBar = view.findViewById(R.id.progress_bar);
 
         buttonDt.setOnClickListener(view1 -> openDatePicker(calendar, datanasc, context, new Date(), null));
 
@@ -87,7 +91,7 @@ public class FragmentCadastroAluno extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         curso.setAdapter(adapter);
 
-        btn_concluir.setOnClickListener(view1 -> {
+        btnConcluir.setOnClickListener(view1 -> {
             concluirCadastro();
         });
         return view;
@@ -95,33 +99,48 @@ public class FragmentCadastroAluno extends Fragment {
 
     private void concluirCadastro() {
         if(validarCampos()){
-            authUsuarioService.registerUsuario(getUsuario()).enqueue(new Callback<AuthenticationResponse>() {
+            isLoading(true);
+            authUsuarioService.register(getUsuario()).enqueue(new Callback<ResponseBody>() {
                 @Override
-                public void onResponse(Call<AuthenticationResponse> call, Response<AuthenticationResponse> response) {
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if(response.isSuccessful()){
-                        AuthenticationResponse authenticationResponse = response.body();
+                        isLoading(false);
+                        ResponseBody authenticationResponse = response.body();
                         if (authenticationResponse!=null){
-                            Toast.makeText(context, "Conta criada com sucesso", Toast.LENGTH_SHORT).show();
-                            startMainActivity(authenticationResponse.accessToken, authenticationResponse.refreshToken);
+                            new AlertDialogManager(
+                                    context,
+                                    "Sucesso!",
+                                    "Conta criada com sucesso! Enviamos um e-mail para "+
+                                            email.getText().toString()+ " com o link de ativação. " +
+                                            "Após isso você poderá fazer login!")
+                                    .show();
+                            bottomSheetTelaInicial.replaceFragment(new FragmentLoginAluno(context, bottomSheetTelaInicial));
                         }
                     }else {
-                        toastError("", response, context);
+                        toastError("Não foi possível efetuar cadastro: ", response, context);
                     }
                 }
 
                 @Override
-                public void onFailure(Call<AuthenticationResponse> call, Throwable t) {
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    isLoading(false);
                     Toast.makeText(context, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
 
+    private void isLoading(boolean isLoading){
+        btnConcluir.setEnabled(!isLoading);
+        btnConcluir.setAlpha(isLoading?0.5f:1.0f);
+        progressBar.setVisibility(isLoading?View.VISIBLE:View.INVISIBLE);
+    }
+
     private RegisterRequest getUsuario() {
         return new RegisterRequest(
                 nome.getText().toString(),
                 email.getText().toString(),
-                "",
+                null,
                 senha.getText().toString(),
                 datanasc.getDate(),
                 new Aluno(getCurso(), matricula.getText().toString()),
@@ -200,16 +219,6 @@ public class FragmentCadastroAluno extends Fragment {
 
         // Se tudo estiver válido, retorna true
         return valida;
-    }
-
-    //Inicia tela principal
-    private void startMainActivity(String token, String refreshToken) {
-        TokenManager.getInstance(context).saveTokens(token, refreshToken);
-        startActivity(new Intent(context, MainActivity.class));
-        Activity activity = bottomSheetTelaInicial.getActivity();
-        if(activity!=null){
-            activity.finish();
-        }
     }
 
 }
