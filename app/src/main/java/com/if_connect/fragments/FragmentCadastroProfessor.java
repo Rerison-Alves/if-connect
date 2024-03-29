@@ -1,42 +1,38 @@
-package com.if_connect.bottomsheets;
+package com.if_connect.fragments;
 
+import static com.if_connect.models.enums.SituacaoProfessor.ATIVO;
 import static com.if_connect.utils.CustomDatePicker.openDatePicker;
-import static com.if_connect.utils.ErrorToast.toastError;
+import static com.if_connect.utils.ErrorManager.showError;
 import static com.if_connect.utils.VerificaDados.validarDataNascimento;
 import static com.if_connect.utils.VerificaDados.validarEmail;
 import static com.if_connect.utils.VerificaDados.verificasenha;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.if_connect.R;
-import com.if_connect.MainActivity;
+import com.if_connect.bottomsheets.BottomSheetShape;
 import com.if_connect.dialogs.AlertDialogManager;
 import com.if_connect.models.enums.Role;
-import com.if_connect.models.Aluno;
-import com.if_connect.models.Curso;
+import com.if_connect.models.Professor;
 import com.if_connect.request.Generator;
 import com.if_connect.request.services.AuthService;
 import com.if_connect.request.requestbody.RegisterRequest;
 import com.if_connect.utils.DateEditText;
-import com.if_connect.utils.TokenManager;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -46,37 +42,37 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentCadastroAluno extends Fragment {
+public class FragmentCadastroProfessor extends Fragment {
 
     AuthService authUsuarioService;
 
-    EditText nome, email, matricula, senha, repetesenha;
+    EditText nome, email, siape, senha, repetesenha;
     DateEditText datanasc;
     CardView buttonDt;
-    Button btnConcluir;
+    FrameLayout btnConcluir;
     ProgressBar progressBar;
-    Spinner curso;
 
     Calendar calendar = Calendar.getInstance();
 
     Context context;
-    BottomSheetTelaInicial bottomSheetTelaInicial;
+    BottomSheetShape bottomSheetTelaInicial;
+    FragmentManager fragmentManager;
 
-    public FragmentCadastroAluno(Context context, BottomSheetTelaInicial bottomSheetTelaInicial) {
+    public FragmentCadastroProfessor(Context context, BottomSheetShape bottomSheetTelaInicial, FragmentManager fragmentManager) {
         this.context = context;
         this.bottomSheetTelaInicial = bottomSheetTelaInicial;
+        this.fragmentManager = fragmentManager;
     }
 
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cadastro_aluno, container, false);
+        View view = inflater.inflate(R.layout.fragment_cadastro_professor, container, false);
 
         authUsuarioService = Generator.getRetrofitInstance().create(AuthService.class);
 
         nome = view.findViewById(R.id.nomealuno);
         email = view.findViewById(R.id.email);
-        matricula = view.findViewById(R.id.matricula);
-        curso = view.findViewById(R.id.curso);
+        siape = view.findViewById(R.id.siape);
         datanasc = view.findViewById(R.id.datanasc);
         buttonDt = view.findViewById(R.id.button_dt);
         senha = view.findViewById(R.id.senha);
@@ -85,11 +81,6 @@ public class FragmentCadastroAluno extends Fragment {
         progressBar = view.findViewById(R.id.progress_bar);
 
         buttonDt.setOnClickListener(view1 -> openDatePicker(calendar, datanasc, context, new Date(), null));
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
-                R.array.cursos, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        curso.setAdapter(adapter);
 
         btnConcluir.setOnClickListener(view1 -> {
             concluirCadastro();
@@ -114,10 +105,10 @@ public class FragmentCadastroAluno extends Fragment {
                                             email.getText().toString()+ " com o link de ativação. " +
                                             "Após isso você poderá fazer login!")
                                     .show();
-                            bottomSheetTelaInicial.replaceFragment(new FragmentLoginAluno(context, bottomSheetTelaInicial));
+                            bottomSheetTelaInicial.replaceFragment(new FragmentLoginProfessor(context, bottomSheetTelaInicial, fragmentManager));
+                        }else {
+                            showError("Não foi possível efetuar cadastro: ", response, context);
                         }
-                    }else {
-                        toastError("Não foi possível efetuar cadastro: ", response, context);
                     }
                 }
 
@@ -140,16 +131,12 @@ public class FragmentCadastroAluno extends Fragment {
         return new RegisterRequest(
                 nome.getText().toString(),
                 email.getText().toString(),
-                null,
+                "",
                 senha.getText().toString(),
                 datanasc.getDate(),
-                new Aluno(getCurso(), matricula.getText().toString()),
                 null,
+                new Professor(siape.getText().toString(), ATIVO),
                 Role.USER) {};
-    }
-
-    private Curso getCurso() {
-        return null;
     }
 
 
@@ -160,7 +147,7 @@ public class FragmentCadastroAluno extends Fragment {
         // Obter os valores dos campos
         String nomeString = nome.getText().toString().trim();
         String emailString = email.getText().toString().trim();
-        String matriculaString = matricula.getText().toString().trim();
+        String siapeString = siape.getText().toString().trim();
         String senhaString = senha.getText().toString().trim();
         String repetesenhaString = repetesenha.getText().toString().trim();
         String datanascString = datanasc.getText();
@@ -176,9 +163,9 @@ public class FragmentCadastroAluno extends Fragment {
             email.requestFocus();
             valida = false;
         }
-        if (TextUtils.isEmpty(matriculaString)) {
-            matricula.setError("Campo obrigatório");
-            matricula.requestFocus();
+        if (TextUtils.isEmpty(siapeString)) {
+            siape.setError("Campo obrigatório");
+            siape.requestFocus();
             valida = false;
         }
         if (TextUtils.isEmpty(senhaString)) {

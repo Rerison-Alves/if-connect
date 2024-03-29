@@ -1,4 +1,4 @@
-package com.if_connect.bottomsheets;
+package com.if_connect.fragments;
 
 import static com.if_connect.utils.VerificaDados.validarEmail;
 
@@ -19,14 +19,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.if_connect.R;
 import com.if_connect.MainActivity;
+import com.if_connect.bottomsheets.BottomSheetShape;
 import com.if_connect.request.Generator;
 import com.if_connect.request.services.AuthService;
 import com.if_connect.request.requestbody.AuthenticationRequest;
 import com.if_connect.request.requestbody.AuthenticationResponse;
-import com.if_connect.utils.ErrorToast;
+import com.if_connect.utils.ErrorManager;
 import com.if_connect.utils.TokenManager;
 
 import retrofit2.Call;
@@ -43,11 +45,13 @@ public class FragmentLoginProfessor extends Fragment {
     ProgressBar progressBar;
 
     Context context;
-    BottomSheetTelaInicial bottomSheetTelaInicial;
+    BottomSheetShape bottomSheetShape;
+    FragmentManager fragmentManager;
 
-    public FragmentLoginProfessor(Context context, BottomSheetTelaInicial bottomSheetTelaInicial) {
+    public FragmentLoginProfessor(Context context, BottomSheetShape bottomSheetShape, FragmentManager fragmentManager) {
         this.context = context;
-        this.bottomSheetTelaInicial = bottomSheetTelaInicial;
+        this.bottomSheetShape = bottomSheetShape;
+        this.fragmentManager = fragmentManager;
     }
 
     @Nullable
@@ -67,12 +71,12 @@ public class FragmentLoginProfessor extends Fragment {
 
         btnCadastro.setOnClickListener(view1 -> {
             //cadastro
-            bottomSheetTelaInicial.replaceFragment(new FragmentCadastroProfessor(context, bottomSheetTelaInicial));
+            bottomSheetShape.replaceFragment(new FragmentCadastroProfessor(context, bottomSheetShape, fragmentManager));
         });
 
         btnEsqueciSenha.setOnClickListener(view1 -> {
             //esqueci senha
-            bottomSheetTelaInicial.replaceFragment(new FragmentAlterarSenha(context, bottomSheetTelaInicial));
+            bottomSheetShape.replaceFragment(new FragmentCPEmail(context, bottomSheetShape, fragmentManager));
         });
         return view;
     }
@@ -91,7 +95,7 @@ public class FragmentLoginProfessor extends Fragment {
                             startMainActivity(authenticationResponse.accessToken, authenticationResponse.refreshToken);
                         }
                     }else {
-                        ErrorToast.toastError("Erro ao fazer login: ", response, context);
+                        ErrorManager.showError("Erro ao fazer login: ", response, context);
                     }
                 }
 
@@ -148,7 +152,7 @@ public class FragmentLoginProfessor extends Fragment {
     private void startMainActivity(String token, String refreshToken) {
         TokenManager.getInstance(context).saveTokens(token, refreshToken);
         startActivity(new Intent(context, MainActivity.class));
-        Activity activity = bottomSheetTelaInicial.getActivity();
+        Activity activity = bottomSheetShape.getActivity();
         if(activity!=null){
             activity.finish();
         }

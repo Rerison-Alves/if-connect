@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#AAAAAA"
+        android:elevation="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="60dp"
+            android:fontFamily="@font/imprima"
+            android:gravity="center"
+            android:text="@string/configura_es"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/voltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
+            android:layout_marginStart="20dp"
+            android:backgroundTint="#AAAAAA"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="0dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_back" />
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/alterasenha"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/border">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/ic_lockopen"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/imprima"
+                android:gravity="start|top"
+                android:text="Alterar senha"
+                android:textSize="25sp" />
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_gravity="end|center"
+            app:srcCompat="@drawable/ic_click"
+            tools:ignore="VectorDrawableCompat" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/black_fraco"
+            android:fontFamily="@font/imprima"
+            android:layout_gravity="start|bottom"
+            android:gravity="start|bottom"
+            android:text="Altere a senha da sua conta"
+            android:textSize="18sp" />
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/border">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/ic_logout"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/imprima"
+                android:gravity="start|top"
+                android:text="Sair"
+                android:textSize="25sp" />
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_gravity="end|center"
+            app:srcCompat="@drawable/ic_click"
+            tools:ignore="VectorDrawableCompat" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/black_fraco"
+            android:fontFamily="@font/imprima"
+            android:layout_gravity="start|bottom"
+            android:gravity="start|bottom"
+            android:text="Desconectar de sua conta"
+            android:textSize="18sp" />
+    </FrameLayout>
+</LinearLayout>

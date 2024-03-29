@@ -2,19 +2,16 @@ package com.if_connect.utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.if_connect.request.requestbody.ErrorResponse;
 
-import java.util.List;
-
 import retrofit2.Response;
 
-public class ErrorToast {
-    public static void toastError(String text, Response response, Context context) {
+public class ErrorManager {
+    public static void showError(String text, Response response, Context context) {
         if (response.errorBody() != null) {
             try {
                 ErrorResponse erro = new Gson().fromJson(

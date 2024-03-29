@@ -1,6 +1,6 @@
 package com.if_connect.recycleviews;
 
-import static com.if_connect.utils.ErrorToast.toastError;
+import static com.if_connect.utils.ErrorManager.showError;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -101,7 +101,7 @@ public class RecyclerViewPerfil extends RecyclerView.Adapter<RecyclerViewPerfil.
                 if(response.isSuccessful()){
                     Toast.makeText(context, "Grupo excluido com sucesso!", Toast.LENGTH_SHORT).show();
                 }else {
-                    toastError("Não foi possível excluir grupo: ", response, context);
+                    showError("Não foi possível excluir grupo: ", response, context);
                 }
             }
 

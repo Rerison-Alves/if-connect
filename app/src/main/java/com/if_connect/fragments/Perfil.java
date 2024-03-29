@@ -1,6 +1,6 @@
 package com.if_connect.fragments;
 
-import static com.if_connect.utils.ErrorToast.toastError;
+import static com.if_connect.utils.ErrorManager.showError;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,7 +19,9 @@ import android.widget.Toast;
 
 import com.example.if_connect.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.if_connect.MainActivity;
 import com.if_connect.bottomsheets.BottomSheetCriarGrupo;
+import com.if_connect.dialogs.DialogConfig;
 import com.if_connect.models.Aluno;
 import com.if_connect.models.Curso;
 import com.if_connect.models.Grupo;
@@ -70,8 +72,7 @@ public class Perfil extends Fragment {
         usuariogpsView = view.findViewById(R.id.gpsusuario);
 
         config.setOnClickListener(view1 -> {
-//            Intent startConfig = new Intent(getActivity(), Config.class);
-//            startActivity(startConfig);
+            new DialogConfig(context, (MainActivity) getActivity(), fragmentManager).show(fragmentManager,"tag");
         });
         buttonCriarAgrupamento.setOnClickListener(view1 ->
                 new BottomSheetCriarGrupo(context, usuarioLogado, fragmentManager).show(fragmentManager,"TAG"));
@@ -88,7 +89,7 @@ public class Perfil extends Fragment {
                     setUsuario();
                     getGrupos();
                 }else {
-                    toastError("Não foi possível carregar usuário: ", response, context);
+                    showError("Não foi possível carregar usuário: ", response, context);
                 }
             }
 
@@ -118,7 +119,7 @@ public class Perfil extends Fragment {
                             if(listadeGrupos !=null){
                                 listarGrupos();
                             } else {
-                                toastError("Não foi possível carregar grupos do usuário: ", response, context);
+                                showError("Não foi possível carregar grupos do usuário: ", response, context);
                             }
                         }
                     }

@@ -43,6 +43,7 @@
     <string name="esqueci_minha_senha">Esqueci minha senha</string>
     <string name="n_o_tenho_uma_conta">Não tenho uma conta</string>
     <string name="senha">Senha*:</string>
+    <string name="novasenha">Nova senha*:</string>
     <string name="email">Email*:</string>
     <string name="login_aluno">Login Aluno</string>
     <string name="login_professor">Login Professor</string>
@@ -58,6 +59,12 @@
     <string name="configura_es">Configurações</string>
     <string name="app_label">label</string>
     <string name="search_hint">Pesquisar um curso...</string>
+    <string name="alterar_senha">Alterar Senha</string>
+    <string name="mail_code_message">Enviamos um código de 5 dígitos para o email:</string>
+    <string name="mailcode_warn">*O código irá expirar em 15 minutos.</string>
+    <string name="mail_example">example@ifce.edu.br</string>
+    <string name="reenviar_codigo">Reenviar código</string>
+    <string name="insira_o_email_cadastrado">Insira o email cadastrado*</string>
     <string-array name="cursos">
         <item>Indefinido</item>
         <item>Ciência da Computação</item>

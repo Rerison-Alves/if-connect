@@ -6,25 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.if_connect.R;
-import com.if_connect.bottomsheets.BottomSheetTelaInicial;
+import com.if_connect.bottomsheets.BottomSheetShape;
+import com.if_connect.fragments.FragmentTipoConta;
 import com.if_connect.request.Generator;
 import com.if_connect.request.requestbody.AuthenticationResponse;
 import com.if_connect.request.services.AuthService;
@@ -97,7 +91,9 @@ public class LoginActivity extends AppCompatActivity {
                     float yEnd = event.getY();
                     if (yEnd - yStart < -100) {
                         startAndEndAnimation(btnCima, slideUpAnimation, slideDownAnimation);
-                        new BottomSheetTelaInicial(context).show(fragmentManager, "tag");
+                        BottomSheetShape bottomSheetShape = new BottomSheetShape(context);
+                        bottomSheetShape.setFragment(new FragmentTipoConta(context, bottomSheetShape, fragmentManager));
+                        bottomSheetShape.show(fragmentManager, "tag");
                     }
                     return true;
             }

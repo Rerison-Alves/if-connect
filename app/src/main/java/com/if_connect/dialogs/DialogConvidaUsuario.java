@@ -1,6 +1,6 @@
 package com.if_connect.dialogs;
 
-import static com.if_connect.utils.ErrorToast.toastError;
+import static com.if_connect.utils.ErrorManager.showError;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -82,7 +82,7 @@ public class DialogConvidaUsuario extends DialogFragment {
                         todosList.remove(bottomSheetCriarGrupo.admin);
                         adaptarListas();
                     }else {
-                        toastError("Não foi possível carregar usuários: ", response, context);
+                        showError("Não foi possível carregar usuários: ", response, context);
                     }
                 }
             }

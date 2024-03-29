@@ -14,21 +14,23 @@ import androidx.fragment.app.FragmentManager;
 import com.example.if_connect.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-public class BottomSheetTelaInicial extends BottomSheetDialogFragment {
+public class BottomSheetShape extends BottomSheetDialogFragment {
 
     Context context;
-    FragmentManager fragmentManager;
+    Fragment fragment;
 
-    public BottomSheetTelaInicial(Context context) {
+    public BottomSheetShape(Context context) {
         this.context = context;
+    }
+
+    public void setFragment(Fragment fragment) {
+        this.fragment = fragment;
     }
 
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.bottomsheet_tela_inicial, container, false);
-        fragmentManager = getChildFragmentManager();
-        replaceFragment(new FragmentTipoConta(context, this));
-
+        View view = inflater.inflate(R.layout.bottomsheet_shape, container, false);
+        replaceFragment(fragment);
         return view;
     }
 
