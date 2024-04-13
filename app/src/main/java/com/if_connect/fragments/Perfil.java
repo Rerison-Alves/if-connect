@@ -75,7 +75,7 @@ public class Perfil extends Fragment {
             new DialogConfig(context, (MainActivity) getActivity(), fragmentManager).show(fragmentManager,"tag");
         });
         buttonCriarAgrupamento.setOnClickListener(view1 ->
-                new BottomSheetCriarGrupo(context, usuarioLogado, fragmentManager).show(fragmentManager,"TAG"));
+                new BottomSheetCriarGrupo(context, usuarioLogado, fragmentManager, this).show(fragmentManager,"TAG"));
         getUsuario();
         return view;
     }
@@ -131,7 +131,7 @@ public class Perfil extends Fragment {
                 });
     }
 
-    private void listarGrupos() {
+    public void listarGrupos() {
         usuariogpsView.setLayoutManager(new LinearLayoutManager(context));
         usuariogpsView.setAdapter(new RecyclerViewPerfil(listadeGrupos, context, fragmentManager, grupoService, token, usuarioLogado));
         usuariogpsView.setNestedScrollingEnabled( false );

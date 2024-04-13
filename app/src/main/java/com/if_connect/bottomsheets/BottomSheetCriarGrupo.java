@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentManager;
 import com.example.if_connect.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.if_connect.dialogs.DialogConvidaUsuario;
+import com.if_connect.fragments.Perfil;
 import com.if_connect.models.Curso;
 import com.if_connect.models.Grupo;
 import com.if_connect.models.Usuario;
@@ -45,14 +46,16 @@ public class BottomSheetCriarGrupo extends BottomSheetDialogFragment {
     Context context;
     public Usuario admin;
     FragmentManager fragmentManager;
+    Perfil perfil;
     GrupoService grupoService;
     CursoService cursoService;
     String token;
 
-    public BottomSheetCriarGrupo(Context context, Usuario admin, FragmentManager fragmentManager) {
+    public BottomSheetCriarGrupo(Context context, Usuario admin, FragmentManager fragmentManager, Perfil perfil) {
         this.context = context;
         this.admin = admin;
         this.fragmentManager = fragmentManager;
+        this.perfil = perfil;
     }
 
     EditText nomeDoGrupo, areaDeEstudo, descricao;
@@ -97,6 +100,8 @@ public class BottomSheetCriarGrupo extends BottomSheetDialogFragment {
                 public void onResponse(Call<Grupo> call, Response<Grupo> response) {
                     if(response.isSuccessful()){
                         Toast.makeText(context, "Grupo criado com sucesso!", Toast.LENGTH_SHORT).show();
+                        perfil.listarGrupos();
+                        dismiss();
                     }else {
                         showError("Erro ao criar grupo: ", response, context);
                     }
