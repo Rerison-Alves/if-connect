@@ -1,16 +1,17 @@
 package com.if_connect;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.content.Context;
-import android.os.Bundle;
-
 import com.example.if_connect.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.if_connect.utils.TokenManager;
+import com.if_connect.utils.UsuarioManager;
 
 public class MainActivity extends AppCompatActivity {
 

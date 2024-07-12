@@ -14,6 +14,9 @@ public class Encontro {
     @SerializedName("descricao")
     private String descricao;
 
+    @SerializedName("agendamento")
+    private Agendamento agendamento;
+
     @SerializedName("grupo")
     private Grupo grupo;
 
@@ -42,6 +45,14 @@ public class Encontro {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Agendamento getAgendamento() {
+        return agendamento;
+    }
+
+    public void setAgendamento(Agendamento agendamento) {
+        this.agendamento = agendamento;
     }
 
     public Grupo getGrupo() {

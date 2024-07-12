@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 
+import com.if_connect.fragments.Perfil;
+import com.if_connect.fragments.PerfilAluno;
 import com.if_connect.models.Grupo;
 import com.if_connect.models.Usuario;
 
@@ -25,8 +27,8 @@ public class BottomSheetEditarGrupo extends BottomSheetCriarGrupo {
 
     Grupo grupoOld;
 
-    public BottomSheetEditarGrupo(Context context, Usuario admin, FragmentManager fragmentManager, Grupo grupoOld) {
-        super(context, admin, fragmentManager);
+    public BottomSheetEditarGrupo(Context context, Usuario admin, FragmentManager fragmentManager, PerfilAluno perfilAluno, Grupo grupoOld) {
+        super(context, admin, fragmentManager, perfilAluno);
         this.grupoOld = grupoOld;
     }
 
@@ -36,7 +38,6 @@ public class BottomSheetEditarGrupo extends BottomSheetCriarGrupo {
         nomeDoGrupo.setText(grupoOld.getNome());
         areaDeEstudo.setText(grupoOld.getAreadeEstudo());
         descricao.setText(grupoOld.getDescricao());
-        spinnerCursos.setSelection(1);
 
         convidadosList = grupoOld.getUsuarios();
         changeCounter(convidadosList.size());

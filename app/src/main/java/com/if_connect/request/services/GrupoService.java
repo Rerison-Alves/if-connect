@@ -1,6 +1,5 @@
 package com.if_connect.request.services;
 
-import com.google.gson.JsonObject;
 import com.if_connect.models.Grupo;
 import com.if_connect.request.requestbody.Page;
 

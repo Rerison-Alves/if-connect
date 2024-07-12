@@ -2,8 +2,6 @@ package com.if_connect.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
-
 public class Aluno{
 
     @SerializedName("curso")

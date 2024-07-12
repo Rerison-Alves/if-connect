@@ -2,9 +2,6 @@ package com.if_connect;
 
 import static com.if_connect.utils.CustoAnimation.startAndEndAnimation;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +13,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+
 import com.example.if_connect.R;
 import com.if_connect.bottomsheets.BottomSheetShape;
 import com.if_connect.fragments.FragmentTipoConta;
@@ -23,6 +23,7 @@ import com.if_connect.request.Generator;
 import com.if_connect.request.requestbody.AuthenticationResponse;
 import com.if_connect.request.services.AuthService;
 import com.if_connect.utils.TokenManager;
+import com.if_connect.utils.UsuarioManager;
 
 import java.io.IOException;
 
@@ -58,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                     AuthenticationResponse auth = response.body();
                     if(auth!=null){
                         TokenManager.getInstance(context).saveTokens(auth.accessToken, auth.refreshToken);
+                        UsuarioManager.requestUsuario(TokenManager.getInstance(context).getAccessToken(), context);
                         startActivity(new Intent(context, MainActivity.class));
                         finish();
                     }

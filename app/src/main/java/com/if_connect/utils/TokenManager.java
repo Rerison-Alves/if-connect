@@ -3,12 +3,6 @@ package com.if_connect.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import androidx.security.crypto.EncryptedSharedPreferences;
-import androidx.security.crypto.MasterKeys;
-
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-
 public class TokenManager {
     private static final String TOKEN_PREF = "token_pref";
     private static final String ACCESS_TOKEN_KEY = "access_token";

@@ -1,6 +1,5 @@
 package com.if_connect.fragments;
 
-import static com.if_connect.utils.CustomDatePicker.openDatePicker;
 import static com.if_connect.utils.ErrorManager.showError;
 import static com.if_connect.utils.VerificaDados.verificasenha;
 

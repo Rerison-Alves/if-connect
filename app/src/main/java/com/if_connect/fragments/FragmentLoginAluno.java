@@ -21,16 +21,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-
 import com.example.if_connect.R;
 import com.if_connect.MainActivity;
 import com.if_connect.bottomsheets.BottomSheetShape;
 import com.if_connect.request.Generator;
-import com.if_connect.request.services.AuthService;
 import com.if_connect.request.requestbody.AuthenticationRequest;
 import com.if_connect.request.requestbody.AuthenticationResponse;
+import com.if_connect.request.services.AuthService;
 import com.if_connect.utils.ErrorManager;
 import com.if_connect.utils.TokenManager;
+import com.if_connect.utils.UsuarioManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -90,10 +90,10 @@ public class FragmentLoginAluno extends Fragment {
                 public void onResponse(Call<AuthenticationResponse> call, Response<AuthenticationResponse> response) {
                     isLoading(false);
                     if(response.isSuccessful()){
-                        AuthenticationResponse authenticationResponse = response.body();
-                        if(authenticationResponse!=null){
+                        AuthenticationResponse authResponse = response.body();
+                        if(authResponse!=null){
                             Toast.makeText(context, "Login efetuado com sucesso!", Toast.LENGTH_SHORT).show();
-                            startMainActivity(authenticationResponse.accessToken, authenticationResponse.refreshToken);
+                            startMainActivity(authResponse.accessToken, authResponse.refreshToken);
                         }
                     }else {
                         ErrorManager.showError("Erro ao fazer login: ", response, context);
@@ -152,6 +152,7 @@ public class FragmentLoginAluno extends Fragment {
     //Inicia tela principal
     private void startMainActivity(String token, String refreshToken) {
         TokenManager.getInstance(context).saveTokens(token, refreshToken);
+        UsuarioManager.requestUsuario(token, context);
         startActivity(new Intent(context, MainActivity.class));
         Activity activity = bottomSheetShape.getActivity();
         if(activity!=null){

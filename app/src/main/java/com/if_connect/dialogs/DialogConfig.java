@@ -1,11 +1,5 @@
 package com.if_connect.dialogs;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.if_connect.R;
 import com.if_connect.LoginActivity;

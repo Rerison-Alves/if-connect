@@ -65,6 +65,14 @@
     <string name="mail_example">example@ifce.edu.br</string>
     <string name="reenviar_codigo">Reenviar código</string>
     <string name="insira_o_email_cadastrado">Insira o email cadastrado*</string>
+    <string name="encontro_delete_message">Ao fazer isso seu encontro será excluido permanentemente!</string>
+    <string name="criar_turma">Criar Turma</string>
+    <string name="nome_da_turma">Nome da Turma*:</string>
+    <string name="disciplina">Disciplina*:</string>
+    <string name="disciplina2">Disciplina:</string>
+    <string name="area_do_professor">Área do Professor</string>
+    <string name="suas_turmas">Suas Turmas:</string>
+    <string name="turno">Turno:</string>
     <string-array name="cursos">
         <item>Indefinido</item>
         <item>Ciência da Computação</item>

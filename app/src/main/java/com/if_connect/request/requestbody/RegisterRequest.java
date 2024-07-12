@@ -2,9 +2,9 @@ package com.if_connect.request.requestbody;
 
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.if_connect.models.enums.Role;
 import com.if_connect.models.Aluno;
 import com.if_connect.models.Professor;
+import com.if_connect.models.enums.Role;
 import com.if_connect.utils.typeadapters.DateAdapter;
 
 import java.util.Date;

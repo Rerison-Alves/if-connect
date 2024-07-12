@@ -27,11 +27,11 @@ import androidx.fragment.app.FragmentManager;
 import com.example.if_connect.R;
 import com.if_connect.bottomsheets.BottomSheetShape;
 import com.if_connect.dialogs.AlertDialogManager;
-import com.if_connect.models.enums.Role;
 import com.if_connect.models.Professor;
+import com.if_connect.models.enums.Role;
 import com.if_connect.request.Generator;
-import com.if_connect.request.services.AuthService;
 import com.if_connect.request.requestbody.RegisterRequest;
+import com.if_connect.request.services.AuthService;
 import com.if_connect.utils.DateEditText;
 
 import java.util.Calendar;

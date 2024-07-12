@@ -107,9 +107,21 @@
                 android:text="@string/pr_ximos_encontros"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listaEncontros"
+                android:id="@+id/lista_encontros"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/btn_novoencontro"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:text="@string/novo_encontro"
+                android:textAllCaps="false"
+                style="@style/textonormal"
+                android:textSize="18sp"
+                android:layout_gravity="center"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

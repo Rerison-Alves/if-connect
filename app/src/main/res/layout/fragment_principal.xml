@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:prefix="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.Principal"
     android:orientation="vertical"
     android:background="#F0F0F0">
 
@@ -53,12 +51,33 @@
                     android:text="@string/recentes"
                     android:textAppearance="@style/titulo_bold" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/gpsrecentes"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/empty_recente"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:visibility="invisible">
+                        <ImageView
+                            android:layout_width="160dp"
+                            android:layout_height="160dp"
+                            android:src="@drawable/empty_placeholder"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:text=" Nenhum grupo/turma recente!"/>
+                    </LinearLayout>
 
-                </androidx.recyclerview.widget.RecyclerView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycle_recentes"
+                        android:layout_width="match_parent"
+                        android:layout_height="190dp"/>
+                </FrameLayout>
 
                 <TextView
                     android:id="@+id/proxencontros"
@@ -71,12 +90,32 @@
                     android:text="@string/proxencontro"
                     android:textAppearance="@style/titulo_bold" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/gpsencontros"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
-                </androidx.recyclerview.widget.RecyclerView>
+                    <LinearLayout
+                        android:id="@+id/empty_encontro"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:visibility="invisible">
+                        <ImageView
+                            android:layout_width="160dp"
+                            android:layout_height="160dp"
+                            android:src="@drawable/empty_placeholder"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:text="Não há novos encontros!"/>
+                    </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycle_encontros"
+                        android:layout_width="match_parent"
+                        android:layout_height="190dp"/>
+                </FrameLayout>
 
                 <TextView
                     android:id="@+id/todosgrupos"
@@ -89,12 +128,33 @@
                     android:text="@string/todosgrupos"
                     android:textAppearance="@style/titulo_bold" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/gpstodosgrupos"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-
-                </androidx.recyclerview.widget.RecyclerView>
+                    <LinearLayout
+                        android:id="@+id/empty_todos"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:visibility="invisible">
+                        <ImageView
+                            android:layout_width="160dp"
+                            android:layout_height="160dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/empty_placeholder"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:gravity="center"
+                            android:text="Você ainda não participa de nenhum!"/>
+                    </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycle_todos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </FrameLayout>
 
 
             </LinearLayout>
