@@ -58,8 +58,8 @@ public interface GrupoService {
             "Platform: android"})
     @GET("grupos/search?")
     Call<Page<Grupo>> getGruposPageable(@Query("searchTerm") String searchTerm,
-                                        @Query("userId") Integer userId,
-                                        @Query("cursoId") Integer cursoId,
+                                        @Query("userId") String userId,
+                                        @Query("cursoId") String cursoId,
                                         @Query("order") String order,
                                         @Query("page") Integer page,
                                         @Query("size") Integer size,

@@ -151,8 +151,9 @@ public class FragmentLoginAluno extends Fragment {
 
     //Inicia tela principal
     private void startMainActivity(String token, String refreshToken) {
-        TokenManager.getInstance(context).saveTokens(token, refreshToken);
-        UsuarioManager.requestUsuario(token, context);
+        TokenManager tokenManager = TokenManager.getInstance(context);
+        tokenManager.saveTokens(token, refreshToken);
+        UsuarioManager.requestUsuario(tokenManager.getAccessToken(), context);
         startActivity(new Intent(context, MainActivity.class));
         Activity activity = bottomSheetShape.getActivity();
         if(activity!=null){

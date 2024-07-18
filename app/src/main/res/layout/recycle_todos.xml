@@ -33,17 +33,43 @@
             android:gravity="start|top"
             android:text="@string/app_name"
             android:textSize="25sp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:layout_marginEnd="50dp"
+            android:layout_gravity="end"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:fontFamily="@font/imprima"
+                android:gravity="start|center_vertical"
+                android:text="Tipo:"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/tipo_agrupamento"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black_fraco"
+                android:fontFamily="@font/imprima"
+                android:gravity="start|center_vertical"
+                android:text="@string/app_name"
+                android:textSize="18sp" />
+        </LinearLayout>
         <TextView
             android:id="@+id/participantes"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginTop="47dp"
             android:textColor="@color/black_fraco"
             android:fontFamily="@font/imprima"
-            android:layout_gravity="start|bottom"
+            android:layout_gravity="start"
             android:gravity="start|center"
-            android:layout_marginBottom="10dp"
             android:text="@string/app_name"
             android:textSize="18sp" />
         <ImageView

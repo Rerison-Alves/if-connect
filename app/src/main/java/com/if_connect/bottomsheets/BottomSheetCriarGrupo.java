@@ -27,6 +27,7 @@ import com.if_connect.fragments.PerfilAluno;
 import com.if_connect.models.Curso;
 import com.if_connect.models.Grupo;
 import com.if_connect.models.Usuario;
+import com.if_connect.models.enums.TipoAgrupamento;
 import com.if_connect.request.Generator;
 import com.if_connect.request.services.CursoService;
 import com.if_connect.request.services.GrupoService;
@@ -149,6 +150,7 @@ public class BottomSheetCriarGrupo extends BottomSheetDialogFragment {
                 nomeDoGrupo.getText().toString(),
                 descricao.getText().toString(),
                 getCurso(),
+                TipoAgrupamento.GRUPO,
                 areaDeEstudo.getText().toString(),
                 convidadosList);
     }

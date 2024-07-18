@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AutoCompleteTextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -13,12 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.if_connect.R;
+import com.if_connect.dialogs.DialogPesquisar;
 import com.if_connect.models.Curso;
 import com.if_connect.recycleviews.RecyclerViewCursos;
 import com.if_connect.request.Generator;
 import com.if_connect.request.services.CursoService;
-import com.if_connect.utils.TokenManager;
-import com.if_connect.utils.UsuarioManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,7 @@ public class Pesquisar extends Fragment {
 
     CursoService cursoService;
 
+    AutoCompleteTextView pesquisar;
     RecyclerView recycleCursos;
 
     @Override
@@ -44,10 +45,18 @@ public class Pesquisar extends Fragment {
         context = getContext();
         fragmentManager = requireActivity().getSupportFragmentManager();
         cursoService = Generator.getRetrofitInstance().create(CursoService.class);
+        pesquisar = view.findViewById(R.id.pesquisar);
         recycleCursos = view.findViewById(R.id.recycle_cursos);
 
-        getCursos();
+        pesquisar.setOnEditorActionListener((v, actionId, event) -> {
+            if(actionId == EditorInfo.IME_ACTION_DONE){
+                new DialogPesquisar(context, fragmentManager, pesquisar.getText().toString()).show(fragmentManager, "tag");
+                return true;
+            }
+            return false;
+        });
 
+        getCursos();
         return view;
     }
 

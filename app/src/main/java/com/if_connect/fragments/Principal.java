@@ -1,12 +1,14 @@
 package com.if_connect.fragments;
 
+import static java.lang.String.valueOf;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -23,6 +25,7 @@ import com.if_connect.recycleviews.RecyclerViewEncontrosPrincipal;
 import com.if_connect.recycleviews.RecyclerViewTodos;
 import com.if_connect.request.Generator;
 import com.if_connect.request.requestbody.Page;
+import com.if_connect.request.services.AgrupamentoService;
 import com.if_connect.request.services.EncontroService;
 import com.if_connect.request.services.GrupoService;
 import com.if_connect.request.services.TurmaService;
@@ -46,8 +49,7 @@ public class Principal extends Fragment {
     String token;
 
     EncontroService encontroService;
-    GrupoService grupoService;
-    TurmaService turmaService;
+    AgrupamentoService agrupamentoService;
 
     List<Agrupamento> agrupamentosList = new ArrayList<>();
     List<Encontro> proximosEncontrosList = new ArrayList<>();
@@ -68,8 +70,7 @@ public class Principal extends Fragment {
         usuarioLogado = UsuarioManager.getUsuarioLogado();
         token = TokenManager.getInstance(context).getAccessToken();
         encontroService = Generator.getRetrofitInstance().create(EncontroService.class);
-        grupoService = Generator.getRetrofitInstance().create(GrupoService.class);
-        turmaService = Generator.getRetrofitInstance().create(TurmaService.class);
+        agrupamentoService = Generator.getRetrofitInstance().create(AgrupamentoService.class);
 
         recycleRecentes = view.findViewById(R.id.recycle_recentes);
         recycleEncontros = view.findViewById(R.id.recycle_encontros);
@@ -82,56 +83,40 @@ public class Principal extends Fragment {
         recycleTodos.setNestedScrollingEnabled( false );
 
         getProximosEncontros();
-        getRecentes();
+//        getRecentes();
         getTodos();
         return view;
     }
 
     private void getTodos(){
-        agrupamentosList.clear();
-
-        grupoService.getGruposPageable("", usuarioLogado.getId(), "nome", 0, 99999, token).enqueue(new Callback<Page<Grupo>>() {
+        agrupamentoService.getAgrupamentosPageable("", valueOf(usuarioLogado.getId()), "","nome", 0, Integer.MAX_VALUE, token).enqueue(new Callback<Page<Agrupamento>>() {
             @Override
-            public void onResponse(Call<Page<Grupo>> call, Response<Page<Grupo>> response) {
+            public void onResponse(Call<Page<Agrupamento>> call, Response<Page<Agrupamento>> response) {
                 if(response.isSuccessful()){
                     if (response.body() != null) {
-                        agrupamentosList.addAll(response.body().getContent());
-                        listarTodos();
+                        agrupamentosList = response.body().getContent();
+                        if(!agrupamentosList.isEmpty()){
+                            listarTodos();
+                            recycleTodos.setVisibility(View.VISIBLE);
+                            emptyTodos.setVisibility(View.INVISIBLE);
+                        }else {
+                            recycleTodos.setVisibility(View.INVISIBLE);
+                            emptyTodos.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
             }
-            @Override public void onFailure(Call<Page<Grupo>> call, Throwable throwable) {
 
-            }
-        });
-
-        turmaService.getTurmasPageable("", usuarioLogado.getId(), "nome", 0, 99999, token).enqueue(new Callback<Page<Turma>>() {
             @Override
-            public void onResponse(Call<Page<Turma>> call, Response<Page<Turma>> response) {
-                if(response.isSuccessful()){
-                    if (response.body() != null) {
-                        agrupamentosList.addAll(response.body().getContent());
-                        listarTodos();
-                    }
-                }
-            }
-            @Override public void onFailure(Call<Page<Turma>> call, Throwable throwable) {
-
+            public void onFailure(Call<Page<Agrupamento>> call, Throwable t) {
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void listarTodos() {
-        if(agrupamentosList.isEmpty()){
-            recycleTodos.setVisibility(View.INVISIBLE);
-            emptyTodos.setVisibility(View.VISIBLE);
-        }else {
-            agrupamentosList.sort(Comparator.comparing(Agrupamento::getNome));
-            recycleTodos.setLayoutManager(new LinearLayoutManager(context));
-            recycleTodos.setAdapter(new RecyclerViewTodos(context, fragmentManager, agrupamentosList));
-            recycleTodos.setVisibility(View.VISIBLE);
-            emptyTodos.setVisibility(View.INVISIBLE);
-        }
+        recycleTodos.setLayoutManager(new LinearLayoutManager(context));
+        recycleTodos.setAdapter(new RecyclerViewTodos(context, fragmentManager, agrupamentosList));
     }
 
 

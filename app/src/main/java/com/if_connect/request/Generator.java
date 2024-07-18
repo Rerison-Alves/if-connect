@@ -1,5 +1,10 @@
 package com.if_connect.request;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.if_connect.models.Agrupamento;
+import com.if_connect.utils.typeadapters.AgrupamentoAdapter;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -10,9 +15,14 @@ public class Generator {
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
+
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(Agrupamento.class, new AgrupamentoAdapter())
+                    .create();
+
             retrofit = new Retrofit.Builder()
                     .baseUrl(apiUrl)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
         }
 

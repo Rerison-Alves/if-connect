@@ -9,12 +9,16 @@ public class Curso {
 
     @SerializedName("id")
     private Integer id;
+
     @SerializedName("descricao")
     private String descricao;
+
     @SerializedName("observacao")
     private String observacao;
+
     @SerializedName("status")
     private Boolean status;
+
     @JsonAdapter(TurnoAdapter.class)
     @SerializedName("turno")
     private Turno turno;

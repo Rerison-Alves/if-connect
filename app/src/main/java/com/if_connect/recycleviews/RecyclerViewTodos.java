@@ -18,9 +18,7 @@ import com.if_connect.dialogs.DialogTurma;
 import com.if_connect.models.Agrupamento;
 import com.if_connect.models.Grupo;
 import com.if_connect.models.Turma;
-import com.if_connect.models.Usuario;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,13 +38,14 @@ public class RecyclerViewTodos extends RecyclerView.Adapter<RecyclerViewTodos.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView nomeDoGrupo, participantes;
+        public TextView nome, tipoArupamento, participantes;
         public FrameLayout consulta;
         public ViewHolder(View v){
             super(v);
-            nomeDoGrupo = v.findViewById(R.id.textviewPrincipal);
-            consulta=v.findViewById(R.id.consulta);
-            participantes=v.findViewById(R.id.participantes);
+            nome = v.findViewById(R.id.textviewPrincipal);
+            consulta = v.findViewById(R.id.consulta);
+            tipoArupamento = v.findViewById(R.id.tipo_agrupamento);
+            participantes = v.findViewById(R.id.participantes);
         }
     }
 
@@ -59,7 +58,8 @@ public class RecyclerViewTodos extends RecyclerView.Adapter<RecyclerViewTodos.Vi
     public void onBindViewHolder(ViewHolder holder, int position){
         Agrupamento agrupamento = agrupamentoList.get(position);
 
-        holder.nomeDoGrupo.setText(agrupamento.getNome());
+        holder.nome.setText(agrupamento.getNome());
+        holder.tipoArupamento.setText(agrupamento.getTipoAgrupamento().getTipo());
         holder.participantes.setText(getQuantParticipantes(agrupamento));
         holder.consulta.setOnClickListener(view -> {
             if(agrupamento instanceof Grupo){

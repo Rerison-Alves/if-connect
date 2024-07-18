@@ -27,6 +27,7 @@ import com.if_connect.fragments.PerfilProfessor;
 import com.if_connect.models.Curso;
 import com.if_connect.models.Turma;
 import com.if_connect.models.Usuario;
+import com.if_connect.models.enums.TipoAgrupamento;
 import com.if_connect.models.enums.Turno;
 import com.if_connect.request.Generator;
 import com.if_connect.request.services.CursoService;
@@ -124,6 +125,7 @@ public class BottomSheetCriarTurma extends BottomSheetDialogFragment {
                 nomeTurma.getText().toString(),
                 descricao.getText().toString(),
                 getCurso(),
+                TipoAgrupamento.TURMA,
                 disciplina.getText().toString(),
                 getTurno(),
                 convidadosList);
