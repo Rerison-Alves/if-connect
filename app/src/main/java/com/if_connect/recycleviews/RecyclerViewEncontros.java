@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -68,10 +69,14 @@ public class RecyclerViewEncontros extends RecyclerView.Adapter<RecyclerViewEnco
                         encontros.get(position).getAgendamento().getEndTime()
         ));
         Local localEncontro = encontros.get(position).getAgendamento().getLocal();
-        holder.local.setText(localEncontro!=null?localEncontro.getNome():"Online");
+        holder.local.setText(localEncontro!=null?getLocalName(localEncontro):"Online");
         holder.consulta.setOnClickListener(view -> {
             new DialogEncontro(encontros.get(position), context, fragmentManager).show(fragmentManager, "tag");
         });
+    }
+
+    String getLocalName(@NonNull Local local){
+        return String.format("%s - %s", local.getNome(), local.getLocalizacao());
     }
 
     String getHorario(Date startTime, Date endTime){

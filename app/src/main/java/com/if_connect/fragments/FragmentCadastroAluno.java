@@ -168,7 +168,6 @@ public class FragmentCadastroAluno extends Fragment {
         return new RegisterRequest(
                 nome.getText().toString(),
                 email.getText().toString(),
-                null,
                 senha.getText().toString(),
                 datanasc.getDate(),
                 new Aluno(getCurso(), matricula.getText().toString()),

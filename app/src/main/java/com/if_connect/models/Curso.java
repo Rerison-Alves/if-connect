@@ -10,6 +10,9 @@ public class Curso {
     @SerializedName("id")
     private Integer id;
 
+    @SerializedName("iconeBase64")
+    private String iconeBase64;
+
     @SerializedName("descricao")
     private String descricao;
 
@@ -23,12 +26,20 @@ public class Curso {
     @SerializedName("turno")
     private Turno turno;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getIconeBase64() {
+        return iconeBase64;
+    }
+
+    public void setIconeBase64(String iconeBase64) {
+        this.iconeBase64 = iconeBase64;
     }
 
     public String getDescricao() {

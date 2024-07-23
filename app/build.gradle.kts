@@ -67,6 +67,8 @@ dependencies {
     implementation("androidx.security:security-crypto:1.0.0")
     implementation("com.github.jakode2020:VerifyCodeEditText:1.2.0")
     implementation("com.jakewharton.rxbinding4:rxbinding:4.0.0")
+    implementation("com.facebook.shimmer:shimmer:0.1.0@aar")
+    implementation("com.github.yalantis:ucrop:2.2.9")
 
 
     testImplementation("junit:junit:4.13.2")

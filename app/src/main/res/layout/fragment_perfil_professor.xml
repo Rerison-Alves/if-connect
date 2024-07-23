@@ -13,7 +13,6 @@
         android:scrollbars="vertical">
 
         <TextView
-            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_bold"
@@ -62,27 +61,52 @@
             android:orientation="horizontal">
 
             <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp">
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginHorizontal="30dp">
 
-                <ImageView
-                    android:id="@+id/imageView3"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_imagem"
+                    android:visibility="invisible"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/leia_o_simbolo_de_um_aluno_lendo" />
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?selectableItemBackground"
+                    app:cardCornerRadius="60dp"
+                    app:cardElevation="6dp">
+
+                    <ImageView
+                        android:id="@+id/imagem_usuario"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_profile_placeholder" />
+                </androidx.cardview.widget.CardView>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_imagem"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        app:cardBackgroundColor="#DDDDDD"
+                        app:cardCornerRadius="60dp"
+                        app:cardElevation="6dp"/>
+                </com.facebook.shimmer.ShimmerFrameLayout>
             </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center|start">
-
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp">
                     <TextView
                         android:id="@+id/textView3"
                         style="@style/textonormal"
@@ -97,15 +121,12 @@
                         android:layout_marginHorizontal="20dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center|start">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         style="@style/textonormal"
@@ -119,7 +140,6 @@
                         style="@style/textonormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginHorizontal="20dp"
                         android:text="" />
                 </LinearLayout>
@@ -134,7 +154,7 @@
             style="@style/textonormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:text="@string/suas_turmas" />
 

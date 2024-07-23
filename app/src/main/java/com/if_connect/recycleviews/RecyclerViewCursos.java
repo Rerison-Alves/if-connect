@@ -14,8 +14,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.if_connect.R;
+import com.if_connect.dialogs.DialogPesquisar;
 import com.if_connect.models.Curso;
 import com.if_connect.models.Local;
+import com.if_connect.utils.ImageManager;
 
 import java.util.List;
 
@@ -53,10 +55,10 @@ public class RecyclerViewCursos extends RecyclerView.Adapter<RecyclerViewCursos.
 
     public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position){
         holder.nomeCurso.setText(cursos.get(position).getDescricao());
-
-        holder.consulta.setOnClickListener(view -> {
-//            new DialogEncontro(cursos.get(position), context, fragmentManager).show(fragmentManager, "tag");
-        });
+        holder.iconeCurso.setImageBitmap(ImageManager.base64StringToBitmap(cursos.get(position).getIconeBase64()));
+        holder.consulta.setOnClickListener(view ->
+            new DialogPesquisar(context, fragmentManager, "", cursos.get(position).getId()).show(fragmentManager, "tag")
+        );
     }
 
     public int getItemCount(){

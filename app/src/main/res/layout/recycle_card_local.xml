@@ -14,12 +14,13 @@
         android:layout_gravity="start|center"
         android:layout_height="wrap_content">
         <ImageView
+            android:id="@+id/image_local"
             android:layout_width="35dp"
             android:layout_height="match_parent"
             android:layout_gravity="start|center"
             android:src="@drawable/ic_image_placeholder"/>
         <TextView
-            android:id="@+id/nomeLocal"
+            android:id="@+id/nome_local"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="start|center"

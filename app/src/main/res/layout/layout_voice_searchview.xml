@@ -20,7 +20,7 @@
             android:layout_marginHorizontal="40dp"
             android:background="#00000000"
             android:hint="Pesquisar..."
-            android:imeOptions="actionDone"
+            android:imeOptions="actionSearch"
             android:inputType="text" />
 
         <ImageButton
@@ -30,7 +30,6 @@
             android:src="@drawable/ic_microphone"
             android:scaleType="fitCenter"
             android:backgroundTint="#00000000"
-            android:contentDescription="Pesquisar por voz"
             android:layout_gravity="end|center_vertical"
             android:padding="8dp" />
     </FrameLayout>

@@ -16,9 +16,6 @@ public class Usuario {
     @SerializedName("email")
     private String email;
 
-    @SerializedName("fotoPerfilBase64")
-    private String fotoPerfilBase64;
-
     @SerializedName("dataNasc")
     @JsonAdapter(DateAdapter.class)
     private Date dataNasc;
@@ -29,10 +26,9 @@ public class Usuario {
     @SerializedName("professor")
     private Professor professor;
 
-    public Usuario(String nome, String email, String fotoPerfilBase64, Date dataNasc, Aluno aluno, Professor professor) {
+    public Usuario(String nome, String email, Date dataNasc, Aluno aluno, Professor professor) {
         this.nome = nome;
         this.email = email;
-        this.fotoPerfilBase64 = fotoPerfilBase64;
         this.dataNasc = dataNasc;
         this.aluno = aluno;
         this.professor = professor;
@@ -60,14 +56,6 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getFotoPerfilBase64() {
-        return fotoPerfilBase64;
-    }
-
-    public void setFotoPerfilBase64(String fotoPerfilBase64) {
-        this.fotoPerfilBase64 = fotoPerfilBase64;
     }
 
     public Date getDataNasc() {

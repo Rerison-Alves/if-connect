@@ -43,6 +43,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Optional;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -136,17 +137,18 @@ public class BottomSheetCriarEncontro extends BottomSheetDialogFragment {
                 public void onResponse(Call<Encontro> call, Response<Encontro> response) {
                     if (response.isSuccessful()){
                         Encontro encontro = Objects.requireNonNull(response.body());
+                        Local localEncontro = encontro.getAgendamento().getLocal();
                         new AlertDialogManager(
                                 context,
                                 "Sucesso!",
                                 "Encontro criado com sucesso!" + "\n"+
-                                        "Encontro: " + encontro.getTema() + "\n"+
-                                        "Local:" + encontro.getAgendamento().getLocal().getNome() + "\n"+
+                                        "Tema: " + encontro.getTema() + "\n"+
+                                        "Local: " + (localEncontro!=null?localEncontro.getNome():"Online") + "\n"+
                                         "Dia: " + data.getText() + "\n"+
                                         "Horário: " + inicio.getText().toString() + " - " + fim.getText().toString())
                                 .show();
-                        if(dialogGrupoAdm!=null)dialogGrupoAdm.listarEncontros();
-                        else dialogTurmaAdm.listarEncontros();
+                        if(dialogGrupoAdm!=null)dialogGrupoAdm.searchEncontros();
+                        else dialogTurmaAdm.searchEncontros();
                         dismiss();
                     }else {
                         showError("Não foi possível criar encontro: ", response, context);

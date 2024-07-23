@@ -8,11 +8,13 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -58,4 +60,23 @@ public interface UsuarioService {
             "Platform: android"})
     @PATCH("usuarios/change-password-code")
     Call<ResponseBody> changePasswordCode(@Query("email") String email);
+
+    @Headers({"Accept: application/json",
+            "Content-Type: application/json",
+            "Platform: android"})
+    @GET("usuarios/profile-image")
+    Call<String> getProfileImage(@Header("authorization") String auth);
+
+    @Headers({"Accept: application/json",
+            "Content-Type: application/json",
+            "Platform: android"})
+    @PUT("usuarios/profile-image")
+    Call<ResponseBody> changeProfileImage(@Body String fotoPerfilBase64,
+                                          @Header("authorization") String auth);
+
+    @Headers({"Accept: application/json",
+            "Content-Type: application/json",
+            "Platform: android"})
+    @DELETE("usuarios/profile-image")
+    Call<ResponseBody> deleteProfileImage(@Header("authorization") String auth);
 }

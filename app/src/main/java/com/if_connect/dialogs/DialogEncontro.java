@@ -64,7 +64,7 @@ public class DialogEncontro extends DialogFragment {
         dataEncontro.setText(dateFormat.format(encontro.getAgendamento().getStartTime()));
         horarioEncontro.setText(getHorario(encontro.getAgendamento()));
         Local local = encontro.getAgendamento().getLocal();
-        localEncontro.setText(local!=null?local.getNome():"Online");
+        localEncontro.setText(local!=null?getLocalName(local):"Online");
         descricaoEncontro.setText(encontro.getDescricao());
 
         voltar.setOnClickListener(view1 -> dismiss());
@@ -73,6 +73,10 @@ public class DialogEncontro extends DialogFragment {
         });
 
         return view;
+    }
+
+    String getLocalName(@NonNull Local local){
+        return String.format("%s - %s", local.getNome(), local.getLocalizacao());
     }
 
     String getHorario(Agendamento agendamento){

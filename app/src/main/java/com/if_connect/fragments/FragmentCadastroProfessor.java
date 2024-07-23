@@ -131,7 +131,6 @@ public class FragmentCadastroProfessor extends Fragment {
         return new RegisterRequest(
                 nome.getText().toString(),
                 email.getText().toString(),
-                "",
                 senha.getText().toString(),
                 datanasc.getDate(),
                 null,

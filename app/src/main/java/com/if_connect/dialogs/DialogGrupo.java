@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,6 +48,7 @@ public class DialogGrupo extends DialogFragment {
     }
 
     TextView nomeGrupo, areaestudo,descricao, adm;
+    ImageView voltar;
     RecyclerView listaEncontros;
 
     @Override
@@ -62,12 +64,14 @@ public class DialogGrupo extends DialogFragment {
         token = TokenManager.getInstance(context).getAccessToken();
         encontroService = Generator.getRetrofitInstance().create(EncontroService.class);
         
-        nomeGrupo = view.findViewById(R.id.nomeGrupo);
+        nomeGrupo = view.findViewById(R.id.nome_grupo);
+        voltar = view.findViewById(R.id.voltar);
         descricao = view.findViewById(R.id.descricao);
         areaestudo = view.findViewById(R.id.areaestudo);
         adm = view.findViewById(R.id.adm);
         listaEncontros = view.findViewById(R.id.lista_encontros);
 
+        voltar.setOnClickListener(v -> dismiss());
         nomeGrupo.setText(grupo.getNome());
         descricao.setText(grupo.getDescricao());
         areaestudo.setText(grupo.getAreadeEstudo());
@@ -77,13 +81,13 @@ public class DialogGrupo extends DialogFragment {
         return view;
     }
 
-    public void listarEncontros() {
+    private void listarEncontros() {
         listaEncontros.setLayoutManager(new LinearLayoutManager(context));
         listaEncontros.setAdapter(new RecyclerViewEncontros(context, fragmentManager, encontrosList));
         listaEncontros.setNestedScrollingEnabled( false );
     }
 
-    private void searchEncontros() {
+    public void searchEncontros() {
         encontroService.getEncontrosByGrupo(grupo.getId(), token).enqueue(new Callback<List<Encontro>>() {
             @Override
             public void onResponse(Call<List<Encontro>> call, Response<List<Encontro>> response) {

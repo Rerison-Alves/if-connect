@@ -18,9 +18,6 @@ public class RegisterRequest {
   @SerializedName("email")
   private String email;
 
-  @SerializedName("fotoPerfilBase64")
-  private String fotoPerfilBase64;
-
   @SerializedName("password")
   private String password;
 
@@ -37,10 +34,9 @@ public class RegisterRequest {
   @SerializedName("role")
   private Role role;
 
-  public RegisterRequest(String nome, String email, String fotoPerfilBase64, String password, Date dataNasc, Aluno aluno, Professor professor, Role role) {
+  public RegisterRequest(String nome, String email, String password, Date dataNasc, Aluno aluno, Professor professor, Role role) {
     this.nome = nome;
     this.email = email;
-    this.fotoPerfilBase64 = fotoPerfilBase64;
     this.password = password;
     this.dataNasc = dataNasc;
     this.aluno = aluno;
@@ -62,14 +58,6 @@ public class RegisterRequest {
 
   public void setEmail(String email) {
     this.email = email;
-  }
-
-  public String getFotoPerfilBase64() {
-    return fotoPerfilBase64;
-  }
-
-  public void setFotoPerfilBase64(String fotoPerfilBase64) {
-    this.fotoPerfilBase64 = fotoPerfilBase64;
   }
 
   public String getPassword() {
