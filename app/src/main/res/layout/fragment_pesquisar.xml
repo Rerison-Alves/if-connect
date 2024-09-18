@@ -6,6 +6,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="15dp"
+        android:fontFamily="sans-serif-black"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="Encontre grupos de estudo!"
+        android:textAppearance="@style/titulo_bold" />
+
+    <include
+        layout="@layout/layout_voice_searchview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,175 +29,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-                <SearchView
-                    android:id="@+id/search"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:background="@drawable/border20dp"/>
-            </LinearLayout>
-
             <TextView
                 style="@style/textonormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
                 android:gravity="start"
                 android:text="Por Cursos:"
                 android:textSize="24sp" />
-
-            <FrameLayout
-                android:id="@+id/comp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle_cursos"
+                android:scrollbars="none"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:background="@drawable/border"
-                android:layout_marginTop="10dp"
-                android:layout_marginHorizontal="20dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:cardCornerRadius="5dp"
-                    android:layout_marginBottom="50dp"
-                    android:layout_marginHorizontal="8dp">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_studing"
-                        android:scaleType="centerCrop"
-                        app:tint="#90808080" />
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_studing"
-                        app:tint="@color/black" />
-                </androidx.cardview.widget.CardView>
-                <TextView
-                    style="@style/textonormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:layout_gravity="center|bottom"
-                    android:gravity="center"
-                    android:text="Ciência da Computação"
-                    android:textSize="20sp" />
-                <TextView
-                    style="@style/textonormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:layout_gravity="center|bottom"
-                    android:gravity="end"
-                    android:text=">"
-                    android:textSize="20sp" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/quim"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:background="@drawable/border"
-                android:layout_marginTop="10dp"
-                android:layout_marginHorizontal="20dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:cardCornerRadius="5dp"
-                    android:layout_marginBottom="50dp"
-                    android:layout_marginHorizontal="8dp">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_studing"
-                        app:tint="#90808080" />
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/ic_studing"
-                        app:tint="@color/black" />
-                </androidx.cardview.widget.CardView>
-                <TextView
-                    style="@style/textonormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:layout_gravity="center|bottom"
-                    android:gravity="center"
-                    android:text="Química"
-                    android:textSize="20sp" />
-                <TextView
-                    style="@style/textonormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:layout_gravity="center|bottom"
-                    android:gravity="end"
-                    android:text=">"
-                    android:textSize="20sp" />
-            </FrameLayout>
-            <FrameLayout
-                android:id="@+id/engM"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:background="@drawable/border"
-                android:layout_marginTop="10dp"
-                android:layout_marginHorizontal="20dp"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true">
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:cardCornerRadius="5dp"
-                    android:layout_marginBottom="50dp"
-                    android:layout_marginHorizontal="8dp">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_studing"
-                        app:tint="#90808080" />
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginVertical="5dp"
-                        android:src="@drawable/ic_studing"
-                        app:tint="@color/black" />
-                </androidx.cardview.widget.CardView>
-                <TextView
-                    style="@style/textonormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:layout_gravity="center|bottom"
-                    android:gravity="center"
-                    android:text="Engenharia Mecânica"
-                    android:textSize="20sp" />
-                <TextView
-                    style="@style/textonormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:layout_gravity="center|bottom"
-                    android:gravity="end"
-                    android:text=">"
-                    android:textSize="20sp" />
-            </FrameLayout>
+                android:layout_height="match_parent"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

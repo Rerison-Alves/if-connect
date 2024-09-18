@@ -1,6 +1,7 @@
 package com.if_connect.models;
 
 import com.google.gson.annotations.SerializedName;
+import com.if_connect.models.enums.TipoAgrupamento;
 
 import java.util.List;
 
@@ -12,8 +13,8 @@ public class Grupo extends Agrupamento{
     @SerializedName("usuarios")
     private List<Usuario> usuarios;
 
-    public Grupo(Usuario admin, String nome, String descricao, Curso curso, String areadeEstudo, List<Usuario> usuarios) {
-        super(admin, nome, descricao, curso);
+    public Grupo(Usuario admin, String nome, String descricao, Curso curso, TipoAgrupamento tipoAgrupamento, String areadeEstudo, List<Usuario> usuarios) {
+        super(admin, nome, descricao, curso, tipoAgrupamento);
         this.areadeEstudo = areadeEstudo;
         this.usuarios = usuarios;
     }

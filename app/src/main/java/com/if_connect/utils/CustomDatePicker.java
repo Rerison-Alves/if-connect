@@ -2,7 +2,6 @@ package com.if_connect.utils;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.widget.EditText;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

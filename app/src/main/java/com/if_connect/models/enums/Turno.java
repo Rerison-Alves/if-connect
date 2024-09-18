@@ -1,5 +1,7 @@
 package com.if_connect.models.enums;
 
+import java.util.Arrays;
+
 public enum Turno {
     MANHA("Manhã"),
     TARDE("Tarde"),
@@ -13,5 +15,11 @@ public enum Turno {
 
     public String getDescricao() {
         return descricao;
+    }
+
+    public static String[] getDescricoes() {
+        return Arrays.stream(Turno.values())
+                .map(Turno::getDescricao)
+                .toArray(String[]::new);
     }
 }

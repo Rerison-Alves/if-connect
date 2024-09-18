@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/searchview_background"
+        android:layout_margin="5dp"
+        android:padding="5dp">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_search"
+            android:layout_gravity="start|center_vertical"/>
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/pesquisar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="40dp"
+            android:background="#00000000"
+            android:hint="Pesquisar..."
+            android:imeOptions="actionSearch"
+            android:inputType="text" />
+
+        <ImageButton
+            android:id="@+id/btnVoice"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_microphone"
+            android:scaleType="fitCenter"
+            android:backgroundTint="#00000000"
+            android:layout_gravity="end|center_vertical"
+            android:padding="8dp" />
+    </FrameLayout>
+</merge>

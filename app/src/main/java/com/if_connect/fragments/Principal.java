@@ -1,75 +1,127 @@
 package com.if_connect.fragments;
 
+import static java.lang.String.valueOf;
+
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.if_connect.R;
+import com.if_connect.models.Agrupamento;
 import com.if_connect.models.Encontro;
 import com.if_connect.models.Grupo;
+import com.if_connect.models.Turma;
+import com.if_connect.models.Usuario;
+import com.if_connect.recycleviews.RecyclerViewEncontrosPrincipal;
+import com.if_connect.recycleviews.RecyclerViewTodos;
+import com.if_connect.request.Generator;
+import com.if_connect.request.requestbody.Page;
+import com.if_connect.request.services.AgrupamentoService;
+import com.if_connect.request.services.EncontroService;
+import com.if_connect.request.services.GrupoService;
+import com.if_connect.request.services.TurmaService;
+import com.if_connect.utils.TokenManager;
+import com.if_connect.utils.UsuarioManager;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Principal extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam2;
-
-    public Principal() {
-        // Required empty public constructor
-    }
-
-    public static Principal newInstance(String param1, String param2) {
-        Principal fragment = new Principal();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            String mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-    }
-//    String[] testeRecentes= new String[] {"POO em aplicativos", "POO 2022", "Prog. Linear", "Nome de grupo", "Tô sem ideia"};
-//    ArrayList<Grupo> listaTodos = new ArrayList<>();
-//    ArrayList<Encontro> ListadeEncontros= new ArrayList<>();
     Context context;
-//    RecyclerViewAdapterRecentes recyclerViewAdapterRecentes;
-//    RecyclerViewAdapterEncontrosPrincipal recyclerViewAdapterEncontrosPrincipal;
-//    RecyclerViewAdapterExtended recyclerViewAdapterExtended;
-    RecyclerView todosView, encontrosView, recentesView;
+    FragmentManager fragmentManager;
+
+    Usuario usuarioLogado;
+    String token;
+
+    EncontroService encontroService;
+    AgrupamentoService agrupamentoService;
+
+    List<Agrupamento> agrupamentosList = new ArrayList<>();
+    List<Encontro> proximosEncontrosList = new ArrayList<>();
+
+    RecyclerView recycleRecentes,
+            recycleEncontros,
+            recycleTodos;
+    LinearLayout emptyRecentes,
+            emptyEncontros,
+            emptyTodos;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_principal, container, false);
-        context= getContext();
-        //Todos Grupos
-        todosView = view.findViewById(R.id.gpstodosgrupos);
-        todosView.setNestedScrollingEnabled( false );
-        //Grupos Recentes
-        recentesView = view.findViewById(R.id.gpsrecentes);
+        context = getContext();
+        fragmentManager = requireActivity().getSupportFragmentManager();
+        usuarioLogado = UsuarioManager.getUsuarioLogado();
+        token = TokenManager.getInstance(context).getAccessToken();
+        encontroService = Generator.getRetrofitInstance().create(EncontroService.class);
+        agrupamentoService = Generator.getRetrofitInstance().create(AgrupamentoService.class);
 
-        //Próximos Encontros
-        encontrosView = view.findViewById(R.id.gpsencontros);
+        recycleRecentes = view.findViewById(R.id.recycle_recentes);
+        recycleEncontros = view.findViewById(R.id.recycle_encontros);
+        recycleTodos = view.findViewById(R.id.recycle_todos);
+
+        emptyRecentes = view.findViewById(R.id.empty_recente);
+        emptyEncontros = view.findViewById(R.id.empty_encontro);
+        emptyTodos = view.findViewById(R.id.empty_todos);
+
+        recycleTodos.setNestedScrollingEnabled( false );
+
+        getProximosEncontros();
+//        getRecentes();
+        getTodos();
         return view;
+    }
+
+    private void getTodos(){
+        agrupamentoService.getAgrupamentosPageable("", valueOf(usuarioLogado.getId()), "","nome", 0, Integer.MAX_VALUE, token).enqueue(new Callback<Page<Agrupamento>>() {
+            @Override
+            public void onResponse(Call<Page<Agrupamento>> call, Response<Page<Agrupamento>> response) {
+                if(response.isSuccessful()){
+                    if (response.body() != null) {
+                        agrupamentosList = response.body().getContent();
+                        if(!agrupamentosList.isEmpty()){
+                            listarTodos();
+                            recycleTodos.setVisibility(View.VISIBLE);
+                            emptyTodos.setVisibility(View.INVISIBLE);
+                        }else {
+                            recycleTodos.setVisibility(View.INVISIBLE);
+                            emptyTodos.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Page<Agrupamento>> call, Throwable t) {
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void listarTodos() {
+        recycleTodos.setLayoutManager(new LinearLayoutManager(context));
+        recycleTodos.setAdapter(new RecyclerViewTodos(context, fragmentManager, agrupamentosList));
+    }
+
+
+    private void getRecentes(){
+        //
     }
 
     private void listarRecentes() {
@@ -77,14 +129,34 @@ public class Principal extends Fragment {
 //        recentesView.setAdapter(RecyclerViewAdapterRecentes(context, requireActivity().getSupportFragmentManager(), listaTodos));
     }
 
-    private void listarTodos() {
-//        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//        recyclerView.setAdapter(new RecyclerViewAdapterExtended(context, requireActivity().getSupportFragmentManager(), listaTodos));
+    private void getProximosEncontros() {
+        encontroService.getUpcomingEncontrosByUser(usuarioLogado.getId(), token).enqueue(new Callback<List<Encontro>>() {
+            @Override
+            public void onResponse(Call<List<Encontro>> call, Response<List<Encontro>> response) {
+                if(response.isSuccessful()){
+                    proximosEncontrosList = response.body();
+                    if(proximosEncontrosList!=null){
+                        if(!proximosEncontrosList.isEmpty()){
+                            listarProximosEncontros();
+                            recycleEncontros.setVisibility(View.VISIBLE);
+                            emptyEncontros.setVisibility(View.INVISIBLE);
+                        }else {
+                            recycleEncontros.setVisibility(View.INVISIBLE);
+                            emptyEncontros.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Encontro>> call, Throwable throwable) {
+            }
+        });
     }
 
-    private void listarEncontros() {
-//        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-//        recyclerView.setAdapter(new RecyclerViewAdapterEncontrosPrincipal(context, requireActivity().getSupportFragmentManager(), ListadeEncontros));
+    private void listarProximosEncontros() {
+        recycleEncontros.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        recycleEncontros.setAdapter(new RecyclerViewEncontrosPrincipal(context, fragmentManager, proximosEncontrosList));
     }
 
 }

@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.if_connect.R;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.if_connect.bottomsheets.BottomSheetCriarGrupo;
+import com.if_connect.bottomsheets.BottomSheetCriarTurma;
 import com.if_connect.models.Usuario;
 import com.if_connect.recycleviews.RecyclerViewUsuariosConvidados;
 import com.if_connect.recycleviews.RecyclerViewUsuariosTodos;
@@ -44,12 +46,12 @@ public class DialogConvidaUsuario extends DialogFragment {
 
     List<Usuario> convidadosList;
     List<Usuario> todosList = new ArrayList<>();
-    BottomSheetCriarGrupo bottomSheetCriarGrupo;
+    BottomSheetDialogFragment bottomSheet;
 
-    public DialogConvidaUsuario(Context context, List<Usuario> convidadosList, BottomSheetCriarGrupo bottomSheetCriarGrupo) {
+    public DialogConvidaUsuario(Context context, List<Usuario> convidadosList, BottomSheetDialogFragment bottomSheet) {
         this.context = context;
         this.convidadosList = convidadosList;
-        this.bottomSheetCriarGrupo = bottomSheetCriarGrupo;
+        this.bottomSheet = bottomSheet;
     }
 
     @NonNull
@@ -79,7 +81,12 @@ public class DialogConvidaUsuario extends DialogFragment {
                     todosList = response.body();
                     if(todosList!=null){
                         todosList.removeAll(convidadosList);
-                        todosList.remove(bottomSheetCriarGrupo.admin);
+                        if(bottomSheet instanceof BottomSheetCriarGrupo){
+                            todosList.remove(((BottomSheetCriarGrupo)bottomSheet).admin);
+                        }
+                        if(bottomSheet instanceof BottomSheetCriarTurma){
+                            todosList.remove(((BottomSheetCriarTurma)bottomSheet).admin);
+                        }
                         adaptarListas();
                     }else {
                         showError("Não foi possível carregar usuários: ", response, context);
@@ -99,7 +106,12 @@ public class DialogConvidaUsuario extends DialogFragment {
         adaptarListTodos();
         adaptarListConvidados();
         counterConvidados.setText(String.format("%d/50", convidadosList.size()));
-        bottomSheetCriarGrupo.changeCounter(convidadosList.size());
+        if(bottomSheet instanceof BottomSheetCriarGrupo){
+            ((BottomSheetCriarGrupo)bottomSheet).changeCounter(convidadosList.size());
+        }
+        if(bottomSheet instanceof BottomSheetCriarTurma){
+            ((BottomSheetCriarTurma)bottomSheet).changeCounter(convidadosList.size());
+        }
     }
 
     private void adaptarListTodos(){

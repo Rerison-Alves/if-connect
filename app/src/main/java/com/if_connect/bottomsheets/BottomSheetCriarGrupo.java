@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Spinner;
@@ -24,9 +23,11 @@ import androidx.fragment.app.FragmentManager;
 import com.example.if_connect.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.if_connect.dialogs.DialogConvidaUsuario;
+import com.if_connect.fragments.PerfilAluno;
 import com.if_connect.models.Curso;
 import com.if_connect.models.Grupo;
 import com.if_connect.models.Usuario;
+import com.if_connect.models.enums.TipoAgrupamento;
 import com.if_connect.request.Generator;
 import com.if_connect.request.services.CursoService;
 import com.if_connect.request.services.GrupoService;
@@ -45,14 +46,16 @@ public class BottomSheetCriarGrupo extends BottomSheetDialogFragment {
     Context context;
     public Usuario admin;
     FragmentManager fragmentManager;
+    PerfilAluno perfilAluno;
     GrupoService grupoService;
     CursoService cursoService;
     String token;
 
-    public BottomSheetCriarGrupo(Context context, Usuario admin, FragmentManager fragmentManager) {
+    public BottomSheetCriarGrupo(Context context, Usuario admin, FragmentManager fragmentManager, PerfilAluno perfilAluno) {
         this.context = context;
         this.admin = admin;
         this.fragmentManager = fragmentManager;
+        this.perfilAluno = perfilAluno;
     }
 
     EditText nomeDoGrupo, areaDeEstudo, descricao;
@@ -97,6 +100,8 @@ public class BottomSheetCriarGrupo extends BottomSheetDialogFragment {
                 public void onResponse(Call<Grupo> call, Response<Grupo> response) {
                     if(response.isSuccessful()){
                         Toast.makeText(context, "Grupo criado com sucesso!", Toast.LENGTH_SHORT).show();
+                        perfilAluno.listarGrupos();
+                        dismiss();
                     }else {
                         showError("Erro ao criar grupo: ", response, context);
                     }
@@ -109,7 +114,6 @@ public class BottomSheetCriarGrupo extends BottomSheetDialogFragment {
             });
         }
     }
-
 
     @SuppressLint("DefaultLocale")
     public void changeCounter(int size){
@@ -128,6 +132,7 @@ public class BottomSheetCriarGrupo extends BottomSheetDialogFragment {
                                         cursosList.stream().map(Curso::getDescricao))
                                 .toArray(String[]::new);
                         spinnerCursos.setAdapter(getAdapter(nomeCursos, context));
+                        setCurso();
                     }
                 }
             }
@@ -145,6 +150,7 @@ public class BottomSheetCriarGrupo extends BottomSheetDialogFragment {
                 nomeDoGrupo.getText().toString(),
                 descricao.getText().toString(),
                 getCurso(),
+                TipoAgrupamento.GRUPO,
                 areaDeEstudo.getText().toString(),
                 convidadosList);
     }
@@ -153,10 +159,17 @@ public class BottomSheetCriarGrupo extends BottomSheetDialogFragment {
         return cursosList.get((int)spinnerCursos.getSelectedItemId()-1);
     }
 
+    void setCurso(){
+        if(this instanceof BottomSheetEditarGrupo){
+            spinnerCursos.setSelection(cursosList.indexOf(
+                    ((BottomSheetEditarGrupo)this).grupoOld.getCurso())+1);
+        }
+    }
+
     public boolean validarCampos(){
         boolean valida = true;
         String nomeDoGrupoString = nomeDoGrupo.getText().toString();
-        String areadeestudoString = nomeDoGrupo.getText().toString();
+        String areadeestudoString = areaDeEstudo.getText().toString();
 
         if (TextUtils.isEmpty(nomeDoGrupoString)) {
             nomeDoGrupo.setError("Campo obrigatório");

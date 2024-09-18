@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.if_connect.R;
 import com.if_connect.bottomsheets.BottomSheetEditarGrupo;
+import com.if_connect.dialogs.DialogGrupoAdm;
+import com.if_connect.fragments.PerfilAluno;
 import com.if_connect.models.Grupo;
 import com.if_connect.models.Usuario;
 import com.if_connect.request.services.GrupoService;
@@ -29,18 +31,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RecyclerViewPerfil extends RecyclerView.Adapter<RecyclerViewPerfil.ViewHolder> {
+public class RecyclerViewPerfilAluno extends RecyclerView.Adapter<RecyclerViewPerfilAluno.ViewHolder> {
     List<Grupo> grupos;
     Context context;
     View view;
     ViewHolder viewHolder;
     FragmentManager fragmentManager;
     GrupoService grupoService;
+    PerfilAluno perfilAluno;
     String token;
     Usuario admin;
 
-    public RecyclerViewPerfil(List<Grupo> grupos, Context context, FragmentManager fragmentManager, GrupoService grupoService, String token, Usuario admin) {
+    public RecyclerViewPerfilAluno(List<Grupo> grupos, PerfilAluno perfilAluno, Context context, FragmentManager fragmentManager, GrupoService grupoService, String token, Usuario admin) {
         this.grupos = grupos;
+        this.perfilAluno = perfilAluno;
         this.context = context;
         this.fragmentManager = fragmentManager;
         this.grupoService = grupoService;
@@ -58,12 +62,12 @@ public class RecyclerViewPerfil extends RecyclerView.Adapter<RecyclerViewPerfil.
             nomedogrupo = v.findViewById(R.id.textviewPrincipal);
             areadogrupo = v.findViewById(R.id.areadogrupo);
             edit = v.findViewById(R.id.edit);
-            excluir= v.findViewById(R.id.excluir);
+            excluir= v.findViewById(R.id.delete);
             consulta=v.findViewById(R.id.consulta);
         }
     }
 
-    public RecyclerViewPerfil.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public RecyclerViewPerfilAluno.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
     view = LayoutInflater.from(context).inflate(R.layout.recycle_grupos_perfil, parent, false);
     viewHolder = new ViewHolder(view);
     return viewHolder;
@@ -73,7 +77,7 @@ public class RecyclerViewPerfil extends RecyclerView.Adapter<RecyclerViewPerfil.
         holder.nomedogrupo.setText(grupos.get(position).getNome());
         holder.areadogrupo.setText(grupos.get(position).getAreadeEstudo());
         holder.consulta.setOnClickListener(view -> {
-            //MainActivity.consultaGrupoPerfil(grupos.get(position), context, fragmentManager);
+            new DialogGrupoAdm(grupos.get(position), context, fragmentManager).show(fragmentManager, "tag");
         });
         holder.edit.setOnClickListener(v -> editGrupo(grupos.get(position)));
         holder.excluir.setOnClickListener(view -> confirmaExcluirGrupo(grupos.get(position)));
@@ -81,12 +85,12 @@ public class RecyclerViewPerfil extends RecyclerView.Adapter<RecyclerViewPerfil.
     }
 
     private void editGrupo(Grupo grupo) {
-        new BottomSheetEditarGrupo(context, admin, fragmentManager, grupo).show(fragmentManager, "tag");
+        new BottomSheetEditarGrupo(context, admin, fragmentManager, perfilAluno, grupo).show(fragmentManager, "tag");
     }
 
     private void confirmaExcluirGrupo(Grupo grupo) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Ao fazer isso seu grupo/turma será excluido permanentemente!")
+        builder.setMessage("Ao fazer isso seu grupo será excluido permanentemente!")
                 .setTitle("Deseja excluir "+ grupo.getNome()+ "?");
 
         builder.setNegativeButton(R.string.sim, (dialog, id) -> excluirGrupo(grupo.getId()));

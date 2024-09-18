@@ -21,6 +21,7 @@
         <item name="alertDialogTheme">@style/DialogTheme</item>
         <item name="android:buttonBarButtonStyle">@style/AppCompatDialogButtonStyle</item>
         <item name="android:datePickerDialogTheme">@style/CustomDatePickerDialogTheme</item>
+        <item name="android:timePickerDialogTheme">@style/CustomTimePickerDialogTheme</item>
     </style>
 
     <style name="DialogTheme" >
@@ -35,6 +36,12 @@
     </style>
 
     <style name="CustomDatePickerDialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorSecondary">@color/black</item>
+        <item name="colorSecondaryVariant">@color/black</item>
+        <item name="colorOnSecondary">@color/black</item>
+    </style>
+
+    <style name="CustomTimePickerDialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="colorSecondary">@color/black</item>
         <item name="colorSecondaryVariant">@color/black</item>
         <item name="colorOnSecondary">@color/black</item>

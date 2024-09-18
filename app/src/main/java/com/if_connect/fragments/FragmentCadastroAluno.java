@@ -13,7 +13,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -29,17 +28,16 @@ import androidx.fragment.app.FragmentManager;
 import com.example.if_connect.R;
 import com.if_connect.bottomsheets.BottomSheetShape;
 import com.if_connect.dialogs.AlertDialogManager;
-import com.if_connect.models.enums.Role;
 import com.if_connect.models.Aluno;
 import com.if_connect.models.Curso;
+import com.if_connect.models.enums.Role;
 import com.if_connect.request.Generator;
-import com.if_connect.request.services.AuthService;
 import com.if_connect.request.requestbody.RegisterRequest;
+import com.if_connect.request.services.AuthService;
 import com.if_connect.request.services.CursoService;
 import com.if_connect.utils.DateEditText;
 
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
@@ -170,7 +168,6 @@ public class FragmentCadastroAluno extends Fragment {
         return new RegisterRequest(
                 nome.getText().toString(),
                 email.getText().toString(),
-                null,
                 senha.getText().toString(),
                 datanasc.getDate(),
                 new Aluno(getCurso(), matricula.getText().toString()),
@@ -179,7 +176,11 @@ public class FragmentCadastroAluno extends Fragment {
     }
 
     private Curso getCurso() {
-        return cursosList.get((int)curso.getSelectedItemId()-1);
+        if(cursosList==null || cursosList.isEmpty()){
+            return null;
+        }else {
+            return cursosList.get((int)curso.getSelectedItemId()-1);
+        }
     }
 
 

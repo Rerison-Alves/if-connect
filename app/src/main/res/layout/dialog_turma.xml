@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/cinza_fraco"
+                android:background="@drawable/rounded_bottom"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:id="@+id/nome_turma"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="60dp"
+                    android:fontFamily="@font/imprima"
+                    android:gravity="center"
+                    android:text="@string/app_name"
+                    android:textColor="@color/black_fraco"
+                    android:textSize="25sp" />
+
+                <ImageView
+                    android:id="@+id/voltar"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="start|center"
+                    android:layout_marginStart="20dp"
+                    android:clickable="true"
+                    android:elevation="5dp"
+                    android:focusable="true"
+                    android:foreground="?selectableItemBackground"
+                    android:src="@drawable/ic_back"
+                    app:tint="@color/black_fraco" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                style="@style/titulo_bold"
+                android:text="Professor:"/>
+            <TextView
+                android:id="@+id/professor"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="start|center"
+                android:layout_marginHorizontal="10dp"
+                android:textColor="@color/black_fraco"
+                style="@style/textonormal"
+                android:textSize="18sp"
+                android:text="@string/app_name"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="10dp"
+                style="@style/titulo_bold"
+                android:text="Disciplina:"/>
+            <TextView
+                android:id="@+id/disciplina"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="start|center"
+                android:layout_marginHorizontal="10dp"
+                android:textColor="@color/black_fraco"
+                style="@style/textonormal"
+                android:textSize="18sp"
+                android:text="@string/app_name"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                style="@style/titulo_bold"
+                android:text="@string/descricao"/>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginHorizontal="10dp"
+                android:fillViewport="true"
+                android:maxHeight="100dp"
+                android:scrollbars="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/border">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/descricao"
+                        style="@style/textonormal"
+                        android:layout_margin="5dp"
+                        android:gravity="start|top"
+                        android:text="@string/app_name"
+                        android:textColor="@color/black_fraco"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black"
+                style="@style/textonormal"
+                android:textSize="18sp"
+                android:text="@string/pr_ximos_encontros"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lista_encontros"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/btn_novoencontro"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:text="@string/novo_encontro"
+                android:textAllCaps="false"
+                style="@style/textonormal"
+                android:textSize="18sp"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="vertical"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

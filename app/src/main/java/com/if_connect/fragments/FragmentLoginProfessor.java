@@ -25,11 +25,12 @@ import com.example.if_connect.R;
 import com.if_connect.MainActivity;
 import com.if_connect.bottomsheets.BottomSheetShape;
 import com.if_connect.request.Generator;
-import com.if_connect.request.services.AuthService;
 import com.if_connect.request.requestbody.AuthenticationRequest;
 import com.if_connect.request.requestbody.AuthenticationResponse;
+import com.if_connect.request.services.AuthService;
 import com.if_connect.utils.ErrorManager;
 import com.if_connect.utils.TokenManager;
+import com.if_connect.utils.UsuarioManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -151,6 +152,7 @@ public class FragmentLoginProfessor extends Fragment {
     //Inicia tela principal
     private void startMainActivity(String token, String refreshToken) {
         TokenManager.getInstance(context).saveTokens(token, refreshToken);
+        UsuarioManager.requestUsuario(token, context);
         startActivity(new Intent(context, MainActivity.class));
         Activity activity = bottomSheetShape.getActivity();
         if(activity!=null){

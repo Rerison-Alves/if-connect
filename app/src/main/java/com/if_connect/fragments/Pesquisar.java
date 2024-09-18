@@ -1,80 +1,104 @@
 package com.if_connect.fragments;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.SearchView;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AutoCompleteTextView;
+import android.widget.ImageButton;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.if_connect.R;
+import com.if_connect.dialogs.DialogPesquisar;
+import com.if_connect.models.Curso;
+import com.if_connect.recycleviews.RecyclerViewCursos;
+import com.if_connect.request.Generator;
+import com.if_connect.request.services.CursoService;
+import com.if_connect.utils.SpeechToText;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Pesquisar extends Fragment {
 
+    Context context;
+    FragmentManager fragmentManager;
+    List<Curso> cursosList = new ArrayList<>();
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    CursoService cursoService;
 
-    private String mParam1;
-    private String mParam2;
+    AutoCompleteTextView pesquisar;
+    ImageButton speechButton;
+    RecyclerView recycleCursos;
 
-    public Pesquisar() {
-        // Required empty public constructor
-    }
-    public static Pesquisar newInstance(String param1, String param2) {
-        Pesquisar fragment = new Pesquisar();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    FrameLayout comp, quim, engM;
+    SpeechToText speechToText;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pesquisar, container, false);
-        comp = view.findViewById(R.id.comp);
-        quim = view.findViewById(R.id.quim);
-        engM = view.findViewById(R.id.engM);
+        context = getContext();
+        fragmentManager = requireActivity().getSupportFragmentManager();
+        cursoService = Generator.getRetrofitInstance().create(CursoService.class);
+        pesquisar = view.findViewById(R.id.pesquisar);
+        speechButton = view.findViewById(R.id.btnVoice);
+        recycleCursos = view.findViewById(R.id.recycle_cursos);
 
-//        comp.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                CursoDialog cursoDialog=new CursoDialog("Ciência da Computação", getContext(),
-//                        getActivity().getSupportFragmentManager(), R.style.Theme_ProjetoPAGE);
-//                cursoDialog.show();
-//            }
-//        });
-//        quim.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                CursoDialog cursoDialog=new CursoDialog("Química", getContext(),
-//                        getActivity().getSupportFragmentManager(), R.style.Theme_ProjetoPAGE);
-//                cursoDialog.show();
-//            }
-//        });
-//        engM.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                CursoDialog cursoDialog=new CursoDialog("Engenharia Mecânica", getContext(),
-//                        getActivity().getSupportFragmentManager(), R.style.Theme_ProjetoPAGE);
-//                cursoDialog.show();
-//            }
-//        });
+        speechToText =  new SpeechToText(this, s -> {
+            pesquisar.setText(s);
+            new DialogPesquisar(context, fragmentManager, pesquisar.getText().toString()).show(fragmentManager, "tag");
+        });
+        speechButton.setOnClickListener(v -> speechToText.speak());
+
+        pesquisar.setOnEditorActionListener((v, actionId, event) -> {
+            if(actionId == EditorInfo.IME_ACTION_SEARCH){
+                new DialogPesquisar(context, fragmentManager, pesquisar.getText().toString()).show(fragmentManager, "tag");
+                return true;
+            }
+            return false;
+        });
+
+        getCursos();
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        speechToText.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void getCursos() {
+        cursoService.getAllCursos().enqueue(new Callback<List<Curso>>() {
+            @Override
+            public void onResponse(Call<List<Curso>> call, Response<List<Curso>> response) {
+                if(response.isSuccessful()){
+                    cursosList = response.body();
+                    if(cursosList!=null && !cursosList.isEmpty()){
+                        listarCursos();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Curso>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void listarCursos() {
+        recycleCursos.setLayoutManager(new LinearLayoutManager(context));
+        recycleCursos.setAdapter(new RecyclerViewCursos(context, fragmentManager, cursosList));
     }
 }

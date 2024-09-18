@@ -1,6 +1,5 @@
 package com.if_connect.request.services;
 
-import com.google.gson.JsonObject;
 import com.if_connect.models.Grupo;
 import com.if_connect.request.requestbody.Page;
 
@@ -59,7 +58,8 @@ public interface GrupoService {
             "Platform: android"})
     @GET("grupos/search?")
     Call<Page<Grupo>> getGruposPageable(@Query("searchTerm") String searchTerm,
-                                        @Query("userId") Integer userId,
+                                        @Query("userId") String userId,
+                                        @Query("cursoId") String cursoId,
                                         @Query("order") String order,
                                         @Query("page") Integer page,
                                         @Query("size") Integer size,

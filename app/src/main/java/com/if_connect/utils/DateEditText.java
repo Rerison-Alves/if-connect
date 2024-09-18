@@ -2,6 +2,7 @@ package com.if_connect.utils;
 
 import android.content.Context;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -51,35 +52,32 @@ public class DateEditText extends LinearLayout {
     }
 
     private void setupTextWatchers() {
-        TextWatcher dayWatcher = createTextWatcher(dayEditText, monthEditText);
-        TextWatcher monthWatcher = createTextWatcher(monthEditText, yearEditText);
+        TextWatcher dayWatcher = createTextWatcher(monthEditText);
+        TextWatcher monthWatcher = createTextWatcher(yearEditText);
 
         dayEditText.addTextChangedListener(dayWatcher);
         monthEditText.addTextChangedListener(monthWatcher);
     }
 
     private void setupKeyListeners() {
-        setupKeyListener(dayEditText, null, monthEditText);
-        setupKeyListener(monthEditText, dayEditText, yearEditText);
-        setupKeyListener(yearEditText, monthEditText, null);
+        setupKeyListener(dayEditText, null);
+        setupKeyListener(monthEditText, dayEditText);
+        setupKeyListener(yearEditText, monthEditText);
     }
 
-    private void setupKeyListener(final EditText currentEditText, final EditText prevEditText, final EditText nextEditText) {
-        currentEditText.setOnKeyListener(new OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_DEL && event.getAction() == KeyEvent.ACTION_DOWN && currentEditText.getText().length() == 0) {
-                    if (prevEditText != null) {
-                        prevEditText.requestFocus();
-                        return true;
-                    }
+    private void setupKeyListener(final EditText currentEditText, final EditText prevEditText) {
+        currentEditText.setOnKeyListener((v, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_DEL && event.getAction() == KeyEvent.ACTION_DOWN && currentEditText.getText().length() == 0) {
+                if (prevEditText != null) {
+                    prevEditText.requestFocus();
+                    return true;
                 }
-                return false;
             }
+            return false;
         });
     }
 
-    private TextWatcher createTextWatcher(final EditText currentEditText, final EditText nextEditText) {
+    private TextWatcher createTextWatcher(final EditText nextEditText) {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -109,7 +107,10 @@ public class DateEditText extends LinearLayout {
         String day = dayEditText.getText().toString();
         String month = monthEditText.getText().toString();
         String year = yearEditText.getText().toString();
-        return day + "/" + month + "/" + year;
+        if(!TextUtils.isEmpty(day) && !TextUtils.isEmpty(month) && !TextUtils.isEmpty(year)){
+            return day + "/" + month + "/" + year;
+        }
+        return day+month+year;
     }
 
     public Date getDate(){
@@ -121,6 +122,11 @@ public class DateEditText extends LinearLayout {
         }
         return null;
     }
+
+    public void setError(CharSequence error){
+        yearEditText.setError(error);
+    }
+
 }
 
 

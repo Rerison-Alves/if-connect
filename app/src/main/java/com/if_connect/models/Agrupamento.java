@@ -1,7 +1,10 @@
 package com.if_connect.models;
 
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.if_connect.models.enums.TipoAgrupamento;
+import com.if_connect.utils.typeadapters.TipoAgrupamentoAdapter;
 
 public abstract class Agrupamento {
 
@@ -20,11 +23,16 @@ public abstract class Agrupamento {
     @SerializedName("curso")
     private Curso curso;
 
-    public Agrupamento(Usuario admin, String nome, String descricao, Curso curso) {
+    @JsonAdapter(TipoAgrupamentoAdapter.class)
+    @SerializedName("tipoAgrupamento")
+    private TipoAgrupamento tipoAgrupamento;
+
+    public Agrupamento(Usuario admin, String nome, String descricao, Curso curso, TipoAgrupamento tipoAgrupamento) {
         this.admin = admin;
         this.nome = nome;
         this.descricao = descricao;
         this.curso = curso;
+        this.tipoAgrupamento = tipoAgrupamento;
     }
 
     public Integer getId() {
@@ -65,5 +73,13 @@ public abstract class Agrupamento {
 
     public void setCurso(Curso curso) {
         this.curso = curso;
+    }
+
+    public TipoAgrupamento getTipoAgrupamento() {
+        return tipoAgrupamento;
+    }
+
+    public void setTipoAgrupamento(TipoAgrupamento tipoAgrupamento) {
+        this.tipoAgrupamento = tipoAgrupamento;
     }
 }
