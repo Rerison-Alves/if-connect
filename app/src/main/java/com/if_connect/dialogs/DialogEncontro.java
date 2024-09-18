@@ -70,6 +70,7 @@ public class DialogEncontro extends DialogFragment {
         voltar.setOnClickListener(view1 -> dismiss());
         buttonChat.setOnClickListener(view12 -> {
             // Abrir chat
+
         });
 
         return view;

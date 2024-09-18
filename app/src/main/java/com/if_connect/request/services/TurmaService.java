@@ -29,8 +29,9 @@ public interface TurmaService {
     @Headers({"Accept: application/json",
             "Content-Type: application/json",
             "Platform: android"})
-    @PUT("turmas")
-    Call<ResponseBody> updateTurma(@Body Turma turma,
+    @PUT("turmas/{id}")
+    Call<ResponseBody> updateTurma(@Path("id") Integer id,
+                                   @Body Turma turma,
                                    @Header("authorization") String auth);
 
     @Headers({"Accept: application/json",

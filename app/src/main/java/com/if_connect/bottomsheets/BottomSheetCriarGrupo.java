@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.if_connect.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.if_connect.dialogs.AlertDialogManager;
 import com.if_connect.dialogs.DialogConvidaUsuario;
 import com.if_connect.fragments.PerfilAluno;
 import com.if_connect.models.Curso;
@@ -99,8 +100,8 @@ public class BottomSheetCriarGrupo extends BottomSheetDialogFragment {
                 @Override
                 public void onResponse(Call<Grupo> call, Response<Grupo> response) {
                     if(response.isSuccessful()){
-                        Toast.makeText(context, "Grupo criado com sucesso!", Toast.LENGTH_SHORT).show();
-                        perfilAluno.listarGrupos();
+                        new AlertDialogManager(context, "Grupo criado!", "O grupo foi criada com sucesso!").show();
+                        perfilAluno.getGrupos();
                         dismiss();
                     }else {
                         showError("Erro ao criar grupo: ", response, context);

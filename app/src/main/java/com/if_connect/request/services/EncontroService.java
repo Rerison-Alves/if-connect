@@ -29,8 +29,9 @@ public interface EncontroService {
     @Headers({"Accept: application/json",
             "Content-Type: application/json",
             "Platform: android"})
-    @PUT("encontros")
-    Call<ResponseBody> updateEncontro(@Body Encontro encontro,
+    @PUT("encontros/{id}")
+    Call<ResponseBody> updateEncontro(@Path("id") Integer id,
+                                      @Body Encontro encontro,
                                       @Header("authorization") String auth);
 
     @Headers({"Accept: application/json",

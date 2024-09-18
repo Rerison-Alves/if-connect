@@ -69,6 +69,10 @@ dependencies {
     implementation("com.jakewharton.rxbinding4:rxbinding:4.0.0")
     implementation("com.facebook.shimmer:shimmer:0.1.0@aar")
     implementation("com.github.yalantis:ucrop:2.2.9")
+    implementation("org.java-websocket:Java-WebSocket:1.5.2")
+    implementation("org.springframework:spring-messaging:5.3.8")
+    implementation("org.springframework:spring-websocket:5.3.8")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.12.3")
 
 
     testImplementation("junit:junit:4.13.2")

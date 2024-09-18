@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 
+import com.if_connect.dialogs.AlertDialogManager;
 import com.if_connect.fragments.PerfilProfessor;
 import com.if_connect.models.Turma;
 import com.if_connect.models.Usuario;
@@ -54,11 +55,13 @@ public class BottomSheetEditarTurma extends BottomSheetCriarTurma {
         if(validarCampos()){
             Turma newTurma = getTurma();
             newTurma.setId(turmaOld.getId());
-            turmaService.updateTurma(newTurma, token).enqueue(new Callback<ResponseBody>() {
+            turmaService.updateTurma(newTurma.getId(), newTurma, token).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if(response.isSuccessful()){
-                        Toast.makeText(context, "Turma editada com sucesso!", Toast.LENGTH_SHORT).show();
+                        new AlertDialogManager(context, "Informações atualizadas!", "As informações da turma foram alteradas com sucesso!").show();
+                        perfilProfessor.getTurmas();
+                        dismiss();
                     }else {
                         showError("Erro ao editar turma: ", response, context);
                     }

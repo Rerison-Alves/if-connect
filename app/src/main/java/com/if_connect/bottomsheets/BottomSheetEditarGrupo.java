@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 
+import com.if_connect.dialogs.AlertDialogManager;
 import com.if_connect.fragments.Perfil;
 import com.if_connect.fragments.PerfilAluno;
 import com.if_connect.models.Grupo;
@@ -49,11 +50,13 @@ public class BottomSheetEditarGrupo extends BottomSheetCriarGrupo {
         if(validarCampos()){
             Grupo newGrupo = getGrupo();
             newGrupo.setId(grupoOld.getId());
-            grupoService.updateGrupo(newGrupo, token).enqueue(new Callback<ResponseBody>() {
+            grupoService.updateGrupo(newGrupo.getId(), newGrupo, token).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if(response.isSuccessful()){
-                        Toast.makeText(context, "Grupo editado com sucesso!", Toast.LENGTH_SHORT).show();
+                        new AlertDialogManager(context, "Informações atualizadas!", "As informações do grupo foram alteradas com sucesso!").show();
+                        perfilAluno.getGrupos();
+                        dismiss();
                     }else {
                         showError("Erro ao editar grupo: ", response, context);
                     }

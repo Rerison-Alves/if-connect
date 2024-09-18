@@ -29,8 +29,9 @@ public interface GrupoService {
     @Headers({"Accept: application/json",
             "Content-Type: application/json",
             "Platform: android"})
-    @PUT("grupos")
-    Call<ResponseBody> updateGrupo(@Body Grupo grupo,
+    @PUT("grupos/{id}")
+    Call<ResponseBody> updateGrupo(@Path("id") Integer id,
+                                   @Body Grupo grupo,
                                    @Header("authorization") String auth);
 
     @Headers({"Accept: application/json",

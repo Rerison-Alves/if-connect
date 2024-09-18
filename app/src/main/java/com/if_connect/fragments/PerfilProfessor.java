@@ -139,7 +139,7 @@ public class PerfilProfessor extends Fragment {
         shimmerImagem.stopShimmerAnimation();
     }
 
-    void getTurmas(){
+    public void getTurmas(){
         turmaService.getTurmasByAdmin(usuarioLogado.getId(), token).enqueue(new Callback<List<Turma>>() {
             @Override
             public void onResponse(Call<List<Turma>> call, Response<List<Turma>> response) {

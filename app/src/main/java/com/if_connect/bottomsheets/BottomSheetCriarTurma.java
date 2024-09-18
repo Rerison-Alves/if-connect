@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.if_connect.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.if_connect.dialogs.AlertDialogManager;
 import com.if_connect.dialogs.DialogConvidaUsuario;
 import com.if_connect.fragments.PerfilProfessor;
 import com.if_connect.models.Curso;
@@ -104,8 +105,8 @@ public class BottomSheetCriarTurma extends BottomSheetDialogFragment {
                 @Override
                 public void onResponse(Call<Turma> call, Response<Turma> response) {
                     if(response.isSuccessful()){
-                        Toast.makeText(context, "Turma criada com sucesso!", Toast.LENGTH_SHORT).show();
-                        //perfil.listarGrupos();
+                        new AlertDialogManager(context, "Turma criada!", "A turma foi criada com sucesso!").show();
+                        perfilProfessor.getTurmas();
                         dismiss();
                     }else {
                         showError("Erro ao criar turma: ", response, context);

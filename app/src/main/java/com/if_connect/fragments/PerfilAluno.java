@@ -144,7 +144,7 @@ public class PerfilAluno extends Fragment {
         shimmerImagem.stopShimmerAnimation();
     }
 
-    private void getGrupos() {
+    public void getGrupos() {
         grupoService.getGruposByAdmin(usuarioLogado.getId(), token)
                 .enqueue(new Callback<List<Grupo>>() {
                     @Override
@@ -166,7 +166,7 @@ public class PerfilAluno extends Fragment {
                 });
     }
 
-    public void listarGrupos() {
+    private void listarGrupos() {
         recycleGruposDoUsuario.setLayoutManager(new LinearLayoutManager(context));
         recycleGruposDoUsuario.setAdapter(new RecyclerViewPerfilAluno(gruposList, this, context, fragmentManager, grupoService, token, usuarioLogado));
         recycleGruposDoUsuario.setNestedScrollingEnabled(false);
