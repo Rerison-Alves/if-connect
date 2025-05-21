@@ -18,8 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.if_connect.R;
 import com.if_connect.models.Agrupamento;
 import com.if_connect.models.Encontro;
-import com.if_connect.models.Grupo;
-import com.if_connect.models.Turma;
 import com.if_connect.models.Usuario;
 import com.if_connect.recycleviews.RecyclerViewEncontrosPrincipal;
 import com.if_connect.recycleviews.RecyclerViewTodos;
@@ -27,13 +25,10 @@ import com.if_connect.request.Generator;
 import com.if_connect.request.requestbody.Page;
 import com.if_connect.request.services.AgrupamentoService;
 import com.if_connect.request.services.EncontroService;
-import com.if_connect.request.services.GrupoService;
-import com.if_connect.request.services.TurmaService;
 import com.if_connect.utils.TokenManager;
 import com.if_connect.utils.UsuarioManager;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;

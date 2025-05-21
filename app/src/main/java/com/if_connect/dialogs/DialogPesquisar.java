@@ -2,7 +2,6 @@ package com.if_connect.dialogs;
 
 import static com.if_connect.utils.typeadapters.SpinnerAdapter.getAdapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,24 +11,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.if_connect.R;
-import com.if_connect.LoginActivity;
-import com.if_connect.MainActivity;
-import com.if_connect.bottomsheets.BottomSheetShape;
-import com.if_connect.fragments.FragmentCPEmail;
 import com.if_connect.models.Agrupamento;
 import com.if_connect.models.Curso;
 import com.if_connect.models.Usuario;

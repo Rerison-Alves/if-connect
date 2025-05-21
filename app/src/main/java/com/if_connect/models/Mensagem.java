@@ -27,6 +27,16 @@ public class Mensagem {
     @JsonAdapter(DateTimeAdapter.class)
     private Date data;
 
+    public Mensagem() {
+    }
+
+    public Mensagem(Encontro encontro, Usuario usuario, String texto, Date data) {
+        this.encontro = encontro;
+        this.usuario = usuario;
+        this.texto = texto;
+        this.data = data;
+    }
+
     public Integer getId() {
         return id;
     }
