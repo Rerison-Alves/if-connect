@@ -37,7 +37,7 @@ public class RecyclerViewUsuariosConvidados extends RecyclerView.Adapter<Recycle
         public TextView nomeUsuario;
         public FrameLayout card;
         public TextView status;
-        public ViewHolder(View v){
+        public ViewHolder(View v) {
             super(v);
             imagemUsuario = v.findViewById(R.id.imagem_usuario);
             nomeUsuario = v.findViewById(R.id.nome);
@@ -46,13 +46,13 @@ public class RecyclerViewUsuariosConvidados extends RecyclerView.Adapter<Recycle
         }
     }
 
-    public RecyclerViewUsuariosConvidados.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public RecyclerViewUsuariosConvidados.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     view = LayoutInflater.from(context).inflate(R.layout.recycle_card_usuarios, parent, false);
     viewHolder = new ViewHolder(view);
     return viewHolder;
     }
 
-    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position){
+    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.status.setText("✓");
         holder.nomeUsuario.setText(usuariosConvidados.get(position).getNome());
         holder.card.setOnClickListener(view -> {
@@ -63,7 +63,7 @@ public class RecyclerViewUsuariosConvidados extends RecyclerView.Adapter<Recycle
 
     }
 
-    public int getItemCount(){
+    public int getItemCount() {
         return usuariosConvidados.size();
     }
 }

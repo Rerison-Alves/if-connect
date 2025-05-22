@@ -28,7 +28,7 @@ public class RecyclerViewCursos extends RecyclerView.Adapter<RecyclerViewCursos.
     ViewHolder viewHolder;
     FragmentManager fragmentManager;
 
-    public RecyclerViewCursos(Context context, FragmentManager fragmentManager, List<Curso> cursos){
+    public RecyclerViewCursos(Context context, FragmentManager fragmentManager, List<Curso> cursos) {
         this.cursos = cursos;
         this.fragmentManager=fragmentManager;
         this.context=context;
@@ -39,7 +39,7 @@ public class RecyclerViewCursos extends RecyclerView.Adapter<RecyclerViewCursos.
         public TextView nomeCurso;
         public ImageView iconeCurso;
         public FrameLayout consulta;
-        public ViewHolder(View v){
+        public ViewHolder(View v) {
             super(v);
             nomeCurso = v.findViewById(R.id.nome_curso);
             iconeCurso = v.findViewById(R.id.icone_curso);
@@ -47,13 +47,13 @@ public class RecyclerViewCursos extends RecyclerView.Adapter<RecyclerViewCursos.
         }
     }
 
-    public RecyclerViewCursos.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public RecyclerViewCursos.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     view = LayoutInflater.from(context).inflate(R.layout.recycle_cursos, parent, false);
     viewHolder = new ViewHolder(view);
     return viewHolder;
     }
 
-    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position){
+    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.nomeCurso.setText(cursos.get(position).getDescricao());
         holder.iconeCurso.setImageBitmap(ImageManager.base64StringToBitmap(cursos.get(position).getIconeBase64()));
         holder.consulta.setOnClickListener(view ->
@@ -61,7 +61,7 @@ public class RecyclerViewCursos extends RecyclerView.Adapter<RecyclerViewCursos.
         );
     }
 
-    public int getItemCount(){
+    public int getItemCount() {
         return cursos.size();
     }
 }

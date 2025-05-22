@@ -77,14 +77,14 @@ public class DialogConvidaUsuario extends DialogFragment {
         usuarioService.getAllUsuarios(token).enqueue(new Callback<List<Usuario>>() {
             @Override
             public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     todosList = response.body();
-                    if(todosList!=null){
+                    if (todosList!=null) {
                         todosList.removeAll(convidadosList);
-                        if(bottomSheet instanceof BottomSheetCriarGrupo){
+                        if (bottomSheet instanceof BottomSheetCriarGrupo) {
                             todosList.remove(((BottomSheetCriarGrupo)bottomSheet).admin);
                         }
-                        if(bottomSheet instanceof BottomSheetCriarTurma){
+                        if (bottomSheet instanceof BottomSheetCriarTurma) {
                             todosList.remove(((BottomSheetCriarTurma)bottomSheet).admin);
                         }
                         adaptarListas();
@@ -102,24 +102,24 @@ public class DialogConvidaUsuario extends DialogFragment {
     }
 
     @SuppressLint("DefaultLocale")
-    public void adaptarListas(){
+    public void adaptarListas() {
         adaptarListTodos();
         adaptarListConvidados();
         counterConvidados.setText(String.format("%d/50", convidadosList.size()));
-        if(bottomSheet instanceof BottomSheetCriarGrupo){
+        if (bottomSheet instanceof BottomSheetCriarGrupo) {
             ((BottomSheetCriarGrupo)bottomSheet).changeCounter(convidadosList.size());
         }
-        if(bottomSheet instanceof BottomSheetCriarTurma){
+        if (bottomSheet instanceof BottomSheetCriarTurma) {
             ((BottomSheetCriarTurma)bottomSheet).changeCounter(convidadosList.size());
         }
     }
 
-    private void adaptarListTodos(){
+    private void adaptarListTodos() {
         recycleTodos.setLayoutManager(new LinearLayoutManager(context));
         recycleTodos.setAdapter(new RecyclerViewUsuariosTodos(context, convidadosList, todosList, this));
     }
 
-    private void adaptarListConvidados(){
+    private void adaptarListConvidados() {
         recycleConvidados.setLayoutManager(new LinearLayoutManager(context));
         recycleConvidados.setAdapter(new RecyclerViewUsuariosConvidados(context, convidadosList, todosList, this));
     }

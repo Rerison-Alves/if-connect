@@ -18,7 +18,7 @@ public class ErrorManager {
                         response.errorBody().charStream(),
                         new TypeToken<ErrorResponse>() {
                         }.getType());
-                if(erro==null) throw new Exception();
+                if (erro==null) throw new Exception();
                 showErrorResponseDialog(context, text, erro);
             } catch (Exception e) {
                 e.printStackTrace();

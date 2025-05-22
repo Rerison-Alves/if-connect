@@ -5,7 +5,7 @@ import android.view.animation.Animation;
 
 public class CustoAnimation {
 
-    public static void startAndEndAnimation(View view, Animation start, Animation end){
+    public static void startAndEndAnimation(View view, Animation start, Animation end) {
         view.startAnimation(start);
         start.setAnimationListener(new Animation.AnimationListener() {
             @Override

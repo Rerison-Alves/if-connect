@@ -83,15 +83,15 @@ public class FragmentLoginProfessor extends Fragment {
     }
 
     private void login() {
-        if(verificadados()){
+        if (verificadados()) {
             isLoading(true);
             authUsuarioService.authenticate(getAuthRequest()).enqueue(new Callback<AuthenticationResponse>() {
                 @Override
                 public void onResponse(Call<AuthenticationResponse> call, Response<AuthenticationResponse> response) {
                     isLoading(false);
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         AuthenticationResponse authenticationResponse = response.body();
-                        if(authenticationResponse!=null){
+                        if (authenticationResponse!=null) {
                             Toast.makeText(context, "Login efetuado com sucesso!", Toast.LENGTH_SHORT).show();
                             startMainActivity(authenticationResponse.accessToken, authenticationResponse.refreshToken);
                         }
@@ -109,13 +109,13 @@ public class FragmentLoginProfessor extends Fragment {
         }
     }
 
-    private void isLoading(boolean isLoading){
+    private void isLoading(boolean isLoading) {
         btnConcluir.setEnabled(!isLoading);
         btnConcluir.setAlpha(isLoading?0.5f:1.0f);
         progressBar.setVisibility(isLoading?View.VISIBLE:View.INVISIBLE);
     }
 
-    private AuthenticationRequest getAuthRequest(){
+    private AuthenticationRequest getAuthRequest() {
         return new AuthenticationRequest(
                 email.getText().toString(),
                 senha.getText().toString());
@@ -155,7 +155,7 @@ public class FragmentLoginProfessor extends Fragment {
         UsuarioManager.requestUsuario(token, context);
         startActivity(new Intent(context, MainActivity.class));
         Activity activity = bottomSheetShape.getActivity();
-        if(activity!=null){
+        if (activity!=null) {
             activity.finish();
         }
     }

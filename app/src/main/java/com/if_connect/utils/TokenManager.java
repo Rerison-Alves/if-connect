@@ -46,7 +46,7 @@ public class TokenManager {
         editor.apply();
     }
 
-    private String bearer(String token){
+    private String bearer(String token) {
         return "Bearer " + token;
     }
 }

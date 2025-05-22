@@ -61,7 +61,7 @@ public class Pesquisar extends Fragment {
         speechButton.setOnClickListener(v -> speechToText.speak());
 
         pesquisar.setOnEditorActionListener((v, actionId, event) -> {
-            if(actionId == EditorInfo.IME_ACTION_SEARCH){
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 new DialogPesquisar(context, fragmentManager, pesquisar.getText().toString()).show(fragmentManager, "tag");
                 return true;
             }
@@ -82,9 +82,9 @@ public class Pesquisar extends Fragment {
         cursoService.getAllCursos().enqueue(new Callback<List<Curso>>() {
             @Override
             public void onResponse(Call<List<Curso>> call, Response<List<Curso>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     cursosList = response.body();
-                    if(cursosList!=null && !cursosList.isEmpty()){
+                    if (cursosList!=null && !cursosList.isEmpty()) {
                         listarCursos();
                     }
                 }

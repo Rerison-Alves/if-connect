@@ -145,15 +145,15 @@ public class DialogPesquisar extends DialogFragment {
         cursoService.getAllCursos().enqueue(new Callback<List<Curso>>() {
             @Override
             public void onResponse(Call<List<Curso>> call, Response<List<Curso>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     cursosList = response.body();
-                    if(cursosList!=null && !cursosList.isEmpty()){
+                    if (cursosList!=null && !cursosList.isEmpty()) {
                         nomeCursos = Stream.concat(
                                         Stream.of("Todos"),
                                         cursosList.stream().map(Curso::getDescricao))
                                 .toArray(String[]::new);
                         cursoSpinner.setAdapter(getAdapter(nomeCursos, context));
-                        if(cursoId!=null) setCurso(cursoId);
+                        if (cursoId!=null) setCurso(cursoId);
                     }
                 }
             }
@@ -166,7 +166,7 @@ public class DialogPesquisar extends DialogFragment {
     }
 
     private Curso getCurso() {
-        if(cursosList==null || cursosList.isEmpty()){
+        if (cursosList==null || cursosList.isEmpty()) {
             return null;
         }else {
             int position = (int)cursoSpinner.getSelectedItemId()-1;
@@ -174,7 +174,7 @@ public class DialogPesquisar extends DialogFragment {
         }
     }
 
-    private void setCurso(Integer cursoId){
+    private void setCurso(Integer cursoId) {
         cursoSpinner.setSelection(
                 cursosList.indexOf(
                         cursosList.stream()
@@ -197,7 +197,7 @@ public class DialogPesquisar extends DialogFragment {
                 .enqueue(new Callback<Page<Agrupamento>>() {
             @Override
             public void onResponse(Call<Page<Agrupamento>> call, Response<Page<Agrupamento>> response) {
-                if(response.isSuccessful() && response.body() != null){
+                if (response.isSuccessful() && response.body() != null) {
                     agrupamentoList = response.body().getContent();
                     listarAgrupamentos();
                 }

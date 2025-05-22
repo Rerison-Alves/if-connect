@@ -28,7 +28,7 @@ public class RecyclerViewLocais extends RecyclerView.Adapter<RecyclerViewLocais.
     DialogEscolherLocal dialogEscolherLocal;
     BottomSheetCriarEncontro bottomSheetCriarEncontro;
 
-    public RecyclerViewLocais(Context context, FragmentManager fragmentManager, List<Local> locais, DialogEscolherLocal dialogEscolherLocal, BottomSheetCriarEncontro bottomSheetCriarEncontro){
+    public RecyclerViewLocais(Context context, FragmentManager fragmentManager, List<Local> locais, DialogEscolherLocal dialogEscolherLocal, BottomSheetCriarEncontro bottomSheetCriarEncontro) {
         this.locais = locais;
         this.fragmentManager=fragmentManager;
         this.context=context;
@@ -41,7 +41,7 @@ public class RecyclerViewLocais extends RecyclerView.Adapter<RecyclerViewLocais.
         public ImageView imageLocal;
         public TextView nomeDoLocal;
         public FrameLayout escolher;
-        public ViewHolder(View v){
+        public ViewHolder(View v) {
             super(v);
             imageLocal = v.findViewById(R.id.image_local);
             nomeDoLocal = v.findViewById(R.id.nome_local);
@@ -49,17 +49,17 @@ public class RecyclerViewLocais extends RecyclerView.Adapter<RecyclerViewLocais.
         }
     }
 
-    public RecyclerViewLocais.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public RecyclerViewLocais.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     view = LayoutInflater.from(context).inflate(R.layout.recycle_card_local, parent, false);
     viewHolder = new ViewHolder(view);
     return viewHolder;
     }
 
-    public void onBindViewHolder(ViewHolder holder, int position){
+    public void onBindViewHolder(ViewHolder holder, int position) {
         String localName = String.format("%s - %s", locais.get(position).getNome(), locais.get(position).getLocalizacao());
         holder.nomeDoLocal.setText(localName);
         String imagebase64 = locais.get(position).getIconeBase64();
-        if(imagebase64!=null){
+        if (imagebase64!=null) {
             holder.imageLocal.setImageBitmap(ImageManager.base64StringToBitmap(imagebase64));
         }
         holder.escolher.setOnClickListener(view -> {
@@ -71,7 +71,7 @@ public class RecyclerViewLocais extends RecyclerView.Adapter<RecyclerViewLocais.
     }
 
 
-    public int getItemCount(){
+    public int getItemCount() {
         return locais.size();
     }
 }

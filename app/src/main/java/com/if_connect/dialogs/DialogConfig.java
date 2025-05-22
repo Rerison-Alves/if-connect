@@ -73,7 +73,7 @@ public class DialogConfig extends DialogFragment {
         dialog.show();
     }
 
-    private void alterarSenha(){
+    private void alterarSenha() {
         BottomSheetShape bottomSheetShape = new BottomSheetShape(context);
         bottomSheetShape.setFragment(new FragmentCPEmail(context, bottomSheetShape, fragmentManager));
         bottomSheetShape.show(fragmentManager, "tag");

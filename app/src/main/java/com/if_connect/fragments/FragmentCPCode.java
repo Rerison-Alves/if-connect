@@ -96,12 +96,12 @@ public class FragmentCPCode extends Fragment {
     }
 
     private void alterarSenha() {
-        if(validarCampos()){
+        if (validarCampos()) {
             isLoading(true);
             usuarioService.changePassword(getChangePasswordRequest()).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         isLoading(false);
                         new AlertDialogManager(
                                 context,
@@ -123,7 +123,7 @@ public class FragmentCPCode extends Fragment {
         }
     }
 
-    private void isLoading(boolean isLoading){
+    private void isLoading(boolean isLoading) {
         btnConcluir.setEnabled(!isLoading);
         btnConcluir.setAlpha(isLoading?0.5f:1.0f);
         progressBar.setVisibility(isLoading?View.VISIBLE:View.INVISIBLE);
@@ -172,7 +172,7 @@ public class FragmentCPCode extends Fragment {
             valida = false;
         }
 
-        if(!verificasenha(senhaString)){
+        if (!verificasenha(senhaString)) {
             senha.setError("Senha inválida, deve conter 8 caracteres, 1 letra maiúscula, 1 letra ");
             senha.requestFocus();
             valida = false;
@@ -188,12 +188,12 @@ public class FragmentCPCode extends Fragment {
         return valida;
     }
 
-    private void reenviarEmail(){
+    private void reenviarEmail() {
         startCountDownTimer();
         usuarioService.changePasswordCode(email).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(!response.isSuccessful()){
+                if (!response.isSuccessful()) {
                     showError("Não foi possível reenviar email: ", response, context);
                 }
             }

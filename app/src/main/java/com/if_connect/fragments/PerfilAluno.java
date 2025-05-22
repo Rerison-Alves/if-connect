@@ -114,9 +114,9 @@ public class PerfilAluno extends Fragment {
         usuarioService.getProfileImage(token).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     fotoPerfilBase64 = response.body();
-                    if(fotoPerfilBase64!=null){
+                    if (fotoPerfilBase64!=null) {
                         imagemUsuario.setImageBitmap(
                                 ImageManager.base64StringToBitmap(fotoPerfilBase64)
                         );
@@ -132,13 +132,13 @@ public class PerfilAluno extends Fragment {
         });
     }
 
-    private void startImageShimmerAnimation(){
+    private void startImageShimmerAnimation() {
         cardImagem.setVisibility(View.INVISIBLE);
         shimmerImagem.setVisibility(View.VISIBLE);
         shimmerImagem.startShimmerAnimation();
     }
 
-    private void stopImageShimmerAnimation(){
+    private void stopImageShimmerAnimation() {
         cardImagem.setVisibility(View.VISIBLE);
         shimmerImagem.setVisibility(View.INVISIBLE);
         shimmerImagem.stopShimmerAnimation();
@@ -149,9 +149,9 @@ public class PerfilAluno extends Fragment {
                 .enqueue(new Callback<List<Grupo>>() {
                     @Override
                     public void onResponse(Call<List<Grupo>> call, Response<List<Grupo>> response) {
-                        if(response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             gruposList = response.body();
-                            if(gruposList !=null){
+                            if (gruposList !=null) {
                                 listarGrupos();
                             } else {
                                 showError("Não foi possível carregar grupos do usuário: ", response, context);

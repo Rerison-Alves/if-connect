@@ -23,7 +23,7 @@ public class UsuarioManager {
     public static void requestUsuario(String token, Context context) {
         try {
             Response<Usuario> usuarioResponse = usuarioService.getUsuarioLogado(token).execute();
-            if(usuarioResponse.isSuccessful()){
+            if (usuarioResponse.isSuccessful()) {
                 usuarioLogado = usuarioResponse.body();
                 if (usuarioLogado != null) {
                     tipoUsuario = usuarioLogado.getAluno()!=null?TipoUsuario.ALUNO:TipoUsuario.PROFESSOR;

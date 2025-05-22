@@ -1,6 +1,7 @@
 package com.if_connect.request.services;
 
 import com.if_connect.models.Curso;
+import com.if_connect.request.requestbody.Page;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public interface CursoService {
             "Content-Type: application/json",
             "Platform: android"})
     @GET("cursos/search?")
-    Call<List<Curso>> getCursosPageable(@Query("searchTerm") String searchTerm,
+    Call<Page<Curso>> getCursosPageable(@Query("searchTerm") String searchTerm,
                                         @Query("order") String order,
                                         @Query("page") Integer page,
                                         @Query("size") Integer size);

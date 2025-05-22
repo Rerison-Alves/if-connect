@@ -1,6 +1,7 @@
 package com.if_connect.request.services;
 
 import com.if_connect.models.Local;
+import com.if_connect.request.requestbody.Page;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface LocalService {
             "Content-Type: application/json",
             "Platform: android"})
     @GET("locais/search?")
-    Call<List<Local>> getLocaisPageable(@Query("searchTerm") String searchTerm,
+    Call<Page<Local>> getLocaisPageable(@Query("searchTerm") String searchTerm,
                                         @Query("order") String order,
                                         @Query("page") Integer page,
                                         @Query("size") Integer size);

@@ -107,13 +107,13 @@ public class DateEditText extends LinearLayout {
         String day = dayEditText.getText().toString();
         String month = monthEditText.getText().toString();
         String year = yearEditText.getText().toString();
-        if(!TextUtils.isEmpty(day) && !TextUtils.isEmpty(month) && !TextUtils.isEmpty(year)){
+        if (!TextUtils.isEmpty(day) && !TextUtils.isEmpty(month) && !TextUtils.isEmpty(year)) {
             return day + "/" + month + "/" + year;
         }
         return day+month+year;
     }
 
-    public Date getDate(){
+    public Date getDate() {
         SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         try {
             return formata.parse(getText());
@@ -123,7 +123,7 @@ public class DateEditText extends LinearLayout {
         return null;
     }
 
-    public void setError(CharSequence error){
+    public void setError(CharSequence error) {
         yearEditText.setError(error);
     }
 

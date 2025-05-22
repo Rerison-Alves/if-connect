@@ -33,7 +33,7 @@ public class RecyclerViewEncontros extends RecyclerView.Adapter<RecyclerViewEnco
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
     SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
-    public RecyclerViewEncontros(Context context, FragmentManager fragmentManager, List<Encontro> encontros){
+    public RecyclerViewEncontros(Context context, FragmentManager fragmentManager, List<Encontro> encontros) {
         this.encontros = encontros;
         this.fragmentManager=fragmentManager;
         this.context=context;
@@ -44,7 +44,7 @@ public class RecyclerViewEncontros extends RecyclerView.Adapter<RecyclerViewEnco
         public TextView nomeDoEncontro, data, local;
         public ImageButton edit, excluir;
         public FrameLayout consulta;
-        public ViewHolder(View v){
+        public ViewHolder(View v) {
             super(v);
             nomeDoEncontro = v.findViewById(R.id.nomeDoEncontro);
             data = v.findViewById(R.id.data);
@@ -55,13 +55,13 @@ public class RecyclerViewEncontros extends RecyclerView.Adapter<RecyclerViewEnco
         }
     }
 
-    public RecyclerViewEncontros.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public RecyclerViewEncontros.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     view = LayoutInflater.from(context).inflate(R.layout.recycle_grupos_encontros, parent, false);
     viewHolder = new ViewHolder(view);
     return viewHolder;
     }
 
-    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position){
+    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.nomeDoEncontro.setText(encontros.get(position).getTema());
         holder.data.setText(
                 getHorario(
@@ -75,18 +75,18 @@ public class RecyclerViewEncontros extends RecyclerView.Adapter<RecyclerViewEnco
         });
     }
 
-    String getLocalName(@NonNull Local local){
+    String getLocalName(@NonNull Local local) {
         return String.format("%s - %s", local.getNome(), local.getLocalizacao());
     }
 
-    String getHorario(Date startTime, Date endTime){
+    String getHorario(Date startTime, Date endTime) {
         return String.format("%s %s-%s",
                 dateFormat.format(startTime),
                 hourFormat.format(startTime),
                 hourFormat.format(endTime));
     }
 
-    public int getItemCount(){
+    public int getItemCount() {
         return encontros.size();
     }
 }

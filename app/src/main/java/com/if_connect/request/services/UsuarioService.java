@@ -2,6 +2,7 @@ package com.if_connect.request.services;
 
 import com.if_connect.models.Usuario;
 import com.if_connect.request.requestbody.ChangePasswordRequest;
+import com.if_connect.request.requestbody.Page;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public interface UsuarioService {
             "Content-Type: application/json",
             "Platform: android"})
     @GET("usuarios/search?")
-    Call<List<Usuario>> getUsuariosPageable(@Query("searchTerm") String searchTerm,
+    Call<Page<Usuario>> getUsuariosPageable(@Query("searchTerm") String searchTerm,
                                             @Query("inicio") Integer inicio,
                                             @Query("limite") Integer limite,
                                             @Query("ordem") String ordem,

@@ -1,8 +1,7 @@
 package com.if_connect.request.services;
 
 import com.if_connect.models.Mensagem;
-import com.if_connect.models.Mensagem;
-import com.if_connect.models.Mensagem;
+import com.if_connect.request.requestbody.Page;
 
 import java.util.List;
 
@@ -36,7 +35,7 @@ public interface MensagemService {
             "Content-Type: application/json",
             "Platform: android"})
     @GET("mensagens/search?")
-    Call<List<Mensagem>> getMensagensPageable(@Query("encontroId") Integer encontroId,
+    Call<Page<Mensagem>> getMensagensPageable(@Query("encontroId") Integer encontroId,
                                               @Query("order") String order,
                                               @Query("page") Integer page,
                                               @Query("size") Integer size,

@@ -89,15 +89,15 @@ public class FragmentCadastroProfessor extends Fragment {
     }
 
     private void concluirCadastro() {
-        if(validarCampos()){
+        if (validarCampos()) {
             isLoading(true);
             authUsuarioService.register(getUsuario()).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         isLoading(false);
                         ResponseBody authenticationResponse = response.body();
-                        if (authenticationResponse!=null){
+                        if (authenticationResponse!=null) {
                             new AlertDialogManager(
                                     context,
                                     "Sucesso!",
@@ -121,7 +121,7 @@ public class FragmentCadastroProfessor extends Fragment {
         }
     }
 
-    private void isLoading(boolean isLoading){
+    private void isLoading(boolean isLoading) {
         btnConcluir.setEnabled(!isLoading);
         btnConcluir.setAlpha(isLoading?0.5f:1.0f);
         progressBar.setVisibility(isLoading?View.VISIBLE:View.INVISIBLE);
@@ -185,7 +185,7 @@ public class FragmentCadastroProfessor extends Fragment {
             valida = false;
         }
 
-        if(!verificasenha(senhaString)){
+        if (!verificasenha(senhaString)) {
             senha.setError("Senha inválida, deve conter 8 caracteres, 1 letra maiúscula, 1 letra ");
             senha.requestFocus();
             valida = false;
@@ -198,7 +198,7 @@ public class FragmentCadastroProfessor extends Fragment {
         }
 
         // Verificar se a data de nascimento é válida
-        if(!validarDataNascimento(datanascString)){
+        if (!validarDataNascimento(datanascString)) {
             Toast.makeText(context, "Data de nascimento inválida", Toast.LENGTH_SHORT).show();
             valida = false;
         }

@@ -57,7 +57,7 @@ public class RecyclerViewPerfilAluno extends RecyclerView.Adapter<RecyclerViewPe
         public TextView nomedogrupo, areadogrupo;
         public ImageButton edit, excluir;
         public FrameLayout consulta;
-        public ViewHolder(View v){
+        public ViewHolder(View v) {
             super(v);
             nomedogrupo = v.findViewById(R.id.textviewPrincipal);
             areadogrupo = v.findViewById(R.id.areadogrupo);
@@ -67,13 +67,13 @@ public class RecyclerViewPerfilAluno extends RecyclerView.Adapter<RecyclerViewPe
         }
     }
 
-    public RecyclerViewPerfilAluno.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public RecyclerViewPerfilAluno.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     view = LayoutInflater.from(context).inflate(R.layout.recycle_grupos_perfil, parent, false);
     viewHolder = new ViewHolder(view);
     return viewHolder;
     }
 
-    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position){
+    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.nomedogrupo.setText(grupos.get(position).getNome());
         holder.areadogrupo.setText(grupos.get(position).getAreadeEstudo());
         holder.consulta.setOnClickListener(view -> {
@@ -102,7 +102,7 @@ public class RecyclerViewPerfilAluno extends RecyclerView.Adapter<RecyclerViewPe
         grupoService.deleteGrupo(grupoId, token).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Toast.makeText(context, "Grupo excluido com sucesso!", Toast.LENGTH_SHORT).show();
                 }else {
                     showError("Não foi possível excluir grupo: ", response, context);
@@ -116,7 +116,7 @@ public class RecyclerViewPerfilAluno extends RecyclerView.Adapter<RecyclerViewPe
         });
     }
 
-    public int getItemCount(){
+    public int getItemCount() {
         return grupos.size();
     }
 }

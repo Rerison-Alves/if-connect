@@ -61,14 +61,14 @@ public class FragmentCPEmail extends Fragment {
 
     private void concluir() {
         String emailString = email.getText().toString();
-        if(validaCampo(emailString)){
+        if (validaCampo(emailString)) {
             //mandar email de alteração
             isLoading(true);
             usuarioService.changePasswordCode(emailString).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     isLoading(false);
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         bottomSheetShape.replaceFragment(new FragmentCPCode(
                                 context,
                                 bottomSheetShape,
@@ -88,14 +88,14 @@ public class FragmentCPEmail extends Fragment {
         }
     }
 
-    private void isLoading(boolean isLoading){
+    private void isLoading(boolean isLoading) {
         btnConcluir.setEnabled(!isLoading);
         btnConcluir.setAlpha(isLoading?0.5f:1.0f);
         progressBar.setVisibility(isLoading?View.VISIBLE:View.INVISIBLE);
     }
 
-    private boolean validaCampo(String emailString){
-        if(!validarEmail(emailString)){
+    private boolean validaCampo(String emailString) {
+        if (!validarEmail(emailString)) {
             email.setError("Email inválido!");
             email.requestFocus();
             return false;

@@ -50,14 +50,14 @@ public class BottomSheetEditarTurma extends BottomSheetCriarTurma {
     }
 
     @Override
-    public void salvarTurma(){
-        if(validarCampos()){
+    public void salvarTurma() {
+        if (validarCampos()) {
             Turma newTurma = getTurma();
             newTurma.setId(turmaOld.getId());
             turmaService.updateTurma(newTurma, token).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         Toast.makeText(context, "Turma editada com sucesso!", Toast.LENGTH_SHORT).show();
                     }else {
                         showError("Erro ao editar turma: ", response, context);

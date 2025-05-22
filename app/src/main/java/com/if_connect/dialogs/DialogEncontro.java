@@ -69,17 +69,17 @@ public class DialogEncontro extends DialogFragment {
 
         voltar.setOnClickListener(view1 -> dismiss());
         buttonChat.setOnClickListener(view12 -> {
-            // Abrir chat
+            new ChatDialog(encontro, context, fragmentManager).show(fragmentManager, "tag");
         });
 
         return view;
     }
 
-    String getLocalName(@NonNull Local local){
+    String getLocalName(@NonNull Local local) {
         return String.format("%s - %s", local.getNome(), local.getLocalizacao());
     }
 
-    String getHorario(Agendamento agendamento){
+    String getHorario(Agendamento agendamento) {
         return String.format("%s - %s",
                 hourformat.format(agendamento.getStartTime()),
                 hourformat.format(agendamento.getEndTime()));

@@ -91,7 +91,7 @@ public class DialogTurma extends DialogFragment{
         encontroService.getEncontrosByTurma(turma.getId(), token).enqueue(new Callback<List<Encontro>>() {
             @Override
             public void onResponse(Call<List<Encontro>> call, Response<List<Encontro>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     encontrosList = response.body();
                     listarEncontros();
                 }else {

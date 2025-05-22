@@ -9,7 +9,7 @@ import java.io.ByteArrayOutputStream;
 public class ImageManager {
 
     public static Bitmap base64StringToBitmap(String imageBase64) {
-        if(imageBase64!=null){
+        if (imageBase64!=null) {
             byte[] bytesimagem = Base64.decode(imageBase64, Base64.DEFAULT);
             return BitmapFactory.decodeByteArray(bytesimagem, 0, bytesimagem.length);
         }else {

@@ -2,6 +2,7 @@ package com.if_connect.request.services;
 
 import com.if_connect.models.Encontro;
 import com.if_connect.models.Grupo;
+import com.if_connect.request.requestbody.Page;
 
 import java.util.List;
 
@@ -85,7 +86,7 @@ public interface EncontroService {
             "Content-Type: application/json",
             "Platform: android"})
     @GET("encontros/search?")
-    Call<List<Encontro>> getEncontrosPageable(@Query("searchTerm") String searchTerm,
+    Call<Page<Encontro>> getEncontrosPageable(@Query("searchTerm") String searchTerm,
                                               @Query("order") String order,
                                               @Query("page") Integer page,
                                               @Query("size") Integer size,

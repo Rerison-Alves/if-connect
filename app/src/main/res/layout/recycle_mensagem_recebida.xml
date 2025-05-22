@@ -7,7 +7,7 @@
     android:layout_marginVertical="4dp"
     android:layout_marginEnd="100dp"
     android:orientation="vertical"
-    android:background="@drawable/backmensagemrecebida">
+    android:background="@drawable/background_mensagem_recebida">
     <TextView
         android:id="@+id/nomeusuario"
         android:layout_width="wrap_content"

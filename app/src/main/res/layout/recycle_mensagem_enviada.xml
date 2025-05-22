@@ -11,7 +11,7 @@
         android:layout_marginVertical="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="100dp"
-        android:background="@drawable/backmensagemenviada">
+        android:background="@drawable/background_mensagem_enviada">
     <TextView
         android:id="@+id/nomeusuario"
         android:layout_width="0dp"

@@ -125,17 +125,17 @@ public class BottomSheetCriarEncontro extends BottomSheetDialogFragment {
     }
 
     private void escolherLocal() {
-        if(validarDuracaoEncontro(true)){
+        if (validarDuracaoEncontro(true)) {
             new DialogEscolherLocal(context, fragmentManager, this, getDataInicio(), getDataFim()).show(fragmentManager, "tag");
         }
     }
 
     private void concluir() {
-        if (validarCampos()){
+        if (validarCampos()) {
             encontroService.createEncontro(getEncontro(), token).enqueue(new Callback<Encontro>() {
                 @Override
                 public void onResponse(Call<Encontro> call, Response<Encontro> response) {
-                    if (response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         Encontro encontro = Objects.requireNonNull(response.body());
                         Local localEncontro = encontro.getAgendamento().getLocal();
                         new AlertDialogManager(
@@ -147,7 +147,7 @@ public class BottomSheetCriarEncontro extends BottomSheetDialogFragment {
                                         "Dia: " + data.getText() + "\n"+
                                         "Horário: " + inicio.getText().toString() + " - " + fim.getText().toString())
                                 .show();
-                        if(dialogGrupoAdm!=null)dialogGrupoAdm.searchEncontros();
+                        if (dialogGrupoAdm!=null)dialogGrupoAdm.searchEncontros();
                         else dialogTurmaAdm.searchEncontros();
                         dismiss();
                     }else {
@@ -165,13 +165,13 @@ public class BottomSheetCriarEncontro extends BottomSheetDialogFragment {
         }
     }
 
-    public Encontro getEncontro(){
+    public Encontro getEncontro() {
         Encontro encontro = new Encontro();
         encontro.setTema(temaDoEncontro.getText().toString());
         encontro.setDescricao(descricao.getText().toString());
         encontro.setTema(temaDoEncontro.getText().toString());
         encontro.setAgendamento(getAgendamento());
-        if(grupo!=null)encontro.setGrupo(grupo);
+        if (grupo!=null)encontro.setGrupo(grupo);
         else encontro.setTurma(turma);
         return encontro;
     }
@@ -216,7 +216,7 @@ public class BottomSheetCriarEncontro extends BottomSheetDialogFragment {
         return validarDuracaoEncontro(valida);
     }
 
-    private Boolean validarDuracaoEncontro(boolean valida){
+    private Boolean validarDuracaoEncontro(boolean valida) {
 
         String inicioString = inicio.getText().toString();
         String fimString = fim.getText().toString();

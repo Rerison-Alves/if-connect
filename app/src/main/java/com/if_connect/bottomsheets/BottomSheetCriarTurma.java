@@ -98,12 +98,12 @@ public class BottomSheetCriarTurma extends BottomSheetDialogFragment {
         return view;
     }
 
-    public void salvarTurma(){
-        if(validarCampos()){
+    public void salvarTurma() {
+        if (validarCampos()) {
             turmaService.createTurma(getTurma(), token).enqueue(new Callback<Turma>() {
                 @Override
                 public void onResponse(Call<Turma> call, Response<Turma> response) {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         Toast.makeText(context, "Turma criada com sucesso!", Toast.LENGTH_SHORT).show();
                         //perfil.listarGrupos();
                         dismiss();
@@ -120,7 +120,7 @@ public class BottomSheetCriarTurma extends BottomSheetDialogFragment {
         }
     }
 
-    public Turma getTurma(){
+    public Turma getTurma() {
         return new Turma(admin,
                 nomeTurma.getText().toString(),
                 descricao.getText().toString(),
@@ -132,7 +132,7 @@ public class BottomSheetCriarTurma extends BottomSheetDialogFragment {
     }
 
     @SuppressLint("DefaultLocale")
-    public void changeCounter(int size){
+    public void changeCounter(int size) {
         counterConvidados.setText(String.format("%d/50", size));
     }
 
@@ -140,9 +140,9 @@ public class BottomSheetCriarTurma extends BottomSheetDialogFragment {
         cursoService.getAllCursos().enqueue(new Callback<List<Curso>>() {
             @Override
             public void onResponse(Call<List<Curso>> call, Response<List<Curso>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     cursosList = response.body();
-                    if(cursosList!=null && !cursosList.isEmpty()){
+                    if (cursosList!=null && !cursosList.isEmpty()) {
                         nomeCursos = Stream.concat(
                                         Stream.of("Indefinido"),
                                         cursosList.stream().map(Curso::getDescricao))
@@ -164,18 +164,18 @@ public class BottomSheetCriarTurma extends BottomSheetDialogFragment {
         return cursosList.get((int)spinnerCursos.getSelectedItemId()-1);
     }
 
-    private Turno getTurno(){
+    private Turno getTurno() {
         return Turno.valueOf(spinnerTurno.getSelectedItem().toString());
     }
 
-    void setCurso(){
-        if(this instanceof BottomSheetEditarTurma){
+    void setCurso() {
+        if (this instanceof BottomSheetEditarTurma) {
             spinnerCursos.setSelection(cursosList.indexOf(
                     ((BottomSheetEditarTurma)this).turmaOld.getCurso())+1);
         }
     }
 
-    public boolean validarCampos(){
+    public boolean validarCampos() {
         boolean valida = true;
         String nomeTurmaString = nomeTurma.getText().toString();
         String disciplinaString = disciplina.getText().toString();
@@ -190,17 +190,17 @@ public class BottomSheetCriarTurma extends BottomSheetDialogFragment {
             disciplina.requestFocus();
             valida = false;
         }
-        if(spinnerCursos.getSelectedItemId()==0){
+        if (spinnerCursos.getSelectedItemId()==0) {
             Toast.makeText(context, "Selecione um curso!", Toast.LENGTH_LONG).show();
             spinnerCursos.requestFocus();
             valida = false;
         }
-        if(spinnerTurno.getSelectedItemId()==0){
+        if (spinnerTurno.getSelectedItemId()==0) {
             Toast.makeText(context, "Selecione um turno!", Toast.LENGTH_LONG).show();
             spinnerTurno.requestFocus();
             valida = false;
         }
-        if(convidadosList.isEmpty()){
+        if (convidadosList.isEmpty()) {
             Toast.makeText(context, "Convide ao menos um usuário!", Toast.LENGTH_LONG).show();
             btnConvidaAlunos.requestFocus();
             valida = false;

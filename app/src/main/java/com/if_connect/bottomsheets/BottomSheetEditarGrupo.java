@@ -45,14 +45,14 @@ public class BottomSheetEditarGrupo extends BottomSheetCriarGrupo {
     }
 
     @Override
-    public void salvarGrupo(){
-        if(validarCampos()){
+    public void salvarGrupo() {
+        if (validarCampos()) {
             Grupo newGrupo = getGrupo();
             newGrupo.setId(grupoOld.getId());
             grupoService.updateGrupo(newGrupo, token).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         Toast.makeText(context, "Grupo editado com sucesso!", Toast.LENGTH_SHORT).show();
                     }else {
                         showError("Erro ao editar grupo: ", response, context);

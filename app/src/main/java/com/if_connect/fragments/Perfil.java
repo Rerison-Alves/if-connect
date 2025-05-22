@@ -31,8 +31,8 @@ public class Perfil extends Fragment {
                 .commit();
     }
 
-    public Fragment getPerfilByTipoUsuario(){
-        switch (UsuarioManager.getTipoUsuarioLogado()){
+    public Fragment getPerfilByTipoUsuario() {
+        switch (UsuarioManager.getTipoUsuarioLogado()) {
             case ALUNO:
                 return new PerfilAluno();
             case PROFESSOR:

@@ -83,14 +83,14 @@ public class Principal extends Fragment {
         return view;
     }
 
-    private void getTodos(){
+    private void getTodos() {
         agrupamentoService.getAgrupamentosPageable("", valueOf(usuarioLogado.getId()), "","nome", 0, Integer.MAX_VALUE, token).enqueue(new Callback<Page<Agrupamento>>() {
             @Override
             public void onResponse(Call<Page<Agrupamento>> call, Response<Page<Agrupamento>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     if (response.body() != null) {
                         agrupamentosList = response.body().getContent();
-                        if(!agrupamentosList.isEmpty()){
+                        if (!agrupamentosList.isEmpty()) {
                             listarTodos();
                             recycleTodos.setVisibility(View.VISIBLE);
                             emptyTodos.setVisibility(View.INVISIBLE);
@@ -115,7 +115,7 @@ public class Principal extends Fragment {
     }
 
 
-    private void getRecentes(){
+    private void getRecentes() {
         //
     }
 
@@ -128,10 +128,10 @@ public class Principal extends Fragment {
         encontroService.getUpcomingEncontrosByUser(usuarioLogado.getId(), token).enqueue(new Callback<List<Encontro>>() {
             @Override
             public void onResponse(Call<List<Encontro>> call, Response<List<Encontro>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     proximosEncontrosList = response.body();
-                    if(proximosEncontrosList!=null){
-                        if(!proximosEncontrosList.isEmpty()){
+                    if (proximosEncontrosList!=null) {
+                        if (!proximosEncontrosList.isEmpty()) {
                             listarProximosEncontros();
                             recycleEncontros.setVisibility(View.VISIBLE);
                             emptyEncontros.setVisibility(View.INVISIBLE);

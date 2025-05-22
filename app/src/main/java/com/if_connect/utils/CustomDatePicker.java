@@ -33,13 +33,13 @@ public class CustomDatePicker {
                 calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH));
 
-        if (maxDate!=null){
+        if (maxDate!=null) {
             datePickerDialog
                     .getDatePicker()
                     .setMaxDate(maxDate.getTime());
         }
 
-        if (minDate!=null){
+        if (minDate!=null) {
             datePickerDialog
                     .getDatePicker()
                     .setMinDate(minDate.getTime());
@@ -48,7 +48,7 @@ public class CustomDatePicker {
         datePickerDialog.show();
     }
 
-    public static void openDatePicker(Calendar calendar, DateEditText dateEditText, Context context){
+    public static void openDatePicker(Calendar calendar, DateEditText dateEditText, Context context) {
         openDatePicker(calendar, dateEditText, context, null, null);
     }
 

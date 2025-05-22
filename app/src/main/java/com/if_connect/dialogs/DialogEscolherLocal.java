@@ -80,9 +80,9 @@ public class DialogEscolherLocal extends DialogFragment {
         localService.getLocaisAvailable(startTime, endTime, token).enqueue(new Callback<List<Local>>() {
             @Override
             public void onResponse(Call<List<Local>> call, Response<List<Local>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     locaisList = response.body();
-                    if(locaisList!=null && locaisList.size()>0){
+                    if (locaisList!=null && locaisList.size()>0) {
                         adaptarLocais();
                     }
                 }else {

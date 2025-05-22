@@ -70,6 +70,7 @@ dependencies {
     implementation("com.facebook.shimmer:shimmer:0.1.0@aar")
     implementation("com.github.yalantis:ucrop:2.2.9")
     implementation("com.github.lisawray.groupie:groupie:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

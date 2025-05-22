@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -40,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
     Context context;
     AuthService authService;
 
-
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +52,12 @@ public class LoginActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         String refreshtoken = TokenManager.getInstance(context).getRefreshToken();
-        if(refreshtoken!=null){
+        if (refreshtoken!=null) {
             try {
                 Response<AuthenticationResponse> response = authService.refreshtoken(refreshtoken).execute();
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     AuthenticationResponse auth = response.body();
-                    if(auth!=null){
+                    if (auth!=null) {
                         TokenManager.getInstance(context).saveTokens(auth.accessToken, auth.refreshToken);
                         UsuarioManager.requestUsuario(TokenManager.getInstance(context).getAccessToken(), context);
                         startActivity(new Intent(context, MainActivity.class));
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                     TokenManager.getInstance(context).deleteTokens();
                 }
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         }
 

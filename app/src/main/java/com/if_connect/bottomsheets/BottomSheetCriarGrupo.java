@@ -93,12 +93,12 @@ public class BottomSheetCriarGrupo extends BottomSheetDialogFragment {
         return view;
     }
 
-    public void salvarGrupo(){
-        if(validarCampos()){
+    public void salvarGrupo() {
+        if (validarCampos()) {
             grupoService.createGrupo(getGrupo(), token).enqueue(new Callback<Grupo>() {
                 @Override
                 public void onResponse(Call<Grupo> call, Response<Grupo> response) {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         Toast.makeText(context, "Grupo criado com sucesso!", Toast.LENGTH_SHORT).show();
                         perfilAluno.listarGrupos();
                         dismiss();
@@ -116,7 +116,7 @@ public class BottomSheetCriarGrupo extends BottomSheetDialogFragment {
     }
 
     @SuppressLint("DefaultLocale")
-    public void changeCounter(int size){
+    public void changeCounter(int size) {
         counterConvidados.setText(String.format("%d/50", size));
     }
 
@@ -124,9 +124,9 @@ public class BottomSheetCriarGrupo extends BottomSheetDialogFragment {
         cursoService.getAllCursos().enqueue(new Callback<List<Curso>>() {
             @Override
             public void onResponse(Call<List<Curso>> call, Response<List<Curso>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     cursosList = response.body();
-                    if(cursosList!=null && !cursosList.isEmpty()){
+                    if (cursosList!=null && !cursosList.isEmpty()) {
                         nomeCursos = Stream.concat(
                                         Stream.of("Indefinido"),
                                         cursosList.stream().map(Curso::getDescricao))
@@ -159,14 +159,14 @@ public class BottomSheetCriarGrupo extends BottomSheetDialogFragment {
         return cursosList.get((int)spinnerCursos.getSelectedItemId()-1);
     }
 
-    void setCurso(){
-        if(this instanceof BottomSheetEditarGrupo){
+    void setCurso() {
+        if (this instanceof BottomSheetEditarGrupo) {
             spinnerCursos.setSelection(cursosList.indexOf(
                     ((BottomSheetEditarGrupo)this).grupoOld.getCurso())+1);
         }
     }
 
-    public boolean validarCampos(){
+    public boolean validarCampos() {
         boolean valida = true;
         String nomeDoGrupoString = nomeDoGrupo.getText().toString();
         String areadeestudoString = areaDeEstudo.getText().toString();
@@ -181,12 +181,12 @@ public class BottomSheetCriarGrupo extends BottomSheetDialogFragment {
             areaDeEstudo.requestFocus();
             valida = false;
         }
-        if(spinnerCursos.getSelectedItemId()==0){
+        if (spinnerCursos.getSelectedItemId()==0) {
             Toast.makeText(context, "Selecione um curso!", Toast.LENGTH_LONG).show();
             spinnerCursos.requestFocus();
             valida = false;
         }
-        if(convidadosList.isEmpty()){
+        if (convidadosList.isEmpty()) {
             Toast.makeText(context, "Convide ao menos um usuário!", Toast.LENGTH_LONG).show();
             btnConvidaAlunos.requestFocus();
             valida = false;

@@ -109,9 +109,9 @@ public class PerfilProfessor extends Fragment {
         usuarioService.getProfileImage(token).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     fotoPerfilBase64 = response.body();
-                    if(fotoPerfilBase64!=null){
+                    if (fotoPerfilBase64!=null) {
                         imagemUsuario.setImageBitmap(
                                 ImageManager.base64StringToBitmap(fotoPerfilBase64)
                         );
@@ -127,25 +127,25 @@ public class PerfilProfessor extends Fragment {
         });
     }
 
-    private void startImageShimmerAnimation(){
+    private void startImageShimmerAnimation() {
         cardImagem.setVisibility(View.INVISIBLE);
         shimmerImagem.setVisibility(View.VISIBLE);
         shimmerImagem.startShimmerAnimation();
     }
 
-    private void stopImageShimmerAnimation(){
+    private void stopImageShimmerAnimation() {
         cardImagem.setVisibility(View.VISIBLE);
         shimmerImagem.setVisibility(View.INVISIBLE);
         shimmerImagem.stopShimmerAnimation();
     }
 
-    void getTurmas(){
+    void getTurmas() {
         turmaService.getTurmasByAdmin(usuarioLogado.getId(), token).enqueue(new Callback<List<Turma>>() {
             @Override
             public void onResponse(Call<List<Turma>> call, Response<List<Turma>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     turmasList = response.body();
-                    if(turmasList!=null){
+                    if (turmasList!=null) {
                         listarTurmas();
                     }else {
                         showError("Não foi possível carregar grupos do usuário: ", response, context);

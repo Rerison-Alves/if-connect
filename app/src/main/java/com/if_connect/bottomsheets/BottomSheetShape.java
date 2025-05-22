@@ -33,7 +33,7 @@ public class BottomSheetShape extends BottomSheetDialogFragment {
         return view;
     }
 
-    public void replaceFragment(Fragment fragment){
+    public void replaceFragment(Fragment fragment) {
         getChildFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.fragment_slide_in, R.anim.fragment_slide_out)

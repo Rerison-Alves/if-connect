@@ -29,7 +29,7 @@ public class RecyclerViewTodos extends RecyclerView.Adapter<RecyclerViewTodos.Vi
     ViewHolder viewHolder;
     FragmentManager fragmentManager;
 
-    public RecyclerViewTodos(Context context, FragmentManager fragmentManager, List<Agrupamento> agrupamentoList){
+    public RecyclerViewTodos(Context context, FragmentManager fragmentManager, List<Agrupamento> agrupamentoList) {
         this.agrupamentoList = agrupamentoList;
         this.context=context;
         this.fragmentManager=fragmentManager;
@@ -40,7 +40,7 @@ public class RecyclerViewTodos extends RecyclerView.Adapter<RecyclerViewTodos.Vi
 
         public TextView nome, tipoArupamento, participantes;
         public FrameLayout consulta;
-        public ViewHolder(View v){
+        public ViewHolder(View v) {
             super(v);
             nome = v.findViewById(R.id.textviewPrincipal);
             consulta = v.findViewById(R.id.consulta);
@@ -49,20 +49,20 @@ public class RecyclerViewTodos extends RecyclerView.Adapter<RecyclerViewTodos.Vi
         }
     }
 
-    public RecyclerViewTodos.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public RecyclerViewTodos.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         view = LayoutInflater.from(context).inflate(R.layout.recycle_todos, parent, false);
         viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
-    public void onBindViewHolder(ViewHolder holder, int position){
+    public void onBindViewHolder(ViewHolder holder, int position) {
         Agrupamento agrupamento = agrupamentoList.get(position);
 
         holder.nome.setText(agrupamento.getNome());
         holder.tipoArupamento.setText(agrupamento.getTipoAgrupamento().getTipo());
         holder.participantes.setText(getQuantParticipantes(agrupamento));
         holder.consulta.setOnClickListener(view -> {
-            if(agrupamento instanceof Grupo){
+            if (agrupamento instanceof Grupo) {
                 new DialogGrupo((Grupo) agrupamento, context, fragmentManager).show(fragmentManager, "tag");
             }else if (agrupamento instanceof Turma) {
                 new DialogTurma((Turma) agrupamento, context, fragmentManager).show(fragmentManager, "tag");
@@ -71,9 +71,9 @@ public class RecyclerViewTodos extends RecyclerView.Adapter<RecyclerViewTodos.Vi
 
     }
 
-    private String getQuantParticipantes(Agrupamento agrupamento){
+    private String getQuantParticipantes(Agrupamento agrupamento) {
         int quant = 0;
-        if(agrupamento instanceof Grupo){
+        if (agrupamento instanceof Grupo) {
             quant = ((Grupo) agrupamento).getUsuarios().size();
         }else if (agrupamento instanceof Turma) {
             quant = ((Turma) agrupamento).getUsuarios().size();
@@ -81,7 +81,7 @@ public class RecyclerViewTodos extends RecyclerView.Adapter<RecyclerViewTodos.Vi
         return format(Locale.getDefault(), "%d participante%s", quant, quant > 1 ? "s" : "");
     }
 
-    public int getItemCount(){
+    public int getItemCount() {
         return agrupamentoList.size();
     }
 }

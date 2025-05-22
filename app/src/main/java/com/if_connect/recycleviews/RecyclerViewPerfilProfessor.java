@@ -57,7 +57,7 @@ public class RecyclerViewPerfilProfessor extends RecyclerView.Adapter<RecyclerVi
         public TextView nomeTurma, disciplina, turno;
         public ImageButton edit, excluir;
         public FrameLayout consulta;
-        public ViewHolder(View v){
+        public ViewHolder(View v) {
             super(v);
             nomeTurma = v.findViewById(R.id.nome_turma);
             disciplina = v.findViewById(R.id.disciplina);
@@ -68,13 +68,13 @@ public class RecyclerViewPerfilProfessor extends RecyclerView.Adapter<RecyclerVi
         }
     }
 
-    public RecyclerViewPerfilProfessor.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public RecyclerViewPerfilProfessor.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     view = LayoutInflater.from(context).inflate(R.layout.recycle_turmas_perfil, parent, false);
     viewHolder = new ViewHolder(view);
     return viewHolder;
     }
 
-    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position){
+    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.nomeTurma.setText(turmas.get(position).getNome());
         holder.disciplina.setText(turmas.get(position).getDisciplina());
         holder.turno.setText(turmas.get(position).getTurno().name());
@@ -104,7 +104,7 @@ public class RecyclerViewPerfilProfessor extends RecyclerView.Adapter<RecyclerVi
         turmaService.deleteTurma(turmaId, token).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Toast.makeText(context, "Turma excluida com sucesso!", Toast.LENGTH_SHORT).show();
                 }else {
                     showError("Não foi possível excluir turma: ", response, context);
@@ -118,7 +118,7 @@ public class RecyclerViewPerfilProfessor extends RecyclerView.Adapter<RecyclerVi
         });
     }
 
-    public int getItemCount(){
+    public int getItemCount() {
         return turmas.size();
     }
 }

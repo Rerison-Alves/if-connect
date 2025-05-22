@@ -84,7 +84,7 @@ public class DialogAlterarImagemPerfil extends DialogFragment {
         confirmar = v.findViewById(R.id.confirmar);
 
         Bitmap image = ImageManager.base64StringToBitmap(imagemPerfil);
-        if(image!=null) profileImageView.setImageBitmap(image);
+        if (image!=null) profileImageView.setImageBitmap(image);
 
         profileCardView.setOnClickListener(view -> selectImage());
 
@@ -134,15 +134,15 @@ public class DialogAlterarImagemPerfil extends DialogFragment {
         }
     }
 
-    private void alterarImagem(){
-        if(novaImagemBitmap!=null){
+    private void alterarImagem() {
+        if (novaImagemBitmap!=null) {
             confirmar.setClickable(false);
             imagemPerfil = ImageManager.bitmapToBase64String(novaImagemBitmap);
             usuarioService.changeProfileImage(imagemPerfil, token).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     confirmar.setClickable(true);
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         new AlertDialogManager(context, "Imagem do perfil alterada!", "A imagem do perfil foi alterada com sucesso!").show();
                         dismiss();
                         UsuarioManager.requestUsuario(token, context);

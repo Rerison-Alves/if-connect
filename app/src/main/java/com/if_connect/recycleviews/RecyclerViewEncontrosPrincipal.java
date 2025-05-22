@@ -27,7 +27,7 @@ public class RecyclerViewEncontrosPrincipal extends RecyclerView.Adapter<Recycle
     View view;
     ViewHolder viewHolder;
 
-    public RecyclerViewEncontrosPrincipal(Context context, FragmentManager fragmentManager, List<Encontro> Encontros){
+    public RecyclerViewEncontrosPrincipal(Context context, FragmentManager fragmentManager, List<Encontro> Encontros) {
         this.context=context;
         this.fragmentManager=fragmentManager;
         this.Encontros=Encontros;
@@ -37,7 +37,7 @@ public class RecyclerViewEncontrosPrincipal extends RecyclerView.Adapter<Recycle
 
         public TextView tema, desc;
         LinearLayout consulta;
-        public ViewHolder(View v){
+        public ViewHolder(View v) {
             super(v);
             tema = v.findViewById(R.id.textviewPrincipal);
             desc = v.findViewById(R.id.desc);
@@ -45,13 +45,13 @@ public class RecyclerViewEncontrosPrincipal extends RecyclerView.Adapter<Recycle
         }
     }
 
-    public RecyclerViewEncontrosPrincipal.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public RecyclerViewEncontrosPrincipal.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     view = LayoutInflater.from(context).inflate(R.layout.recycle_principal, parent, false);
     viewHolder = new ViewHolder(view);
     return viewHolder;
     }
 
-    public void onBindViewHolder(ViewHolder holder, int position){
+    public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tema.setText(Encontros.get(position).getTema());
 
         holder.desc.setText(getDescricao(Encontros.get(position)));
@@ -63,7 +63,7 @@ public class RecyclerViewEncontrosPrincipal extends RecyclerView.Adapter<Recycle
 
     }
 
-    private String getDescricao(Encontro encontro){
+    private String getDescricao(Encontro encontro) {
         Date horaInicio = encontro.getAgendamento().getStartTime();
         Date horaFim = encontro.getAgendamento().getEndTime();
         String local = encontro.getAgendamento().getLocal().getNome() + " - " + encontro.getAgendamento().getLocal().getLocalizacao();
@@ -89,7 +89,7 @@ public class RecyclerViewEncontrosPrincipal extends RecyclerView.Adapter<Recycle
                 local;
     }
 
-    public int getItemCount(){
+    public int getItemCount() {
         return Encontros.size();
     }
 }
