@@ -2,8 +2,10 @@ package com.if_connect.dialogs;
 
 import static com.if_connect.utils.ErrorManager.showError;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +49,7 @@ public class ChatDialog extends DialogFragment {
     Context context;
     FragmentManager fragmentManager;
     Usuario usuarioLogado;
-    GroupAdapter adapter;
+    GroupAdapter groupAdapterMensagens;
     ChatWebSocket socket;
     MensagemService service;
     String token;
@@ -64,7 +66,8 @@ public class ChatDialog extends DialogFragment {
     }
 
     TextView tema;
-    RecyclerView chat;
+    RecyclerView recyclerViewChat;
+    LinearLayoutManager layoutChat;
     ImageView send, voltar;
     EditText texto;
 
@@ -82,18 +85,19 @@ public class ChatDialog extends DialogFragment {
         token = TokenManager.getInstance(context).getAccessToken();
 
         tema = view.findViewById(R.id.tema);
-        chat = view.findViewById(R.id.chat);
+        recyclerViewChat = view.findViewById(R.id.chat);
         send = view.findViewById(R.id.send);
         texto = view.findViewById(R.id.texto);
         voltar = view.findViewById(R.id.voltar);
 
         usuarioLogado = UsuarioManager.getUsuarioLogado();
 
-        adapter = new GroupAdapter();
-        chat.setLayoutManager(new LinearLayoutManager(context));
-        chat.setAdapter(adapter);
+        groupAdapterMensagens = new GroupAdapter();
+        layoutChat = new LinearLayoutManager(context);
+        recyclerViewChat.setLayoutManager(layoutChat);
+        recyclerViewChat.setAdapter(groupAdapterMensagens);
 
-        chat.addOnScrollListener(getChatListener());
+        recyclerViewChat.addOnScrollListener(getChatListener());
 
         initWebSocket();
 
@@ -116,6 +120,15 @@ public class ChatDialog extends DialogFragment {
 
     private void initWebSocket() {
         socket = ChatWebSocket.getInstance();
+        socket.setOnMessageReceived(messageJson -> {
+            ((Activity)context).runOnUiThread(() -> {
+                String jsonPart = messageJson.substring(messageJson.indexOf("\n\n") + 2).trim();
+                Mensagem recebida = new Gson().fromJson(jsonPart, Mensagem.class);
+                if (recebida != null && !recebida.getUsuario().getId().equals(usuarioLogado.getId())) {
+                    addMessageToChat(recebida);
+                }
+            });
+        });
         socket.subscribeToTopic(String.valueOf(encontro.getId()));
     }
 
@@ -123,8 +136,8 @@ public class ChatDialog extends DialogFragment {
         return new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                LinearLayoutManager layoutManager = (LinearLayoutManager) chat.getLayoutManager();
-                if (!isLoading && !allMessagesLoaded && layoutManager != null && layoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
+                LinearLayoutManager layoutManager = (LinearLayoutManager) ChatDialog.this.recyclerViewChat.getLayoutManager();
+                if (!isLoading && !allMessagesLoaded && layoutManager != null && !recyclerView.canScrollVertically(-1)) {
                     loadMoreMessages();
                 }
             }
@@ -133,14 +146,14 @@ public class ChatDialog extends DialogFragment {
 
     private void loadInitialMessages() {
         currentPage = 0;
-        adapter.clear();
+        groupAdapterMensagens.clear();
         loadMoreMessages();
     }
 
     private void loadMoreMessages() {
         isLoading = true;
 
-        service.getMensagensPageable(encontro.getId(), "data", currentPage, PAGE_SIZE, token).enqueue(new Callback<Page<Mensagem>>() {
+        service.getMensagensPageable(encontro.getId(), "-data", currentPage, PAGE_SIZE, token).enqueue(new Callback<Page<Mensagem>>() {
             @Override
             public void onResponse(Call<Page<Mensagem>> call, retrofit2.Response<Page<Mensagem>> response) {
                 isLoading = false;
@@ -151,11 +164,11 @@ public class ChatDialog extends DialogFragment {
                         if (mensagens.size() < PAGE_SIZE) {
                             allMessagesLoaded = true;
                         }
-                        for (int i = mensagens.size() - 1; i >= 0; i--) {
-                            adapter.add(0, new MessageItem(mensagens.get(i)));
+                        for (Mensagem mensagem:mensagens) {
+                            groupAdapterMensagens.add(0, new MessageItem(mensagem));
                         }
                         if (currentPage == 0) {
-                            chat.scrollToPosition(adapter.getItemCount() - 1);
+                            recyclerViewChat.scrollToPosition(groupAdapterMensagens.getItemCount() - 1);
                         }
                         currentPage++;
                     }
@@ -173,8 +186,8 @@ public class ChatDialog extends DialogFragment {
     }
 
     private void addMessageToChat(Mensagem mensagem) {
-        adapter.add(new MessageItem(mensagem));
-        chat.scrollToPosition(adapter.getItemCount() - 1);
+        groupAdapterMensagens.add(new MessageItem(mensagem));
+        recyclerViewChat.scrollToPosition(groupAdapterMensagens.getItemCount() - 1);
     }
 
     private class MessageItem extends Item<GroupieViewHolder> {

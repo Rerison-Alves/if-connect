@@ -9,7 +9,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Generator {
-    public static String apiUrl = "http://localhost:8080/api/v1/";
+//    public static String apiUrl = "http://localhost:8080/api/v1/";
+    public static String apiUrl = "http://fair-vary.gl.at.ply.gg:51692/api/v1/";
     private static Retrofit retrofit;
 
     public static Retrofit getRetrofitInstance() {

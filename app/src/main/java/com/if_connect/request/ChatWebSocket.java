@@ -1,6 +1,7 @@
 package com.if_connect.request;
 
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -13,6 +14,7 @@ public class ChatWebSocket {
     private static ChatWebSocket instance;
     private WebSocket webSocket;
     private final OkHttpClient client;
+    private Consumer<String> onMessageReceived;
 
     private ChatWebSocket() {
         client = new OkHttpClient.Builder()
@@ -33,8 +35,10 @@ public class ChatWebSocket {
 
             @Override
             public void onMessage(WebSocket webSocket, String text) {
-                // Tratar mensagens recebidas aqui
                 System.out.println("Mensagem recebida: " + text);
+                if (onMessageReceived != null) {
+                    onMessageReceived.accept(text);
+                }
             }
 
             @Override
@@ -73,6 +77,10 @@ public class ChatWebSocket {
                 payloadJson + "\u0000";
 
         webSocket.send(sendFrame);
+    }
+
+    public void setOnMessageReceived(Consumer<String> callback) {
+        this.onMessageReceived = callback;
     }
 
     private String getWebSocketBase() {
