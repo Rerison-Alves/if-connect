@@ -5,22 +5,24 @@ import static com.if_connect.utils.ErrorManager.showError;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
 import com.if_connect.models.Usuario;
 import com.if_connect.request.ChatWebSocket;
@@ -43,7 +45,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class ChatDialog extends DialogFragment {
+public class DialogChat extends DialogFragment {
 
     Encontro encontro;
     Context context;
@@ -56,16 +58,20 @@ public class ChatDialog extends DialogFragment {
 
     private int currentPage = 0;
     private boolean isLoading = false;
+    private boolean isLoadingSocket = false;
     private boolean allMessagesLoaded = false;
     private static final int PAGE_SIZE = 20;
 
-    public ChatDialog(Encontro encontro, Context context, FragmentManager fragmentManager) {
+    public DialogChat(Encontro encontro, Context context, FragmentManager fragmentManager) {
         this.encontro = encontro;
         this.context = context;
         this.fragmentManager = fragmentManager;
     }
 
     TextView tema;
+    ShimmerFrameLayout shimmerLayout;
+    ConstraintLayout loadingWavy;
+    ProgressBar loadingMore;
     RecyclerView recyclerViewChat;
     LinearLayoutManager layoutChat;
     ImageView send, voltar;
@@ -85,6 +91,9 @@ public class ChatDialog extends DialogFragment {
         token = TokenManager.getInstance(context).getAccessToken();
 
         tema = view.findViewById(R.id.tema);
+        shimmerLayout = view.findViewById(R.id.shimmer_layout);
+        loadingWavy = view.findViewById(R.id.loading_wavy_layout);
+        loadingMore = view.findViewById(R.id.loading_more);
         recyclerViewChat = view.findViewById(R.id.chat);
         send = view.findViewById(R.id.send);
         texto = view.findViewById(R.id.texto);
@@ -99,8 +108,6 @@ public class ChatDialog extends DialogFragment {
 
         recyclerViewChat.addOnScrollListener(getChatListener());
 
-        initWebSocket();
-
         tema.setText(encontro.getTema());
         voltar.setOnClickListener(view2 -> dismiss());
         send.setOnClickListener(view1 -> {
@@ -114,12 +121,24 @@ public class ChatDialog extends DialogFragment {
         });
 
         loadInitialMessages();
+        initWebSocket();
 
         return view;
     }
 
     private void initWebSocket() {
+        isLoadingSocket = true;
+
         socket = ChatWebSocket.getInstance();
+
+        socket.setOnConnected(() -> {
+            isLoadingSocket = false;
+            socket.subscribeToTopic(String.valueOf(encontro.getId()));
+            if (!isLoading) {
+                stopLoadingAnimations();
+            }
+        });
+
         socket.setOnMessageReceived(messageJson -> {
             ((Activity)context).runOnUiThread(() -> {
                 String jsonPart = messageJson.substring(messageJson.indexOf("\n\n") + 2).trim();
@@ -129,14 +148,13 @@ public class ChatDialog extends DialogFragment {
                 }
             });
         });
-        socket.subscribeToTopic(String.valueOf(encontro.getId()));
     }
 
     private RecyclerView.OnScrollListener getChatListener() {
         return new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                LinearLayoutManager layoutManager = (LinearLayoutManager) ChatDialog.this.recyclerViewChat.getLayoutManager();
+                LinearLayoutManager layoutManager = (LinearLayoutManager) DialogChat.this.recyclerViewChat.getLayoutManager();
                 if (!isLoading && !allMessagesLoaded && layoutManager != null && !recyclerView.canScrollVertically(-1)) {
                     loadMoreMessages();
                 }
@@ -144,19 +162,30 @@ public class ChatDialog extends DialogFragment {
         };
     }
 
+    private void stopLoadingAnimations() {
+        ((Activity)context).runOnUiThread(() -> {
+            loadingWavy.setVisibility(View.GONE);
+            recyclerViewChat.setVisibility(View.VISIBLE);
+            shimmerLayout.stopShimmerAnimation();
+            shimmerLayout.setVisibility(View.GONE);
+        });
+    }
+
     private void loadInitialMessages() {
         currentPage = 0;
         groupAdapterMensagens.clear();
+        shimmerLayout.startShimmerAnimation();
         loadMoreMessages();
     }
 
     private void loadMoreMessages() {
         isLoading = true;
-
+        if (currentPage != 0) loadingMore.setVisibility(View.VISIBLE);
         service.getMensagensPageable(encontro.getId(), "-data", currentPage, PAGE_SIZE, token).enqueue(new Callback<Page<Mensagem>>() {
             @Override
             public void onResponse(Call<Page<Mensagem>> call, retrofit2.Response<Page<Mensagem>> response) {
                 isLoading = false;
+                loadingMore.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         List<Mensagem> mensagens = response.body().getContent();
@@ -169,6 +198,9 @@ public class ChatDialog extends DialogFragment {
                         }
                         if (currentPage == 0) {
                             recyclerViewChat.scrollToPosition(groupAdapterMensagens.getItemCount() - 1);
+                            if (!isLoadingSocket) {
+                                stopLoadingAnimations();
+                            }
                         }
                         currentPage++;
                     }
@@ -180,6 +212,7 @@ public class ChatDialog extends DialogFragment {
             @Override
             public void onFailure(Call<Page<Mensagem>> call, Throwable t) {
                 isLoading = false;
+                loadingMore.setVisibility(View.VISIBLE);
                 Toast.makeText(context, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -213,5 +246,11 @@ public class ChatDialog extends DialogFragment {
                     ? R.layout.recycle_mensagem_enviada
                     : R.layout.recycle_mensagem_recebida;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        socket.close();
     }
 }

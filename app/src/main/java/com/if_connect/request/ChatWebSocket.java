@@ -1,5 +1,7 @@
 package com.if_connect.request;
 
+import androidx.annotation.NonNull;
+
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
@@ -14,6 +16,7 @@ public class ChatWebSocket {
     private static ChatWebSocket instance;
     private WebSocket webSocket;
     private final OkHttpClient client;
+    private Runnable onConnected;
     private Consumer<String> onMessageReceived;
 
     private ChatWebSocket() {
@@ -27,30 +30,28 @@ public class ChatWebSocket {
 
         webSocket = client.newWebSocket(request, new WebSocketListener() {
             @Override
-            public void onOpen(WebSocket webSocket, Response response) {
-                // Frame de conexão STOMP
+            public void onOpen(@NonNull WebSocket webSocket, Response response) {
                 webSocket.send("CONNECT\naccept-version:1.2\nheart-beat:10000,10000\n\n\u0000");
-                System.out.println("Conectado ao WebSocket STOMP");
+                if (onConnected != null) {
+                    onConnected.run();
+                }
             }
 
             @Override
-            public void onMessage(WebSocket webSocket, String text) {
-                System.out.println("Mensagem recebida: " + text);
+            public void onMessage(@NonNull WebSocket webSocket, String text) {
                 if (onMessageReceived != null) {
                     onMessageReceived.accept(text);
                 }
             }
 
             @Override
-            public void onClosing(WebSocket webSocket, int code, String reason) {
-                webSocket.close(1000, null);
-                System.out.println("WebSocket fechando: " + reason);
+            public void onClosing(@NonNull WebSocket webSocket, int code, String reason) {
+
             }
 
             @Override
-            public void onFailure(WebSocket webSocket, Throwable t, Response response) {
-                t.printStackTrace();
-                System.err.println("Erro no WebSocket: " + t.getMessage());
+            public void onFailure(@NonNull WebSocket webSocket, Throwable t, Response response) {
+
             }
         });
     }
@@ -77,6 +78,18 @@ public class ChatWebSocket {
                 payloadJson + "\u0000";
 
         webSocket.send(sendFrame);
+    }
+
+    public void close() {
+        if (webSocket != null) {
+            webSocket.close(1000, "Conexão encerrada pelo cliente");
+            webSocket = null;
+            instance = null;
+        }
+    }
+
+    public void setOnConnected(Runnable onConnected) {
+        this.onConnected = onConnected;
     }
 
     public void setOnMessageReceived(Consumer<String> callback) {

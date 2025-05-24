@@ -21,7 +21,8 @@ public class CustomTimePicker {
                 (view, horaSelecionada, minutoSelecionado) -> {
                     // Atualiza o TextView com a hora selecionada
                     String horaFormatada = String.format(Locale.getDefault(), HOURFORMAT, horaSelecionada, minutoSelecionado);
-                    editText.setText(horaFormatada);
+                    editText.setText("");
+                    editText.append(horaFormatada);
                     }, horaAtual, minutoAtual, true); // true para exibir formato 24 horas
 
         timePickerDialog.show();
