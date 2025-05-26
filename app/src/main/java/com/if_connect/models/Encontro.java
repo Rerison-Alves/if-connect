@@ -70,4 +70,10 @@ public class Encontro {
     public void setTurma(Turma turma) {
         this.turma = turma;
     }
+
+    public Encontro toLightweight() {
+        Encontro light = new Encontro();
+        light.setId(this.id);
+        return light;
+    }
 }

@@ -11,7 +11,8 @@
     <TextView
         android:id="@+id/nomeusuario"
         android:layout_width="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginHorizontal="8dp"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:textColor="@color/black_fraco"
@@ -21,11 +22,20 @@
         android:id="@+id/texto"
         android:layout_width="wrap_content"
         android:layout_marginHorizontal="8dp"
-        android:layout_marginBottom="8dp"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:textColor="@color/white"
         style="@style/textonormal"
         android:textSize="18sp"/>
+    <TextView
+        android:id="@+id/data"
+        android:layout_width="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginBottom="4dp"
+        android:layout_height="wrap_content"
+        android:text="HH:mm"
+        android:textColor="@color/white"
+        style="@style/textonormal"
+        android:textSize="12sp"/>
 
 </LinearLayout>

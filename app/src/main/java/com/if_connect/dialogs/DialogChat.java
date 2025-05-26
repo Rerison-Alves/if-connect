@@ -39,8 +39,10 @@ import com.example.if_connect.R;
 import com.if_connect.models.Encontro;
 import com.if_connect.models.Mensagem;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -113,7 +115,7 @@ public class DialogChat extends DialogFragment {
         send.setOnClickListener(view1 -> {
             String conteudo = texto.getText().toString().trim();
             if (!conteudo.isEmpty()) {
-                Mensagem mensagem = new Mensagem(encontro, usuarioLogado, conteudo, new Date());
+                Mensagem mensagem = new Mensagem(encontro.toLightweight(), usuarioLogado.toLightweight(), conteudo, new Date());
                 socket.sendMessage(String.valueOf(encontro.getId()), new Gson().toJson(mensagem));
                 texto.setText("");
                 addMessageToChat(mensagem);
@@ -226,6 +228,7 @@ public class DialogChat extends DialogFragment {
     private class MessageItem extends Item<GroupieViewHolder> {
 
         private final Mensagem mensagem;
+        private SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
         private MessageItem(Mensagem message) {
             this.mensagem = message;
@@ -235,9 +238,11 @@ public class DialogChat extends DialogFragment {
         public void bind(@NonNull GroupieViewHolder viewHolder, int position) {
             TextView nome = viewHolder.itemView.findViewById(R.id.nomeusuario);
             TextView txtMsg = viewHolder.itemView.findViewById(R.id.texto);
+            TextView data = viewHolder.itemView.findViewById(R.id.data);
 
             nome.setText(mensagem.getUsuario().getNome());
             txtMsg.setText(mensagem.getTexto());
+            data.setText(timeFormat.format(mensagem.getData()));
         }
 
         @Override

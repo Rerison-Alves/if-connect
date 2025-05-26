@@ -26,6 +26,9 @@ public class Usuario {
     @SerializedName("professor")
     private Professor professor;
 
+    public Usuario() {
+    }
+
     public Usuario(String nome, String email, Date dataNasc, Aluno aluno, Professor professor) {
         this.nome = nome;
         this.email = email;
@@ -80,6 +83,13 @@ public class Usuario {
 
     public void setProfessor(Professor professor) {
         this.professor = professor;
+    }
+
+    public Usuario toLightweight() {
+        Usuario light = new Usuario();
+        light.setId(this.id);
+        light.setNome(this.nome);
+        return light;
     }
 
     @Override

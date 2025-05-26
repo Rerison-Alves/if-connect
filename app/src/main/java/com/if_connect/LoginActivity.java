@@ -1,6 +1,6 @@
 package com.if_connect;
 
-import static com.if_connect.utils.CustoAnimation.startAndEndAnimation;
+import static com.if_connect.utils.CustomAnimation.startAndEndAnimation;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

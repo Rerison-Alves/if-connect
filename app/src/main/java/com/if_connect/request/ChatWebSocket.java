@@ -15,12 +15,11 @@ public class ChatWebSocket {
 
     private static ChatWebSocket instance;
     private WebSocket webSocket;
-    private final OkHttpClient client;
     private Runnable onConnected;
     private Consumer<String> onMessageReceived;
 
     private ChatWebSocket() {
-        client = new OkHttpClient.Builder()
+        OkHttpClient client = new OkHttpClient.Builder()
                 .readTimeout(3, TimeUnit.SECONDS)
                 .build();
 
@@ -30,7 +29,7 @@ public class ChatWebSocket {
 
         webSocket = client.newWebSocket(request, new WebSocketListener() {
             @Override
-            public void onOpen(@NonNull WebSocket webSocket, Response response) {
+            public void onOpen(@NonNull WebSocket webSocket, @NonNull Response response) {
                 webSocket.send("CONNECT\naccept-version:1.2\nheart-beat:10000,10000\n\n\u0000");
                 if (onConnected != null) {
                     onConnected.run();
@@ -38,19 +37,19 @@ public class ChatWebSocket {
             }
 
             @Override
-            public void onMessage(@NonNull WebSocket webSocket, String text) {
+            public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
                 if (onMessageReceived != null) {
                     onMessageReceived.accept(text);
                 }
             }
 
             @Override
-            public void onClosing(@NonNull WebSocket webSocket, int code, String reason) {
+            public void onClosing(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
 
             }
 
             @Override
-            public void onFailure(@NonNull WebSocket webSocket, Throwable t, Response response) {
+            public void onFailure(@NonNull WebSocket webSocket, @NonNull Throwable t, Response response) {
 
             }
         });

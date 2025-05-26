@@ -3,7 +3,7 @@ package com.if_connect.utils;
 import android.view.View;
 import android.view.animation.Animation;
 
-public class CustoAnimation {
+public class CustomAnimation {
 
     public static void startAndEndAnimation(View view, Animation start, Animation end) {
         view.startAnimation(start);
